@@ -1,0 +1,24 @@
+# Chat-cpp
+
+LOCAL_PATH := $(call my-dir)
+
+all_static_libraries = common-cpp-static-prebuilt \
+                       photon-cpp-static-prebuilt
+
+lib_suffix := ${APP_OPTIM}_android_${APP_ABI}
+
+lib_chat_cpp_static_name := chat-cpp-prebuilt-static_${lib_suffix}
+
+include $(CLEAR_VARS)
+LOCAL_MODULE            := chat-cpp-static-prebuilt
+LOCAL_SRC_FILES         := lib$(lib_chat_cpp_static_name).a
+LOCAL_STATIC_LIBRARIES  := $(all_static_libraries)
+include $(PREBUILT_STATIC_LIBRARY)
+
+$(call import-add-path, $(LOCAL_PATH)/../../../Common-cpp/src/android)
+$(call import-add-path, $(LOCAL_PATH)/../../../Photon-cpp/src/android)
+$(call import-add-path, $(LOCAL_PATH)/../../Common-cpp)
+$(call import-add-path, $(LOCAL_PATH)/../../Photon-cpp)
+
+$(call import-module,common-cpp-prebuilt)
+$(call import-module,photon-cpp-prebuilt)
