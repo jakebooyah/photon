@@ -89,8 +89,6 @@ void HelloWorld::registerWithTouchDispatcher()
 
 bool HelloWorld::ccTouchBegan(CCTouch *touch, CCEvent *event)
 {
-    CCLOG("PlayerNR = %d", networkLogic->playerNr);
-
     if (networkLogic->playerNr) {
         this->addParticle(networkLogic->playerNr, touch->getLocation().x, touch->getLocation().y);
         
