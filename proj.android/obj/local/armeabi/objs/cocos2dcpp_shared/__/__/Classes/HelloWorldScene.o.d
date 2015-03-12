@@ -11,36 +11,36 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/HelloWorldScene.o: \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/include/ccConfig.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/CCPlatformConfig.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/android/CCPlatformDefine.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/android/log.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/android/log.h \
  /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/string \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCGeometry.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCObject.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/math.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/math.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/actions/CCActionInterval.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/base_nodes/CCNode.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/include/ccMacros.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/CCCommon.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/CCPlatformMacros.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/android/CCStdC.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/stdlib.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/alloca.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/strings.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/memory.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/stdlib.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/alloca.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/strings.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/memory.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCAffineTransform.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCGeometry.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCArray.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/support/data_support/ccCArray.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/android/CCGL.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/GLES2/gl2platform.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/KHR/khrplatform.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/GLES2/gl2.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/GLES2/gl2ext.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2ext.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/shaders/ccGLStateCache.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/shaders/CCGLProgram.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/kazmath.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/vec2.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/vec3.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/assert.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/assert.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/mat3.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/utility.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/mat4.h \
@@ -66,7 +66,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/HelloWorldScene.o: \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/sprite_nodes/CCAnimation.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCDictionary.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/support/data_support/uthash.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/inttypes.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/inttypes.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCArray.h \
  /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCString.h \
  /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/functional \
@@ -271,48 +271,43 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/HelloWorldScene.o: \
  jni/../Photon-AndroidNDK_SDK/Photon-cpp/inc/Internal/PhotonConnect.h \
  jni/../Photon-AndroidNDK_SDK/Common-cpp/inc/Helpers/Thread.h \
  jni/../Photon-AndroidNDK_SDK/Photon-cpp/inc/Internal/PhotonConnectListener.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/netdb.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/socket.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/socket.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/fcntl.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/fcntl.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/socket.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/socket.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/sockios.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/sockios.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/sockios.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/uio.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/ioctl.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/ioctl.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/ioctl.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/ioctl.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/termios.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/termios.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/termios.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/termbits.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/termbits.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/ioctls.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/ioctls.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/ioctl_compat.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/tty.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/unistd.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/select.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/sysconf.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/pathconf.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/arpa/inet.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/netinet/in.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/endian.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/endian.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/machine/endian.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/netinet/in6.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/in6.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/libc-compat.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/in.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/byteorder.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/byteorder/little_endian.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/swab.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/swab.h \
- /Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/ipv6.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/netdb.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/socket.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/socket.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/socket.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/sockios.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/sockios.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/uio.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/errno.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/errno.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/errno.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm-generic/errno.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm-generic/errno-base.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/ioctl.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/ioctl.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/ioctl.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm-generic/ioctl.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/ioctls.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/termbits.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/ioctl_compat.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/unistd.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/select.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/sysconf.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/capability.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/pathconf.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/arpa/inet.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/netinet/in.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/endian.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/endian.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/machine/endian.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/in.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/byteorder.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/byteorder/little_endian.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/byteorder/swab.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/byteorder/generic.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/in6.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/ipv6.h \
+ /Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/netinet/in6.h \
  jni/../Photon-AndroidNDK_SDK/Photon-cpp/inc/OperationRequest.h \
  jni/../Photon-AndroidNDK_SDK/Photon-cpp/inc/PhotonListener.h \
  jni/../Photon-AndroidNDK_SDK/Photon-cpp/inc/OperationResponse.h \
@@ -349,7 +344,48 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/HelloWorldScene.o: \
  jni/../Photon-AndroidNDK_SDK/LoadBalancing-cpp/inc/Listener.h \
  jni/../Photon-AndroidNDK_SDK/LoadBalancing-cpp/inc/FriendInfo.h \
  jni/../Photon-AndroidNDK_SDK/LoadBalancing-cpp/inc/Enums/ServerType.h \
- /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/queue
+ /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/queue \
+ jni/../../../../external/Box2D/Box2d.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Settings.h \
+ /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/cassert \
+ /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/cmath \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Draw.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Math.h \
+ /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/cfloat \
+ /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/limits \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Timer.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2CircleShape.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2Shape.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2BlockAllocator.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2Collision.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2EdgeShape.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2ChainShape.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2PolygonShape.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2BroadPhase.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2DynamicTree.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2GrowableStack.h \
+ /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/algorithm \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2Distance.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2TimeOfImpact.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2Body.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2Fixture.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2WorldCallbacks.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2TimeStep.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2World.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2StackAllocator.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2ContactManager.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Contacts/b2Contact.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2DistanceJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2Joint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2FrictionJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2GearJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2WheelJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2MouseJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2PrismaticJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2PulleyJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2RevoluteJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2RopeJoint.h \
+ /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2WeldJoint.h
 
 jni/../../Classes/HelloWorldScene.h:
 
@@ -373,7 +409,7 @@ jni/../../Classes/HelloWorldScene.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/android/CCPlatformDefine.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/android/log.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/android/log.h:
 
 /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/string:
 
@@ -381,7 +417,7 @@ jni/../../Classes/HelloWorldScene.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCObject.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/math.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/math.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/actions/CCActionInterval.h:
 
@@ -395,13 +431,13 @@ jni/../../Classes/HelloWorldScene.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/android/CCStdC.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/stdlib.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/stdlib.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/alloca.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/alloca.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/strings.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/strings.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/memory.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/memory.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCAffineTransform.h:
 
@@ -413,13 +449,13 @@ jni/../../Classes/HelloWorldScene.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/platform/android/CCGL.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/GLES2/gl2platform.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2platform.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/KHR/khrplatform.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/KHR/khrplatform.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/GLES2/gl2.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/GLES2/gl2ext.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/GLES2/gl2ext.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/shaders/ccGLStateCache.h:
 
@@ -431,7 +467,7 @@ jni/../../Classes/HelloWorldScene.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/vec3.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/assert.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/assert.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/kazmath/include/kazmath/mat3.h:
 
@@ -483,7 +519,7 @@ jni/../../Classes/HelloWorldScene.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/support/data_support/uthash.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/inttypes.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/inttypes.h:
 
 /Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../cocos2dx/cocoa/CCArray.h:
 
@@ -893,89 +929,79 @@ jni/../Photon-AndroidNDK_SDK/Common-cpp/inc/Helpers/Thread.h:
 
 jni/../Photon-AndroidNDK_SDK/Photon-cpp/inc/Internal/PhotonConnectListener.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/netdb.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/netdb.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/socket.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/socket.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/socket.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/socket.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/fcntl.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/socket.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/fcntl.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/sockios.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/socket.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/sockios.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/socket.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/uio.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/sockios.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/errno.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/sockios.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/errno.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/sockios.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/errno.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/uio.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm-generic/errno.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/ioctl.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm-generic/errno-base.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/ioctl.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/ioctl.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/ioctl.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/ioctl.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/ioctl.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/ioctl.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/termios.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm-generic/ioctl.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/termios.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/ioctls.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/termios.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/termbits.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/termbits.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/ioctl_compat.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/termbits.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/unistd.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/ioctls.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/select.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm-generic/ioctls.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/sysconf.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/ioctl_compat.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/capability.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/tty.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/pathconf.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/unistd.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/arpa/inet.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/select.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/netinet/in.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/sysconf.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/endian.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/pathconf.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/sys/endian.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/arpa/inet.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/machine/endian.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/netinet/in.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/in.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/endian.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/asm/byteorder.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/sys/endian.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/byteorder/little_endian.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/machine/endian.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/byteorder/swab.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/netinet/in6.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/byteorder/generic.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/in6.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/in6.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/libc-compat.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/linux/ipv6.h:
 
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/in.h:
-
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/byteorder.h:
-
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/byteorder/little_endian.h:
-
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/swab.h:
-
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/asm/swab.h:
-
-/Users/jake/dev/android-ndk/platforms/android-21/arch-arm/usr/include/linux/ipv6.h:
+/Users/jake/dev/android-ndk/platforms/android-19/arch-arm/usr/include/netinet/in6.h:
 
 jni/../Photon-AndroidNDK_SDK/Photon-cpp/inc/OperationRequest.h:
 
@@ -1050,3 +1076,85 @@ jni/../Photon-AndroidNDK_SDK/LoadBalancing-cpp/inc/FriendInfo.h:
 jni/../Photon-AndroidNDK_SDK/LoadBalancing-cpp/inc/Enums/ServerType.h:
 
 /Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/queue:
+
+jni/../../../../external/Box2D/Box2d.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Settings.h:
+
+/Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/cassert:
+
+/Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/cmath:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Draw.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Math.h:
+
+/Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/cfloat:
+
+/Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/limits:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2Timer.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2CircleShape.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2Shape.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2BlockAllocator.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2Collision.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2EdgeShape.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2ChainShape.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/Shapes/b2PolygonShape.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2BroadPhase.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2DynamicTree.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2GrowableStack.h:
+
+/Users/jake/dev/android-ndk/sources/cxx-stl/gnu-libstdc++/4.8/include/algorithm:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2Distance.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Collision/b2TimeOfImpact.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2Body.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2Fixture.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2WorldCallbacks.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2TimeStep.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2World.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Common/b2StackAllocator.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/b2ContactManager.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Contacts/b2Contact.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2DistanceJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2Joint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2FrictionJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2GearJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2WheelJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2MouseJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2PrismaticJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2PulleyJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2RevoluteJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2RopeJoint.h:
+
+/Users/jake/dev/cocos2d-x-2.2.6/projects/photon/proj.android/../../../external/Box2D/../Box2D/Dynamics/Joints/b2WeldJoint.h:
