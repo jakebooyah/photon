@@ -208,8 +208,6 @@ bool HelloWorld::init()
     
     
     this->addChild(hudLayer);
-
-    
     
     scheduleUpdate();
         
@@ -341,15 +339,21 @@ void HelloWorld::update(float delta)
     
     if (bulletBody)
     {
-        b2Vec2 diff = b2Vec2(bulletBody->GetPosition().x - prevPosition.x, bulletBody->GetPosition().y - prevPosition.y);
-        pathLength += diff.Length();
-        if (pathLength > 30)
+        CCLOG("PathLength = %d", pathLength);
+        if (pathLength > 20)
         {
-            this->removeChild(bullet);
-            world->DestroyBody(bulletBody);
+            if (world->GetBodyCount())
+            {
+                world->DestroyBody(bulletBody);
+                bullet->setVisible(false);
+                this->removeChild(bullet);
+                bulletBody = NULL;
+            }
         }
         else
         {
+            b2Vec2 diff = b2Vec2(bulletBody->GetPosition().x - prevPosition.x, bulletBody->GetPosition().y - prevPosition.y);
+            pathLength += diff.Length();
             prevPosition = bulletBody->GetPosition();
         }
     }
