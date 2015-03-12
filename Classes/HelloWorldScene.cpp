@@ -152,7 +152,7 @@ bool HelloWorld::init()
     shipBody1 = world->CreateBody(&shipBodyDef1);
     shipBody1->CreateFixture(&shipFixture);
     shipBody1->SetGravityScale(10);
-    shipBody1->SetAngularDamping(0.6);
+    shipBody1->SetAngularDamping(0.3);
     shipBody1->SetTransform(shipBody1->GetPosition(), CC_DEGREES_TO_RADIANS(-45));
     
     //create ship 2
@@ -170,7 +170,7 @@ bool HelloWorld::init()
     shipBody2 = world->CreateBody(&shipBodyDef);
     shipBody2->CreateFixture(&shipFixture);
     shipBody2->SetGravityScale(10);
-    shipBody2->SetAngularDamping(0.6);
+    shipBody2->SetAngularDamping(0.3);
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
     
     
@@ -273,7 +273,7 @@ void HelloWorld::update(float delta)
         int playerNr = arr.back();
         arr.pop_back();
         
-        
+        //If information is from Host (Player 1)
         if (playerNr == 1)
         {
             CCLOG("Round Trip Time = %d", networkLogic->getRoundTripTime());
@@ -353,7 +353,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
-        shipBody1->SetAngularVelocity(0.5);
+        shipBody1->SetAngularVelocity(0.3);
     }
     else if (playerN == 2)
     {
@@ -362,7 +362,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
-        shipBody1->SetAngularVelocity(-0.5);
+        shipBody1->SetAngularVelocity(-0.3);
     }
     else if (playerN == 3)
     {
@@ -371,7 +371,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
-        shipBody2->SetAngularVelocity(0.5);
+        shipBody2->SetAngularVelocity(0.3);
     }
     else if (playerN == 4)
     {
@@ -380,7 +380,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
-        shipBody2->SetAngularVelocity(-0.5);
+        shipBody2->SetAngularVelocity(-0.3);
     }
 }
 
