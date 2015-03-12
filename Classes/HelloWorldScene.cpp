@@ -209,6 +209,13 @@ bool HelloWorld::init()
     
     this->addChild(hudLayer);
     
+    
+    
+    //Contact Listener Init
+    _contactListener = new ContactListener();
+    world->SetContactListener(_contactListener);
+    
+    
     scheduleUpdate();
         
     return true;
@@ -336,6 +343,42 @@ void HelloWorld::update(float delta)
         default:
             break;
     }
+    
+//    std::vector<b2Body *>toDestroy;
+//    std::vector<MyContact>::iterator pos;
+//    for(pos = _contactListener->_contacts.begin();
+//        pos != _contactListener->_contacts.end(); ++pos)
+//    {
+//        MyContact contact = *pos;
+//        
+//        if ((contact.fixtureA == _bottomFixture && contact.fixtureB == _ballFixture) ||
+//            (contact.fixtureA == _ballFixture && contact.fixtureB == _bottomFixture))
+//        {
+//            CCLOG("Something");
+//        }
+//        
+//        b2Body *bodyA = contact.fixtureA->GetBody();
+//        b2Body *bodyB = contact.fixtureB->GetBody();
+//        if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
+//            CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
+//            CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
+//            
+//            // Sprite A = ball, Sprite B = Block
+//            if (spriteA->getTag() == 1 && spriteB->getTag() == 2) {
+//                if (std::find(toDestroy.begin(), toDestroy.end(), bodyB)
+//                    == toDestroy.end()) {
+//                    toDestroy.push_back(bodyB);
+//                }
+//            }
+//            // Sprite B = block, Sprite A = ball
+//            else if (spriteA->getTag() == 2 && spriteB->getTag() == 1) {
+//                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA)
+//                    == toDestroy.end()) {
+//                    toDestroy.push_back(bodyA);
+//                }
+//            }
+//        }
+//    }
     
     if (bulletBody)
     {

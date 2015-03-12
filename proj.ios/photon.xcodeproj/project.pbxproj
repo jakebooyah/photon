@@ -297,6 +297,7 @@
 		23AD03E01AB227B1001E9929 /* laserBlue01.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03DF1AB227B1001E9929 /* laserBlue01.png */; };
 		23BFB8541AB0384400FADF7F /* boundary.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8531AB0384400FADF7F /* boundary.png */; };
 		23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8551AB03AE200FADF7F /* boundaryLR.png */; };
+		23EE2D531AB23EE4001A65DB /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EE2D511AB23EE4001A65DB /* ContactListener.cpp */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		7855E0E1153FEF240059DD9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855E0DF153FEF240059DD9A /* Default.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -1067,6 +1068,8 @@
 		23AD03DF1AB227B1001E9929 /* laserBlue01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserBlue01.png; sourceTree = "<group>"; };
 		23BFB8531AB0384400FADF7F /* boundary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundary.png; sourceTree = "<group>"; };
 		23BFB8551AB03AE200FADF7F /* boundaryLR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundaryLR.png; sourceTree = "<group>"; };
+		23EE2D511AB23EE4001A65DB /* ContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContactListener.cpp; sourceTree = "<group>"; };
+		23EE2D521AB23EE4001A65DB /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListener.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		37C62C0718E156AE00D16FC4 /* ExtensionExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionExport.h; sourceTree = "<group>"; };
 		7855E0DF153FEF240059DD9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
@@ -1625,6 +1628,8 @@
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
 				2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */,
 				2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */,
+				23EE2D511AB23EE4001A65DB /* ContactListener.cpp */,
+				23EE2D521AB23EE4001A65DB /* ContactListener.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -3025,6 +3030,7 @@
 				2382BEBF1AA8B0E8000CE3E5 /* Client.cpp in Sources */,
 				15A3DA3E1682F826002FB0C5 /* CCLayerGradientLoader.cpp in Sources */,
 				15C0B595196D412F007F909D /* TriggerBase.cpp in Sources */,
+				23EE2D531AB23EE4001A65DB /* ContactListener.cpp in Sources */,
 				15A3DA3F1682F826002FB0C5 /* CCLayerLoader.cpp in Sources */,
 				15A3DA401682F826002FB0C5 /* CCMenuItemImageLoader.cpp in Sources */,
 				15A3DA411682F826002FB0C5 /* CCMenuItemLoader.cpp in Sources */,

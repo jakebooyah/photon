@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "NetworkLogic.h"
 #include "Box2d.h"
+#include "ContactListener.h"
 
 using namespace cocos2d;
 
@@ -31,6 +32,8 @@ private:
     NetworkLogic* networkLogic;
     
     b2World *world;
+    
+    ContactListener *_contactListener;
     
     CCLayer *worldLayer;
     CCLayer *hudLayer;
