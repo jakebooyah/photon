@@ -19,11 +19,7 @@ public:
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
     
-    void registerWithTouchDispatcher();
-    
     float deltaTime;
-
-    bool ccTouchBegan(CCTouch *touch, CCEvent *event);
     
     void setViewPointCenter(CCPoint position);
 
@@ -36,11 +32,17 @@ private:
     
     b2World *world;
     
+    CCLayer *worldLayer;
+    CCLayer *hudLayer;
+    
     CCSprite *ship1;
     b2Body *shipBody1;
     
     CCSprite *ship2;
     b2Body *shipBody2;
+    
+    void fireButtonCall(CCObject *sender);
+    void turnButtonCall(CCObject *sender);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

@@ -35,34 +35,35 @@ bool HelloWorld::init()
     b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
     world = new b2World(gravity);
     
-    
+    worldLayer = CCLayer::create();
+
     //background init
     CCSprite *background = CCSprite::create("bg.png");
     background->setAnchorPoint(CCPoint(0, 0));
     background->setScale(1.5);
-    this->addChild(background);
+    worldLayer->addChild(background);
     
     
     //create wall
     CCSprite* wallCeiling = CCSprite::create("boundary.png");
     wallCeiling->setPosition(CCPoint(1536, 3072));
     wallCeiling->setScale(1.5);
-    this->addChild(wallCeiling);
+    worldLayer->addChild(wallCeiling);
     
     CCSprite* wallGround = CCSprite::create("boundary.png");
     wallGround->setPosition(CCPoint(1536, 0));
     wallGround->setScale(1.5);
-    this->addChild(wallGround);
+    worldLayer->addChild(wallGround);
     
     CCSprite* wallLeft = CCSprite::create("boundaryLR.png");
     wallLeft->setPosition(CCPoint(0, 1536));
     wallLeft->setScale(1.5);
-    this->addChild(wallLeft);
+    worldLayer->addChild(wallLeft);
     
     CCSprite* wallRight = CCSprite::create("boundaryLR.png");
     wallRight->setPosition(CCPoint(3072, 1536));
     wallRight->setScale(1.5);
-    this->addChild(wallRight);
+    worldLayer->addChild(wallRight);
     
     
     
@@ -141,7 +142,7 @@ bool HelloWorld::init()
     ship1 = CCSprite::create("playerShip2_blue.png");
     ship1->setPosition(CCPoint(512,512));
     ship1->setScale(2);
-    this->addChild(ship1);
+    worldLayer->addChild(ship1);
     
     //body definition for ship 1
     b2BodyDef shipBodyDef1;
@@ -159,7 +160,7 @@ bool HelloWorld::init()
     ship2 = CCSprite::create("playerShip2_green.png");
     ship2->setPosition(CCPoint(2584, 2584));
     ship2->setScale(2);
-    this->addChild(ship2);
+    worldLayer->addChild(ship2);
     
     //body definition for ship 2
     b2BodyDef shipBodyDef;
@@ -176,44 +177,42 @@ bool HelloWorld::init()
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
-    this->setPosition(viewPoint);
+    worldLayer->setPosition(viewPoint);
+    
+    this->addChild(worldLayer);
+    
+    
+    
+    
+    hudLayer = CCLayer::create();
+    
+    
+    CCSprite* fireButtonS = CCSprite::create("redButton.png");
+    CCSprite* fireButtonPressedS = CCSprite::create("redButtonPressed.png");
+    
+    CCMenuItemSprite* fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonPressedS, this, menu_selector(HelloWorld::fireButtonCall));
+    CCMenu* menuFire = CCMenu::create(fireButton, NULL);
+    
+    menuFire->setPosition(CCPoint(visibleSize.width - 250, 250));
+    hudLayer->addChild(menuFire);
+    
+    
+    CCSprite* turnButtonS = CCSprite::create("blueButton.png");
+    CCSprite* turnButtonPressedS = CCSprite::create("blueButtonPressed.png");
+    
+    CCMenuItemSprite* turnButton = CCMenuItemSprite::create(turnButtonS, turnButtonPressedS, this, menu_selector(HelloWorld::turnButtonCall));
+    CCMenu* menuTurn = CCMenu::create(turnButton, NULL);
+    
+    menuTurn->setPosition(CCPoint(250, 250));
+    hudLayer->addChild(menuTurn);
+    
+    
+    this->addChild(hudLayer);
+
+    
     
     scheduleUpdate();
-    
-    this->setTouchEnabled(true);
-    
-    return true;
-}
-
-void HelloWorld::registerWithTouchDispatcher()
-{
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
-}
-
-bool HelloWorld::ccTouchBegan(CCTouch *touch, CCEvent *event)
-{
-    if (networkLogic->playerNr)
-    {
-        this->turn(networkLogic->playerNr);
-
-        CCLOG("Sending from %d", networkLogic->playerNr);
-
-        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-        eventContent->put<int, float>(1, shipBody1->GetPosition().x);
-        eventContent->put<int, float>(2, shipBody1->GetPosition().y);
-        eventContent->put<int, float>(3, shipBody1->GetAngle());
         
-        CCLOG("Ship1 X: %f, Y:%f, Angle:%f", shipBody1->GetPosition().x, shipBody1->GetPosition().y, shipBody1->GetAngle());
-        
-        eventContent->put<int, float>(4, shipBody2->GetPosition().x);
-        eventContent->put<int, float>(5, shipBody2->GetPosition().y);
-        eventContent->put<int, float>(6, shipBody2->GetAngle());
-        
-        CCLOG("Ship2 X: %f, Y:%f, Angle:%f", shipBody2->GetPosition().x, shipBody2->GetPosition().y, shipBody2->GetAngle());
-        
-        networkLogic->sendEvent(1, eventContent);
-    }
-    
     return true;
 }
 
@@ -398,5 +397,37 @@ void HelloWorld::setViewPointCenter(CCPoint position)
     
     CCPoint centerOfView = CCPoint(winSize.width/2, winSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
-    this->setPosition(viewPoint);
+    worldLayer->setPosition(viewPoint);
+}
+
+void HelloWorld::fireButtonCall(CCObject *sender)
+{
+    CCLOG("Fire Button");
+}
+
+void HelloWorld::turnButtonCall(CCObject *sender)
+{
+    CCLOG("Turn Button");
+    
+    if (networkLogic->playerNr)
+    {
+        this->turn(networkLogic->playerNr);
+        
+        CCLOG("Sending from %d", networkLogic->playerNr);
+        
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, shipBody1->GetPosition().x);
+        eventContent->put<int, float>(2, shipBody1->GetPosition().y);
+        eventContent->put<int, float>(3, shipBody1->GetAngle());
+        
+        CCLOG("Ship1 X: %f, Y:%f, Angle:%f", shipBody1->GetPosition().x, shipBody1->GetPosition().y, shipBody1->GetAngle());
+        
+        eventContent->put<int, float>(4, shipBody2->GetPosition().x);
+        eventContent->put<int, float>(5, shipBody2->GetPosition().y);
+        eventContent->put<int, float>(6, shipBody2->GetAngle());
+        
+        CCLOG("Ship2 X: %f, Y:%f, Angle:%f", shipBody2->GetPosition().x, shipBody2->GetPosition().y, shipBody2->GetAngle());
+        
+        networkLogic->sendEvent(1, eventContent);
+    }
 }

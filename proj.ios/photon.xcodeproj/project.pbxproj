@@ -287,6 +287,12 @@
 		2382BEDE1AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB61AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a */; };
 		2382BEDF1AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB71AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a */; };
 		2382BEE01AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB81AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a */; };
+		23AD03D01AB20E1A001E9929 /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03CF1AB20E1A001E9929 /* blueButton.png */; };
+		23AD03D21AB20E56001E9929 /* blueButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03D11AB20E56001E9929 /* blueButtonPressed.png */; };
+		23AD03D71AB21137001E9929 /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03D31AB21137001E9929 /* greenButton.png */; };
+		23AD03D81AB21137001E9929 /* greenButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03D41AB21137001E9929 /* greenButtonPressed.png */; };
+		23AD03D91AB21137001E9929 /* redButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03D51AB21137001E9929 /* redButton.png */; };
+		23AD03DA1AB21137001E9929 /* redButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03D61AB21137001E9929 /* redButtonPressed.png */; };
 		23BFB8541AB0384400FADF7F /* boundary.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8531AB0384400FADF7F /* boundary.png */; };
 		23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8551AB03AE200FADF7F /* boundaryLR.png */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -1049,6 +1055,12 @@
 		2382BEB61AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_debug_iphonesimulator.a"; sourceTree = "<group>"; };
 		2382BEB71AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphoneos.a"; sourceTree = "<group>"; };
 		2382BEB81AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphonesimulator.a"; sourceTree = "<group>"; };
+		23AD03CF1AB20E1A001E9929 /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueButton.png; sourceTree = "<group>"; };
+		23AD03D11AB20E56001E9929 /* blueButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueButtonPressed.png; sourceTree = "<group>"; };
+		23AD03D31AB21137001E9929 /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
+		23AD03D41AB21137001E9929 /* greenButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButtonPressed.png; sourceTree = "<group>"; };
+		23AD03D51AB21137001E9929 /* redButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redButton.png; sourceTree = "<group>"; };
+		23AD03D61AB21137001E9929 /* redButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redButtonPressed.png; sourceTree = "<group>"; };
 		23BFB8531AB0384400FADF7F /* boundary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundary.png; sourceTree = "<group>"; };
 		23BFB8551AB03AE200FADF7F /* boundaryLR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundaryLR.png; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -2703,6 +2715,12 @@
 				23BFB8551AB03AE200FADF7F /* boundaryLR.png */,
 				232430CF1AB01EE40063751D /* playerShip2_blue.png */,
 				230B04431AB07F55003E3756 /* playerShip2_green.png */,
+				23AD03D31AB21137001E9929 /* greenButton.png */,
+				23AD03D41AB21137001E9929 /* greenButtonPressed.png */,
+				23AD03D51AB21137001E9929 /* redButton.png */,
+				23AD03D61AB21137001E9929 /* redButtonPressed.png */,
+				23AD03CF1AB20E1A001E9929 /* blueButton.png */,
+				23AD03D11AB20E56001E9929 /* blueButtonPressed.png */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
 				D446FD6D16102124000ADA7B /* Default@2x.png */,
@@ -2823,6 +2841,7 @@
 				233BE9C41AAB40200059B892 /* bg.png in Resources */,
 				7855E0E1153FEF240059DD9A /* Default.png in Resources */,
 				23BFB8541AB0384400FADF7F /* boundary.png in Resources */,
+				23AD03D01AB20E1A001E9929 /* blueButton.png in Resources */,
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
 				D4EF949E15BD2D9600D803EB /* Icon-72.png in Resources */,
@@ -2830,9 +2849,14 @@
 				230B04441AB07F55003E3756 /* playerShip2_green.png in Resources */,
 				23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */,
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
+				23AD03D91AB21137001E9929 /* redButton.png in Resources */,
+				23AD03DA1AB21137001E9929 /* redButtonPressed.png in Resources */,
 				232430D01AB01EE40063751D /* playerShip2_blue.png in Resources */,
+				23AD03D21AB20E56001E9929 /* blueButtonPressed.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				15A3D9961682F7F9002FB0C5 /* CMakeLists.txt in Resources */,
+				23AD03D81AB21137001E9929 /* greenButtonPressed.png in Resources */,
+				23AD03D71AB21137001E9929 /* greenButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
