@@ -1,4 +1,5 @@
 #include "NetworkLogic.h"
+#include "cocos2d.h"
 
 static const ExitGames::Common::JString appId = L"78de70d1-ee79-46df-bc56-a296ef1a4535"; // set your app id here
 static const ExitGames::Common::JString appVersion = L"1.0";
@@ -171,7 +172,6 @@ void NetworkLogic::run(void)
             case STATE_JOINING:
 				break; // wait for callback
 			case STATE_JOINED:
-                sendEvent();
                 switch(mLastInput)
                 {
                     case INPUT_1: // leave Game
@@ -199,12 +199,6 @@ void NetworkLogic::run(void)
 	}
 	mLastInput = INPUT_NON;
 	mLoadBalancingClient.service();
-}
-
-void NetworkLogic::sendEvent(void)
-{
-	static int64 count = 0;
-	mLoadBalancingClient.opRaiseEvent(false, ++count, 0);
 }
 
 void NetworkLogic::sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent)
@@ -264,17 +258,23 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
     {
         case 1:
             event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
-            float x = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
-            float y = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
+            float x1 = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            float y1 = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
+            float angle1 = ExitGames::Common::ValueObject<float>(event->getValue(3)).getDataCopy();
+            float x2 = ExitGames::Common::ValueObject<float>(event->getValue(4)).getDataCopy();
+            float y2 = ExitGames::Common::ValueObject<float>(event->getValue(5)).getDataCopy();
+            float angle2 = ExitGames::Common::ValueObject<float>(event->getValue(6)).getDataCopy();
             
             std::vector<float> crap;
             crap.push_back(playerNr);
-            crap.push_back(x);
-            crap.push_back(y);
-            
+            crap.push_back(x1);
+            crap.push_back(y1);
+            crap.push_back(angle1);
+            crap.push_back(x2);
+            crap.push_back(y2);
+            crap.push_back(angle2);
             eventQueue.push(crap);
             
-//            eventQueue.push({static_cast(playerNr), x, y});
             break;
     }
     
@@ -328,6 +328,8 @@ void NetworkLogic::joinRoomReturn(int localPlayerNr, const ExitGames::Common::Ha
 		mStateAccessor.setState(STATE_CONNECTED);
 		return;
 	}
+    
+    playerNr = localPlayerNr;
 
 	EGLOG(ExitGames::Common::DebugLevel::INFO, L"localPlayerNr: %d", localPlayerNr);
 	mStateAccessor.setState(STATE_JOINED);
@@ -386,8 +388,9 @@ void NetworkLogic::onLobbyStatsUpdate(const ExitGames::Common::JVector<ExitGames
 void NetworkLogic::onAvailableRegions(const ExitGames::Common::JVector<ExitGames::Common::JString>& availableRegions, const ExitGames::Common::JVector<ExitGames::Common::JString>& availableRegionServers)
 {
     EGLOG(ExitGames::Common::DebugLevel::INFO, L"onAvailableRegions: %ls", availableRegions.toString().cstr(), availableRegionServers.toString().cstr());
-    // select first region from list
-    mLoadBalancingClient.selectRegion(availableRegions[0]);
+
+    // select asia region from list
+    mLoadBalancingClient.selectRegion(availableRegions[2]);
 }
 
 bool NetworkLogic::isRoomExists(void)

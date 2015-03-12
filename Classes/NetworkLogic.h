@@ -58,7 +58,6 @@ public:
 	void opCreateRoom(void);
 	void opJoinRandomRoom(void);
 	void disconnect(void);
-	void sendEvent(void);
     void sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent);
     bool isRoomExists(void);
     int playerNr;
