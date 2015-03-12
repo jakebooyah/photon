@@ -69,13 +69,13 @@ bool HelloWorld::init()
     
     //shape definition
     b2PolygonShape wallUDShape;
-    wallUDShape.SetAsBox(3072/32, 96/32);
+    wallUDShape.SetAsBox(3072/32, 48/32);
     
     b2FixtureDef wallUDFixtureDef;
     wallUDFixtureDef.shape = &wallUDShape;
     
     b2PolygonShape wallLRShape;
-    wallLRShape.SetAsBox(96/32, 3072/32);
+    wallLRShape.SetAsBox(48/32, 3072/32);
     
     b2FixtureDef wallLRFixtureDef;
     wallLRFixtureDef.shape = &wallLRShape;
@@ -128,7 +128,7 @@ bool HelloWorld::init()
     //ship shape definition
     b2CircleShape shipShape;
     shipShape.m_p.Set(0, 0);
-    shipShape.m_radius = 75/32;
+    shipShape.m_radius = 90/32;
     
     //ship fixture definition
     b2FixtureDef shipFixture;
@@ -339,6 +339,21 @@ void HelloWorld::update(float delta)
             break;
     }
     
+    if (bulletBody)
+    {
+        b2Vec2 diff = b2Vec2(bulletBody->GetPosition().x - prevPosition.x, bulletBody->GetPosition().y - prevPosition.y);
+        pathLength += diff.Length();
+        if (pathLength > 30)
+        {
+            this->removeChild(bullet);
+            world->DestroyBody(bulletBody);
+        }
+        else
+        {
+            prevPosition = bulletBody->GetPosition();
+        }
+    }
+    
     world->ClearForces();
     world->DrawDebugData();
 }
@@ -403,6 +418,47 @@ void HelloWorld::setViewPointCenter(CCPoint position)
 void HelloWorld::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
+    
+    if (!bulletBody)
+    {
+        //bullet shape definition
+        b2CircleShape bulletShape;
+        bulletShape.m_p.Set(0, 0);
+        bulletShape.m_radius = 40/32;
+        
+        //bullet fixture definition
+        b2FixtureDef bulletFixture;
+        bulletFixture.density=1;
+        bulletFixture.friction=0.5;
+        bulletFixture.restitution=1;
+        bulletFixture.isSensor=false;
+        bulletFixture.shape=&bulletShape;
+        
+        //create bullet
+        bullet = CCSprite::create("laserBlue08.png");
+        bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*3) *32,
+                                    (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*3) *32));
+        bullet->setScale(1);
+        worldLayer->addChild(bullet);
+        
+        //body definition for bullet
+        b2BodyDef bulletBodyDef;
+        bulletBodyDef.type= b2_dynamicBody;
+        bulletBodyDef.userData=bullet;
+        bulletBodyDef.position.Set(bullet->getPosition().x/32,bullet->getPosition().y/32);
+        
+        bulletBody = world->CreateBody(&bulletBodyDef);
+        bulletBody->CreateFixture(&bulletFixture);
+        bulletBody->SetGravityScale(1);
+        bulletBody->IsBullet();
+        
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 100) , (sin(shipBody1->GetAngle()-4.7) * 100));
+        bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
+        
+        pathLength = 0;
+        prevPosition = bulletBody->GetPosition();
+    }
+    
 }
 
 void HelloWorld::turnButtonCall(CCObject *sender)

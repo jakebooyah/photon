@@ -41,6 +41,12 @@ private:
     CCSprite *ship2;
     b2Body *shipBody2;
     
+    CCSprite *bullet;
+    b2Body *bulletBody;
+    
+    b2Vec2 prevPosition;
+    int pathLength;
+    
     void fireButtonCall(CCObject *sender);
     void turnButtonCall(CCObject *sender);
 };
