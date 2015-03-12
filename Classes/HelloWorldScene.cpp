@@ -153,7 +153,7 @@ bool HelloWorld::init()
     shipBody1->CreateFixture(&shipFixture);
     shipBody1->SetGravityScale(10);
     shipBody1->SetAngularDamping(0.6);
-    shipBody1->SetTransform(shipBody1->GetPosition(), -45);
+    shipBody1->SetTransform(shipBody1->GetPosition(), CC_DEGREES_TO_RADIANS(-45));
     
     //create ship 2
     ship2 = CCSprite::create("playerShip2_green.png");
@@ -171,7 +171,7 @@ bool HelloWorld::init()
     shipBody2->CreateFixture(&shipFixture);
     shipBody2->SetGravityScale(10);
     shipBody2->SetAngularDamping(0.6);
-    shipBody2->SetTransform(shipBody2->GetPosition(), 90);
+    shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
     
     
     //Set default view to centre
@@ -276,14 +276,26 @@ void HelloWorld::update(float delta)
         
         if (playerNr == 1)
         {
-            CCLOG("Updating.. Player: %d, X: %f, Y:%f, Angle:%f", playerNr, x1, y1, angle1);
-            shipBody1->SetTransform(b2Vec2(x1, y1), angle1);
-
-        }
-        else if (playerNr == 3 or playerNr == 4)
-        {
-            CCLOG("Updating.. Player: %d, X: %f, Y:%f, Angle:%f", playerNr, x1, y1, angle1);
-            shipBody2->SetTransform(b2Vec2(x2, y2), angle2);
+            CCLOG("Round Trip Time = %d", networkLogic->getRoundTripTime());
+            CCLOG("Updating.. Player: %d", playerNr);
+            
+            //Correction of Ship 1 with dead reckoning
+            
+            b2Vec2 velocity = shipBody1->GetLinearVelocity();
+            int delay = networkLogic->getRoundTripTime()/100 / 2;
+            
+            b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
+            
+            shipBody1->SetTransform(futurePosition, angle1);
+            
+            //Correction of Ship 2 with dead reckoning
+            
+            velocity = shipBody2->GetLinearVelocity();
+            delay = networkLogic->getRoundTripTime()/100 / 2;
+            
+            futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
+            
+            shipBody2->SetTransform(futurePosition, angle2);
         }
         
         this->turn(playerNr);
@@ -338,7 +350,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 1 Turning Left");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 6) , (sin(shipBody1->GetAngle()-4.7) * 6));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
         shipBody1->SetAngularVelocity(0.5);
@@ -347,7 +359,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 2 Turning Right");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 6) , (sin(shipBody1->GetAngle()-4.7) * 6));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
         shipBody1->SetAngularVelocity(-0.5);
@@ -356,7 +368,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 3 Turning Right");
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 6) , (sin(shipBody2->GetAngle()-4.7) * 6));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
         shipBody2->SetAngularVelocity(0.5);
@@ -365,7 +377,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 4 Turning Right");
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 6) , (sin(shipBody2->GetAngle()-4.7) * 6));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
         shipBody2->SetAngularVelocity(-0.5);

@@ -402,3 +402,8 @@ bool NetworkLogic::isRoomExists(void)
     
     return true;
 }
+
+int NetworkLogic::getRoundTripTime(void)
+{
+    return mLoadBalancingClient.getRoundTripTime();
+}

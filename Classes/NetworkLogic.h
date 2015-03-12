@@ -60,6 +60,8 @@ public:
 	void disconnect(void);
     void sendEvent(nByte code, ExitGames::Common::Hashtable* eventContent);
     bool isRoomExists(void);
+    int getRoundTripTime(void);
+    
     int playerNr;
     std::queue< std::vector<float> >eventQueue;
     
