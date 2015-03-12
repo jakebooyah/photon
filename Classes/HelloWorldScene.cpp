@@ -38,7 +38,7 @@ bool HelloWorld::init()
     
     //background init
     CCSprite *background = CCSprite::create("bg.png");
-    background->setAnchorPoint(ccp(0, 0));
+    background->setAnchorPoint(CCPoint(0, 0));
     background->setScale(1.5);
     this->addChild(background);
     
@@ -46,39 +46,35 @@ bool HelloWorld::init()
     //create wall
     CCSprite* wallCeiling = CCSprite::create("boundary.png");
     wallCeiling->setPosition(CCPoint(1536, 3072));
-    wallCeiling->setAnchorPoint(ccp(0.5, 0.5));
-    wallCeiling->setScale(2);
+    wallCeiling->setScale(1.5);
     this->addChild(wallCeiling);
     
     CCSprite* wallGround = CCSprite::create("boundary.png");
     wallGround->setPosition(CCPoint(1536, 0));
-    wallGround->setAnchorPoint(ccp(0.5, 0.5));
-    wallGround->setScale(2);
+    wallGround->setScale(1.5);
     this->addChild(wallGround);
     
     CCSprite* wallLeft = CCSprite::create("boundaryLR.png");
     wallLeft->setPosition(CCPoint(0, 1536));
-    wallLeft->setAnchorPoint(ccp(0.5, 0.5));
-    wallLeft->setScale(2);
+    wallLeft->setScale(1.5);
     this->addChild(wallLeft);
     
     CCSprite* wallRight = CCSprite::create("boundaryLR.png");
     wallRight->setPosition(CCPoint(3072, 1536));
-    wallRight->setAnchorPoint(ccp(0.5, 0.5));
-    wallRight->setScale(2);
+    wallRight->setScale(1.5);
     this->addChild(wallRight);
     
     
     
     //shape definition
     b2PolygonShape wallUDShape;
-    wallUDShape.SetAsBox(3072/32, 128/32);
+    wallUDShape.SetAsBox(3072/32, 96/32);
     
     b2FixtureDef wallUDFixtureDef;
     wallUDFixtureDef.shape = &wallUDShape;
     
     b2PolygonShape wallLRShape;
-    wallLRShape.SetAsBox(128/32, 3072/32);
+    wallLRShape.SetAsBox(96/32, 3072/32);
     
     b2FixtureDef wallLRFixtureDef;
     wallLRFixtureDef.shape = &wallLRShape;
@@ -131,13 +127,13 @@ bool HelloWorld::init()
     //ship shape definition
     b2CircleShape shipShape;
     shipShape.m_p.Set(0, 0);
-    shipShape.m_radius = 90/32;
+    shipShape.m_radius = 75/32;
     
     //ship fixture definition
     b2FixtureDef shipFixture;
     shipFixture.density=10;
-    shipFixture.friction=0.8;
-    shipFixture.restitution=0.6;
+    shipFixture.friction=0.3;
+    shipFixture.restitution=0.9;
     shipFixture.shape=&shipShape;
     
     
@@ -156,6 +152,7 @@ bool HelloWorld::init()
     shipBody1 = world->CreateBody(&shipBodyDef1);
     shipBody1->CreateFixture(&shipFixture);
     shipBody1->SetGravityScale(10);
+    shipBody1->SetAngularDamping(0.6);
     shipBody1->SetTransform(shipBody1->GetPosition(), -45);
     
     //create ship 2
@@ -173,7 +170,13 @@ bool HelloWorld::init()
     shipBody2 = world->CreateBody(&shipBodyDef);
     shipBody2->CreateFixture(&shipFixture);
     shipBody2->SetGravityScale(10);
-    shipBody2->SetTransform(shipBody2->GetPosition(), 45);
+    shipBody2->SetAngularDamping(0.6);
+    shipBody2->SetTransform(shipBody2->GetPosition(), 90);
+    
+    
+    //Set default view to centre
+    CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
+    this->setPosition(viewPoint);
     
     scheduleUpdate();
     
@@ -270,11 +273,18 @@ void HelloWorld::update(float delta)
         int playerNr = arr.back();
         arr.pop_back();
         
-//        if (playerNr == 2)
-//        {
-//            CCLOG("Updating.. Player: %d, X: %f, Y:%f, Angle:%f", playerNr, x1, y1, angle1);
-//            shipBody1->SetTransform(b2Vec2(x1, y1), angle1);
-//        }
+        
+        if (playerNr == 1)
+        {
+            CCLOG("Updating.. Player: %d, X: %f, Y:%f, Angle:%f", playerNr, x1, y1, angle1);
+            shipBody1->SetTransform(b2Vec2(x1, y1), angle1);
+
+        }
+        else if (playerNr == 3 or playerNr == 4)
+        {
+            CCLOG("Updating.. Player: %d, X: %f, Y:%f, Angle:%f", playerNr, x1, y1, angle1);
+            shipBody2->SetTransform(b2Vec2(x2, y2), angle2);
+        }
         
         this->turn(playerNr);
 
@@ -291,7 +301,7 @@ void HelloWorld::update(float delta)
         if (body->GetUserData())
         {
             CCSprite *sprite = (CCSprite *) body->GetUserData();
-            sprite->setPosition(ccp(body->GetPosition().x * 32,body->GetPosition().y * 32));
+            sprite->setPosition(CCPoint(body->GetPosition().x * 32,body->GetPosition().y * 32));
             sprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(body->GetAngle()));
         }
     }
@@ -299,19 +309,19 @@ void HelloWorld::update(float delta)
     switch (networkLogic->playerNr)
     {
         case 1:
-            this->setViewPointCenter(ccp(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
+            this->setViewPointCenter(CCPoint(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
             break;
             
         case 2:
-            this->setViewPointCenter(ccp(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
+            this->setViewPointCenter(CCPoint(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
             break;
         
         case 3:
-            this->setViewPointCenter(ccp(shipBody2->GetPosition().x * 32, shipBody2->GetPosition().y *32));
+            this->setViewPointCenter(CCPoint(shipBody2->GetPosition().x * 32, shipBody2->GetPosition().y *32));
             break;
             
         case 4:
-            this->setViewPointCenter(ccp(shipBody2->GetPosition().x * 32, shipBody2->GetPosition().y *32));
+            this->setViewPointCenter(CCPoint(shipBody2->GetPosition().x * 32, shipBody2->GetPosition().y *32));
             break;
             
         default:
@@ -364,7 +374,6 @@ void HelloWorld::turn(int playerN)
 
 void HelloWorld::setViewPointCenter(CCPoint position)
 {
-    
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     
     int x = MAX(position.x, winSize.width/2);
@@ -373,9 +382,9 @@ void HelloWorld::setViewPointCenter(CCPoint position)
     //Edit according to map size
     x = MIN(x, 3072 - winSize.width/2);
     y = MIN(y, 3072 - winSize.height/2);
-    CCPoint actualPosition = ccp(x, y);
+    CCPoint actualPosition = CCPoint(x, y);
     
-    CCPoint centerOfView = ccp(winSize.width/2, winSize.height/2);
+    CCPoint centerOfView = CCPoint(winSize.width/2, winSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
     this->setPosition(viewPoint);
 }
