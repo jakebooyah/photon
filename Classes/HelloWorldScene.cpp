@@ -136,7 +136,7 @@ bool HelloWorld::init()
     //ship shape definition
     b2CircleShape shipShape;
     shipShape.m_p.Set(0, 0);
-    shipShape.m_radius = 90/32;
+    shipShape.m_radius = 100/32;
     
     //ship fixture definition
     b2FixtureDef shipFixture;
