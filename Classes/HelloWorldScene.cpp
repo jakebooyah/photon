@@ -48,25 +48,25 @@ bool HelloWorld::init()
     CCSprite* wallCeiling = CCSprite::create("boundary.png");
     wallCeiling->setPosition(CCPoint(1536, 3072));
     wallCeiling->setScale(1.5);
-    wallCeiling->setTag(4);
+    wallCeiling->setTag(5);
     worldLayer->addChild(wallCeiling);
     
     CCSprite* wallGround = CCSprite::create("boundary.png");
     wallGround->setPosition(CCPoint(1536, 0));
     wallGround->setScale(1.5);
-    wallGround->setTag(4);
+    wallGround->setTag(5);
     worldLayer->addChild(wallGround);
     
     CCSprite* wallLeft = CCSprite::create("boundaryLR.png");
     wallLeft->setPosition(CCPoint(0, 1536));
     wallLeft->setScale(1.5);
-    wallLeft->setTag(4);
+    wallLeft->setTag(5);
     worldLayer->addChild(wallLeft);
     
     CCSprite* wallRight = CCSprite::create("boundaryLR.png");
     wallRight->setPosition(CCPoint(3072, 1536));
     wallRight->setScale(1.5);
-    wallRight->setTag(4);
+    wallRight->setTag(5);
     worldLayer->addChild(wallRight);
     
     
@@ -369,46 +369,53 @@ void HelloWorld::update(float delta)
             CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
             CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
             
-            // Sprite A = Ship2, Sprite B = Bullet
+            // Sprite A = Ship2, Sprite B = Bullet1
             if (spriteA->getTag() == 2 && spriteB->getTag() == 3)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyB);
                     toDestroy.push_back(bodyA);
+                    CCLOG("Ship 2 has fallen");
                 }
             }
-            // Sprite A = Bullet, Sprite B = Ship2
+            // Sprite A = Bullet1, Sprite B = Ship2
             else if (spriteA->getTag() == 3 && spriteB->getTag() == 2)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyB);
                     toDestroy.push_back(bodyA);
+                    CCLOG("Ship 2 has fallen");
+
                 }
             }
             
-            // Sprite A = Ship1, Sprite B = Bullet
-            if (spriteA->getTag() == 1 && spriteB->getTag() == 3)
+            // Sprite A = Ship1, Sprite B = Bullet2
+            if (spriteA->getTag() == 1 && spriteB->getTag() == 4)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyB);
                     toDestroy.push_back(bodyA);
+                    CCLOG("Ship 1 has fallen");
+
                 }
             }
-            // Sprite A = Bullet, Sprite B = Ship1
-            else if (spriteA->getTag() == 3 && spriteB->getTag() == 1)
+            // Sprite A = Bullet2, Sprite B = Ship1
+            else if (spriteA->getTag() == 4 && spriteB->getTag() == 1)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyB);
                     toDestroy.push_back(bodyA);
+                    CCLOG("Ship 1 has fallen");
+
                 }
             }
             
             // Sprite A = Bullet, Sprite B = Wall
-            else if (spriteA->getTag() == 3 && spriteB->getTag() == 4)
+            else if (spriteA->getTag() == 3 && spriteB->getTag() == 5)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
@@ -416,7 +423,7 @@ void HelloWorld::update(float delta)
                 }
             }
             // Sprite A = Wall, Sprite B = Bullet
-            else if (spriteA->getTag() == 4 && spriteB->getTag() == 3)
+            else if (spriteA->getTag() == 5 && spriteB->getTag() == 3)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
@@ -545,10 +552,10 @@ void HelloWorld::fireButtonCall(CCObject *sender)
     {
         //create bullet
         bullet = CCSprite::create("laserGreen14.png");
-        bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*3) *32,
-                                    (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*3) *32));
+        bullet->setPosition(CCPoint((shipBody2->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*3) *32,
+                                    (shipBody2->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*3) *32));
         bullet->setScale(1);
-        bullet->setTag(3);
+        bullet->setTag(4);
         worldLayer->addChild(bullet);
         
         //body definition for bullet
@@ -562,7 +569,7 @@ void HelloWorld::fireButtonCall(CCObject *sender)
         bulletBody->SetGravityScale(1);
         bulletBody->IsBullet();
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 100) , (sin(shipBody1->GetAngle()-4.7) * 100));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 100) , (sin(shipBody2->GetAngle()-4.7) * 100));
         bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
     }
         
