@@ -198,8 +198,9 @@ bool HelloWorld::init()
     
     CCSprite* fireButtonS = CCSprite::create("redButton.png");
     CCSprite* fireButtonPressedS = CCSprite::create("redButtonPressed.png");
-    
-    CCMenuItemSprite* fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonPressedS, this, menu_selector(HelloWorld::fireButtonCall));
+    CCSprite* fireButtonDisS = CCSprite::create("redButtonPressed.png");
+
+    fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonPressedS, fireButtonDisS, this, menu_selector(HelloWorld::fireButtonCall));
     CCMenu* menuFire = CCMenu::create(fireButton, NULL);
     
     menuFire->setPosition(CCPoint(visibleSize.width - 250, 250));
@@ -215,11 +216,11 @@ bool HelloWorld::init()
     menuTurn->setPosition(CCPoint(250, 250));
     hudLayer->addChild(menuTurn);
     
-    scorelabel1 = CCLabelTTF::create("0", "Minecraftia.ttf", 70);
+    scorelabel1 = CCLabelTTF::create("0", "Kenvector Future.ttf", 70);
     scorelabel1->setPosition(CCPoint(visibleSize.width/2 - 200, visibleSize.height - 200));
     hudLayer->addChild(scorelabel1);
 
-    scorelabel2 = CCLabelTTF::create("0", "Minecraftia.ttf", 70);
+    scorelabel2 = CCLabelTTF::create("0", "Kenvector Future.ttf", 70);
     scorelabel2->setPosition(CCPoint(visibleSize.width/2 + 200, visibleSize.height - 200));
     hudLayer->addChild(scorelabel2);
     
@@ -352,12 +353,15 @@ void HelloWorld::update(float delta)
                 {
                     this->shoot(playerNr);
                     
-                    b2Vec2 velocity = bulletBody->GetLinearVelocity();
-                    int delay = networkLogic->getRoundTripTime()/100 / 2;
-                    
-                    b2Vec2 futurePosition = b2Vec2(x + velocity.x * delay, y + velocity.y * delay);
-                    
-                    bulletBody->SetTransform(futurePosition, angle);
+                    if (bulletBody->GetMass())
+                    {
+                        b2Vec2 velocity = bulletBody->GetLinearVelocity();
+                        int delay = networkLogic->getRoundTripTime()/100 / 2;
+                        
+                        b2Vec2 futurePosition = b2Vec2(x + velocity.x * delay, y + velocity.y * delay);
+                        
+                        bulletBody->SetTransform(futurePosition, angle);
+                    }
                 }
                 
                 break;
@@ -622,9 +626,9 @@ void HelloWorld::shoot(int playerN)
     
     //bullet fixture definition
     b2FixtureDef bulletFixture;
-    bulletFixture.density=1;
+    bulletFixture.density=0.1;
     bulletFixture.friction=0.5;
-    bulletFixture.restitution=0;
+    bulletFixture.restitution=0.5;
     bulletFixture.isSensor=false;
     bulletFixture.shape=&bulletShape;
     
@@ -651,6 +655,7 @@ void HelloWorld::shoot(int playerN)
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 100) , (sin(shipBody1->GetAngle()-4.7) * 100));
         bulletBody->SetLinearVelocity(force);
+        
     }
     else if (playerN == 3 || playerN ==4)
     {
@@ -675,7 +680,24 @@ void HelloWorld::shoot(int playerN)
         
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 100) , (sin(shipBody2->GetAngle()-4.7) * 100));
         bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
+        
     }
+    
+    CCCallFunc* disable = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableFireButton));
+    CCCallFunc* enable = CCCallFunc::create(this, callfunc_selector(HelloWorld::enableFireButton));
+    CCDelayTime* delay = CCDelayTime::create(3);
+    CCSequence* seq = CCSequence::create(disable, delay, enable, NULL);
+    this->runAction(seq);
+}
+
+void HelloWorld::disableFireButton()
+{
+    fireButton->setEnabled(false);
+}
+
+void HelloWorld::enableFireButton()
+{
+    fireButton->setEnabled(true);
 }
 
 void HelloWorld::someOneGotHit(int victim)

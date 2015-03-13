@@ -33,7 +33,12 @@ private:
     void turn(int playerNr);
     void shoot(int playerNr);
     void someOneGotHit(int victim);
-        
+    
+    void disableFireButton();
+    void enableFireButton();
+    
+    CCMenuItemSprite* fireButton;
+    
     NetworkLogic* networkLogic;
     
     b2World *world;

@@ -298,6 +298,7 @@
 		23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8551AB03AE200FADF7F /* boundaryLR.png */; };
 		23EE2D531AB23EE4001A65DB /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EE2D511AB23EE4001A65DB /* ContactListener.cpp */; };
 		23EE2D5B1AB2B47B001A65DB /* laserGreen14.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EE2D5A1AB2B47B001A65DB /* laserGreen14.png */; };
+		23EE2D5F1AB311A3001A65DB /* Kenvector Future.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		7855E0E1153FEF240059DD9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855E0DF153FEF240059DD9A /* Default.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -1070,6 +1071,7 @@
 		23EE2D511AB23EE4001A65DB /* ContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContactListener.cpp; sourceTree = "<group>"; };
 		23EE2D521AB23EE4001A65DB /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListener.h; sourceTree = "<group>"; };
 		23EE2D5A1AB2B47B001A65DB /* laserGreen14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserGreen14.png; sourceTree = "<group>"; };
+		23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenvector Future.ttf"; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		37C62C0718E156AE00D16FC4 /* ExtensionExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionExport.h; sourceTree = "<group>"; };
 		7855E0DF153FEF240059DD9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
@@ -2719,6 +2721,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */,
 				233BE9C31AAB40200059B892 /* bg.png */,
 				23BFB8531AB0384400FADF7F /* boundary.png */,
 				23BFB8551AB03AE200FADF7F /* boundaryLR.png */,
@@ -2852,6 +2855,7 @@
 				233BE9C41AAB40200059B892 /* bg.png in Resources */,
 				7855E0E1153FEF240059DD9A /* Default.png in Resources */,
 				23BFB8541AB0384400FADF7F /* boundary.png in Resources */,
+				23EE2D5F1AB311A3001A65DB /* Kenvector Future.ttf in Resources */,
 				23AD03D01AB20E1A001E9929 /* blueButton.png in Resources */,
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
