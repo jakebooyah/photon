@@ -941,10 +941,10 @@ void HelloWorld::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
     
-    this->shoot(networkLogic->playerNr);
-        
     if (networkLogic->playerNr)
     {
+        this->shoot(networkLogic->playerNr);
+
         CCLOG("Sending from %d", networkLogic->playerNr);
         
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
@@ -960,11 +960,11 @@ void HelloWorld::fireButtonCall(CCObject *sender)
 void HelloWorld::turnButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");
-    
-    this->turn(networkLogic->playerNr);
 
     if (networkLogic->playerNr)
     {
+        this->turn(networkLogic->playerNr);
+
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         networkLogic->sendEvent(4, eventContent);
     }
