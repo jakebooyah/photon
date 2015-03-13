@@ -49,6 +49,7 @@ private:
     
     CCLayer *worldLayer;
     CCLayer *hudLayer;
+    CCLayer *loadingLayer;
     
     CCSprite *squareBlue1;
     CCSprite *squareBlue2;

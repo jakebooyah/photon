@@ -328,6 +328,22 @@ bool HelloWorld::init()
     this->addChild(hudLayer);
     
     
+    loadingLayer = CCLayer::create();
+    loadingLayer->setTouchPriority(1);
+    
+    CCSprite *loadingBackground = CCSprite::create("bg.png");
+    loadingBackground->setAnchorPoint(CCPoint(0, 0));
+    loadingBackground->setScale(1.5);
+    loadingLayer->addChild(loadingBackground);
+    
+    CCLabelTTF* loading = CCLabelTTF::create("LOADING", "Kenvector Future.ttf", 60);
+    loading->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
+    loadingLayer->addChild(loading);
+    
+    
+    this->addChild(loadingLayer);
+    
+    
     //Contact Listener Init
     _contactListener = new ContactListener();
     world->SetContactListener(_contactListener);
@@ -355,6 +371,9 @@ void HelloWorld::update(float delta)
     switch (networkLogic->getState())
     {
         case STATE_CONNECTED:
+            loadingLayer->setTouchPriority(0);
+            loadingLayer->setVisible(false);
+            loadingLayer->removeAllChildrenWithCleanup(true);
         case STATE_LEFT:
             if (networkLogic->isRoomExists())
             {
