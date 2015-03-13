@@ -256,6 +256,10 @@
 		235830DB1AB366F400CDA237 /* turnRightPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830DA1AB366F400CDA237 /* turnRightPressed.png */; };
 		235830DE1AB3678C00CDA237 /* turnLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830DC1AB3678C00CDA237 /* turnLeft.png */; };
 		235830DF1AB3678C00CDA237 /* turnLeftPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830DD1AB3678C00CDA237 /* turnLeftPressed.png */; };
+		235830E11AB374FC00CDA237 /* glassPanel.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E01AB374FC00CDA237 /* glassPanel.png */; };
+		235830E51AB3752300CDA237 /* square_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E21AB3752300CDA237 /* square_shadow.png */; };
+		235830E61AB3752300CDA237 /* squareBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E31AB3752300CDA237 /* squareBlue.png */; };
+		235830E71AB3752300CDA237 /* squareGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E41AB3752300CDA237 /* squareGreen.png */; };
 		2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */; };
 		2382BEB91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE81AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a */; };
 		2382BEBA1AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a */; };
@@ -875,6 +879,10 @@
 		235830DA1AB366F400CDA237 /* turnRightPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnRightPressed.png; sourceTree = "<group>"; };
 		235830DC1AB3678C00CDA237 /* turnLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnLeft.png; sourceTree = "<group>"; };
 		235830DD1AB3678C00CDA237 /* turnLeftPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnLeftPressed.png; sourceTree = "<group>"; };
+		235830E01AB374FC00CDA237 /* glassPanel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glassPanel.png; sourceTree = "<group>"; };
+		235830E21AB3752300CDA237 /* square_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square_shadow.png; sourceTree = "<group>"; };
+		235830E31AB3752300CDA237 /* squareBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squareBlue.png; sourceTree = "<group>"; };
+		235830E41AB3752300CDA237 /* squareGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squareGreen.png; sourceTree = "<group>"; };
 		2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogic.cpp; sourceTree = "<group>"; };
 		2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		2382BDD21AA8B0E8000CE3E5 /* Chat-cpp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Chat-cpp.xcodeproj"; sourceTree = "<group>"; };
@@ -2747,6 +2755,10 @@
 				235830DA1AB366F400CDA237 /* turnRightPressed.png */,
 				235830DC1AB3678C00CDA237 /* turnLeft.png */,
 				235830DD1AB3678C00CDA237 /* turnLeftPressed.png */,
+				235830E01AB374FC00CDA237 /* glassPanel.png */,
+				235830E21AB3752300CDA237 /* square_shadow.png */,
+				235830E31AB3752300CDA237 /* squareBlue.png */,
+				235830E41AB3752300CDA237 /* squareGreen.png */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
 				D446FD6D16102124000ADA7B /* Default@2x.png */,
@@ -2880,16 +2892,20 @@
 				230B04441AB07F55003E3756 /* playerShip2_green.png in Resources */,
 				23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */,
 				235830DF1AB3678C00CDA237 /* turnLeftPressed.png in Resources */,
+				235830E71AB3752300CDA237 /* squareGreen.png in Resources */,
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
 				235830D01AB3642400CDA237 /* playerShip2_damage2.png in Resources */,
 				23EE2D5B1AB2B47B001A65DB /* laserGreen14.png in Resources */,
+				235830E11AB374FC00CDA237 /* glassPanel.png in Resources */,
 				235830D91AB366E200CDA237 /* fireButtonPressed.png in Resources */,
 				235830D51AB365E600CDA237 /* disabledButton.png in Resources */,
 				232430D01AB01EE40063751D /* playerShip2_blue.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				15A3D9961682F7F9002FB0C5 /* CMakeLists.txt in Resources */,
 				235830CF1AB3642400CDA237 /* playerShip2_damage1.png in Resources */,
+				235830E51AB3752300CDA237 /* square_shadow.png in Resources */,
 				235830D71AB365F000CDA237 /* turnRight.png in Resources */,
+				235830E61AB3752300CDA237 /* squareBlue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

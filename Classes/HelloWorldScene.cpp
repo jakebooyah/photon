@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "CCScale9Sprite.h"
 
 USING_NS_CC;
 
@@ -152,6 +153,21 @@ bool HelloWorld::init()
     ship1->setTag(1);
     worldLayer->addChild(ship1);
     
+    ship1damage1 = CCSprite::create("playerShip2_damage1.png");
+    ship1damage1->setPosition(CCPoint(56, 38));
+    ship1damage1->setVisible(false);
+    ship1->addChild(ship1damage1);
+    
+    ship1damage2 = CCSprite::create("playerShip2_damage2.png");
+    ship1damage2->setPosition(CCPoint(56, 38));
+    ship1damage2->setVisible(false);
+    ship1->addChild(ship1damage2);
+    
+    ship1damage3 = CCSprite::create("playerShip2_damage3.png");
+    ship1damage3->setPosition(CCPoint(56, 38));
+    ship1damage3->setVisible(false);
+    ship1->addChild(ship1damage3);
+    
     //body definition for ship 1
     b2BodyDef shipBodyDef1;
     shipBodyDef1.type= b2_dynamicBody;
@@ -170,6 +186,21 @@ bool HelloWorld::init()
     ship2->setScale(2);
     ship2->setTag(2);
     worldLayer->addChild(ship2);
+    
+    ship2damage1 = CCSprite::create("playerShip2_damage1.png");
+    ship2damage1->setPosition(CCPoint(56, 38));
+    ship2damage1->setVisible(false);
+    ship2->addChild(ship2damage1);
+    
+    ship2damage2 = CCSprite::create("playerShip2_damage2.png");
+    ship2damage2->setPosition(CCPoint(56, 38));
+    ship2damage2->setVisible(false);
+    ship2->addChild(ship2damage2);
+    
+    ship2damage3 = CCSprite::create("playerShip2_damage3.png");
+    ship2damage3->setPosition(CCPoint(56, 38));
+    ship2damage3->setVisible(false);
+    ship2->addChild(ship2damage3);
     
     //body definition for ship 2
     b2BodyDef shipBodyDef;
@@ -217,13 +248,86 @@ bool HelloWorld::init()
     menuTurn->setPosition(CCPoint(250, 250));
     hudLayer->addChild(menuTurn);
     
-    scorelabel1 = CCLabelTTF::create("0", "Kenvector Future.ttf", 70);
-    scorelabel1->setPosition(CCPoint(visibleSize.width/2 - 200, visibleSize.height - 200));
-    hudLayer->addChild(scorelabel1);
-
-    scorelabel2 = CCLabelTTF::create("0", "Kenvector Future.ttf", 70);
-    scorelabel2->setPosition(CCPoint(visibleSize.width/2 + 200, visibleSize.height - 200));
-    hudLayer->addChild(scorelabel2);
+    
+    
+    cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("glassPanel.png");
+    panel->setContentSize(CCSize(1000, 150));
+    panel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
+    hudLayer->addChild(panel);
+    
+    CCLabelTTF* statusLabel = CCLabelTTF::create("STATUS", "Kenvector Future.ttf", 50);
+    statusLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
+    hudLayer->addChild(statusLabel);
+    
+    for (int n = 0; n < 5; n++)
+    {
+        CCSprite* squareShadow = CCSprite::create("square_shadow.png");
+        squareShadow->setScale(2);
+        squareShadow->setPosition(CCPoint(visibleSize.width/2 - 200 - n*50, visibleSize.height-150));
+        hudLayer->addChild(squareShadow);
+    }
+    
+    for (int n = 0; n < 5; n++)
+    {
+        CCSprite* squareShadow = CCSprite::create("square_shadow.png");
+        squareShadow->setScale(2);
+        squareShadow->setPosition(CCPoint(visibleSize.width/2 + 200 + n*50, visibleSize.height-150));
+        hudLayer->addChild(squareShadow);
+    }
+    
+    squareBlue1 = CCSprite::create("squareBlue.png");
+    squareBlue1->setScale(2);
+    squareBlue1->setPosition(CCPoint(visibleSize.width/2 - 200 - 0*50, visibleSize.height-150));
+    hudLayer->addChild(squareBlue1);
+    
+    squareBlue2 = CCSprite::create("squareBlue.png");
+    squareBlue2->setScale(2);
+    squareBlue2->setPosition(CCPoint(visibleSize.width/2 - 200 - 1*50, visibleSize.height-150));
+    hudLayer->addChild(squareBlue2);
+    
+    squareBlue3 = CCSprite::create("squareBlue.png");
+    squareBlue3->setScale(2);
+    squareBlue3->setPosition(CCPoint(visibleSize.width/2 - 200 - 2*50, visibleSize.height-150));
+    hudLayer->addChild(squareBlue3);
+    
+    squareBlue4 = CCSprite::create("squareBlue.png");
+    squareBlue4->setScale(2);
+    squareBlue4->setPosition(CCPoint(visibleSize.width/2 - 200 - 3*50, visibleSize.height-150));
+    hudLayer->addChild(squareBlue4);
+    
+    squareBlue5 = CCSprite::create("squareBlue.png");
+    squareBlue5->setScale(2);
+    squareBlue5->setPosition(CCPoint(visibleSize.width/2 - 200 - 4*50, visibleSize.height-150));
+    hudLayer->addChild(squareBlue5);
+    
+    
+    
+    squareGreen1 = CCSprite::create("squareGreen.png");
+    squareGreen1->setScale(2);
+    squareGreen1->setPosition(CCPoint(visibleSize.width/2 + 200 + 0*50, visibleSize.height-150));
+    hudLayer->addChild(squareGreen1);
+    
+    squareGreen2 = CCSprite::create("squareGreen.png");
+    squareGreen2->setScale(2);
+    squareGreen2->setPosition(CCPoint(visibleSize.width/2 + 200 + 1*50, visibleSize.height-150));
+    hudLayer->addChild(squareGreen2);
+    
+    squareGreen3 = CCSprite::create("squareGreen.png");
+    squareGreen3->setScale(2);
+    squareGreen3->setPosition(CCPoint(visibleSize.width/2 + 200 + 2*50, visibleSize.height-150));
+    hudLayer->addChild(squareGreen3);
+    
+    squareGreen4 = CCSprite::create("squareGreen.png");
+    squareGreen4->setScale(2);
+    squareGreen4->setPosition(CCPoint(visibleSize.width/2 + 200 + 3*50, visibleSize.height-150));
+    hudLayer->addChild(squareGreen4);
+    
+    squareGreen5 = CCSprite::create("squareGreen.png");
+    squareGreen5->setScale(2);
+    squareGreen5->setPosition(CCPoint(visibleSize.width/2 + 200 + 4*50, visibleSize.height-150));
+    hudLayer->addChild(squareGreen5);
+    
+    
     
     this->addChild(hudLayer);
     
@@ -233,8 +337,8 @@ bool HelloWorld::init()
     _contactListener = new ContactListener();
     world->SetContactListener(_contactListener);
     
-    score1 = 0;
-    score2 = 0;
+    score1 = 5;
+    score2 = 5;
     
     scheduleUpdate();
         
@@ -705,24 +809,69 @@ void HelloWorld::someOneGotHit(int victim)
 {
     if (victim == 1)
     {
-        score2++;
+        if (score2 != 0)
+        {
+            score2--;
+        }
         
-        std::stringstream ss;
-        ss << score2;
-        std::string tmp = ss.str();
+        CCLOG("Score2 %d",score2);
+        switch (score2)
+        {
+            case 4:
+                squareBlue5->setVisible(false);
+                break;
+            case 3:
+                squareBlue4->setVisible(false);
+                ship1damage1->setVisible(true);
+                break;
+            case 2:
+                squareBlue3->setVisible(false);
+                ship1damage2->setVisible(true);
+                break;
+            case 1:
+                squareBlue2->setVisible(false);
+                ship1damage3->setVisible(true);
+                break;
+            case 0:
+                squareBlue1->setVisible(false);
+                break;
+            default:
+                break;
+        }
         
-        scorelabel2->setString(tmp.c_str());
-
     }
     else if (victim == 2)
     {
-        score1++;
-
-        std::stringstream ss;
-        ss << score1;
-        std::string tmp = ss.str();
+        if (score1 != 0)
+        {
+            score1--;
+        }
         
-        scorelabel1->setString(tmp.c_str());
+        CCLOG("Score1 %d",score1);
+        switch (score1)
+        {
+            case 4:
+                squareGreen5->setVisible(false);
+                break;
+            case 3:
+                squareGreen4->setVisible(false);
+                ship2damage1->setVisible(true);
+                break;
+            case 2:
+                squareGreen3->setVisible(false);
+                ship2damage2->setVisible(true);
+                break;
+            case 1:
+                squareGreen2->setVisible(false);
+                ship2damage3->setVisible(true);
+                break;
+            case 0:
+                squareGreen1->setVisible(false);
+                break;
+            default:
+                break;
+        }
+        
     }
     
 

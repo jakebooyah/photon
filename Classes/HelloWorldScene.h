@@ -47,14 +47,32 @@ private:
     
     CCLayer *worldLayer;
     CCLayer *hudLayer;
-
-    CCLabelTTF *scorelabel1;
-    CCLabelTTF *scorelabel2;
+    
+    CCSprite *squareBlue1;
+    CCSprite *squareBlue2;
+    CCSprite *squareBlue3;
+    CCSprite *squareBlue4;
+    CCSprite *squareBlue5;
+    
+    CCSprite *squareGreen1;
+    CCSprite *squareGreen2;
+    CCSprite *squareGreen3;
+    CCSprite *squareGreen4;
+    CCSprite *squareGreen5;
 
     CCSprite *ship1;
+    CCSprite *ship1damage1;
+    CCSprite *ship1damage2;
+    CCSprite *ship1damage3;
+
     b2Body *shipBody1;
     
     CCSprite *ship2;
+    CCSprite *ship2damage1;
+    CCSprite *ship2damage2;
+    CCSprite *ship2damage3;
+
+    
     b2Body *shipBody2;
     
     CCSprite *bullet;
