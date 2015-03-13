@@ -48,21 +48,25 @@ bool HelloWorld::init()
     CCSprite* wallCeiling = CCSprite::create("boundary.png");
     wallCeiling->setPosition(CCPoint(1536, 3072));
     wallCeiling->setScale(1.5);
+    wallCeiling->setTag(4);
     worldLayer->addChild(wallCeiling);
     
     CCSprite* wallGround = CCSprite::create("boundary.png");
     wallGround->setPosition(CCPoint(1536, 0));
     wallGround->setScale(1.5);
+    wallGround->setTag(4);
     worldLayer->addChild(wallGround);
     
     CCSprite* wallLeft = CCSprite::create("boundaryLR.png");
     wallLeft->setPosition(CCPoint(0, 1536));
     wallLeft->setScale(1.5);
+    wallLeft->setTag(4);
     worldLayer->addChild(wallLeft);
     
     CCSprite* wallRight = CCSprite::create("boundaryLR.png");
     wallRight->setPosition(CCPoint(3072, 1536));
     wallRight->setScale(1.5);
+    wallRight->setTag(4);
     worldLayer->addChild(wallRight);
     
     
@@ -85,6 +89,7 @@ bool HelloWorld::init()
     //body definition for wallCeling
     b2BodyDef wallUBodyDef;
     wallUBodyDef.type= b2_staticBody;
+    wallUBodyDef.userData=wallCeiling;
     wallUBodyDef.position.Set(wallCeiling->getPosition().x/32,wallCeiling->getPosition().y/32);
     
     b2Body* wallUBody = world->CreateBody(&wallUBodyDef);
@@ -96,6 +101,7 @@ bool HelloWorld::init()
     //body definition for wallGround
     b2BodyDef wallDBodyDef;
     wallDBodyDef.type= b2_staticBody;
+    wallDBodyDef.userData=wallGround;
     wallDBodyDef.position.Set(wallGround->getPosition().x/32,wallGround->getPosition().y/32);
     
     b2Body* wallDBody = world->CreateBody(&wallDBodyDef);
@@ -107,6 +113,7 @@ bool HelloWorld::init()
     //body definition for wallLeft
     b2BodyDef wallLBodyDef;
     wallLBodyDef.type= b2_staticBody;
+    wallLBodyDef.userData=wallLeft;
     wallLBodyDef.position.Set(wallLeft->getPosition().x/32,wallLeft->getPosition().y/32);
     
     b2Body* wallLBody = world->CreateBody(&wallLBodyDef);
@@ -118,6 +125,7 @@ bool HelloWorld::init()
     //body definition for wallRight
     b2BodyDef wallRBodyDef;
     wallRBodyDef.type= b2_staticBody;
+    wallRBodyDef.userData=wallRight;
     wallRBodyDef.position.Set(wallRight->getPosition().x/32,wallRight->getPosition().y/32);
     
     b2Body* wallRBody = world->CreateBody(&wallRBodyDef);
@@ -137,11 +145,11 @@ bool HelloWorld::init()
     shipFixture.restitution=0.9;
     shipFixture.shape=&shipShape;
     
-    
     //create ship 1
     ship1 = CCSprite::create("playerShip2_blue.png");
     ship1->setPosition(CCPoint(512,512));
     ship1->setScale(2);
+    ship1->setTag(1);
     worldLayer->addChild(ship1);
     
     //body definition for ship 1
@@ -160,6 +168,7 @@ bool HelloWorld::init()
     ship2 = CCSprite::create("playerShip2_green.png");
     ship2->setPosition(CCPoint(2584, 2584));
     ship2->setScale(2);
+    ship2->setTag(2);
     worldLayer->addChild(ship2);
     
     //body definition for ship 2
@@ -344,61 +353,90 @@ void HelloWorld::update(float delta)
             break;
     }
     
-//    std::vector<b2Body *>toDestroy;
-//    std::vector<MyContact>::iterator pos;
-//    for(pos = _contactListener->_contacts.begin();
-//        pos != _contactListener->_contacts.end(); ++pos)
-//    {
-//        MyContact contact = *pos;
-//        
-//        if ((contact.fixtureA == _bottomFixture && contact.fixtureB == _ballFixture) ||
-//            (contact.fixtureA == _ballFixture && contact.fixtureB == _bottomFixture))
-//        {
-//            CCLOG("Something");
-//        }
-//        
-//        b2Body *bodyA = contact.fixtureA->GetBody();
-//        b2Body *bodyB = contact.fixtureB->GetBody();
-//        if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
-//            CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
-//            CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
-//            
-//            // Sprite A = ball, Sprite B = Block
-//            if (spriteA->getTag() == 1 && spriteB->getTag() == 2) {
-//                if (std::find(toDestroy.begin(), toDestroy.end(), bodyB)
-//                    == toDestroy.end()) {
-//                    toDestroy.push_back(bodyB);
-//                }
-//            }
-//            // Sprite B = block, Sprite A = ball
-//            else if (spriteA->getTag() == 2 && spriteB->getTag() == 1) {
-//                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA)
-//                    == toDestroy.end()) {
-//                    toDestroy.push_back(bodyA);
-//                }
-//            }
-//        }
-//    }
     
-    if (bulletBody)
+    
+    std::vector<b2Body *>toDestroy;
+    std::vector<MyContact>::iterator pos;
+    for(pos = _contactListener->_contacts.begin();
+        pos != _contactListener->_contacts.end(); ++pos)
     {
-        CCLOG("PathLength = %d", pathLength);
-        if (pathLength > 20)
+        MyContact contact = *pos;
+        
+        b2Body *bodyA = contact.fixtureA->GetBody();
+        b2Body *bodyB = contact.fixtureB->GetBody();
+        if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL)
         {
-            if (world->GetBodyCount())
+            CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
+            CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
+            
+            // Sprite A = Ship2, Sprite B = Bullet
+            if (spriteA->getTag() == 2 && spriteB->getTag() == 3)
             {
-                world->DestroyBody(bulletBody);
-                bullet->setVisible(false);
-                this->removeChild(bullet);
-                bulletBody = NULL;
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                    toDestroy.push_back(bodyA);
+                }
             }
+            // Sprite A = Bullet, Sprite B = Ship2
+            else if (spriteA->getTag() == 3 && spriteB->getTag() == 2)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            
+            // Sprite A = Ship1, Sprite B = Bullet
+            if (spriteA->getTag() == 1 && spriteB->getTag() == 3)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            // Sprite A = Bullet, Sprite B = Ship1
+            else if (spriteA->getTag() == 3 && spriteB->getTag() == 1)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            
+            // Sprite A = Bullet, Sprite B = Wall
+            else if (spriteA->getTag() == 3 && spriteB->getTag() == 4)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            // Sprite A = Wall, Sprite B = Bullet
+            else if (spriteA->getTag() == 4 && spriteB->getTag() == 3)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                }
+            }
+            
         }
-        else
+    }
+    
+    std::vector<b2Body *>::iterator pos2;
+    for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2)
+    {
+        b2Body *body = *pos2;
+        if (body->GetUserData() != NULL)
         {
-            b2Vec2 diff = b2Vec2(bulletBody->GetPosition().x - prevPosition.x, bulletBody->GetPosition().y - prevPosition.y);
-            pathLength += diff.Length();
-            prevPosition = bulletBody->GetPosition();
+            CCSprite *sprite = (CCSprite *) body->GetUserData();
+            worldLayer->removeChild(sprite, true);
         }
+        world->DestroyBody(body);
     }
     
     world->ClearForces();
@@ -466,26 +504,27 @@ void HelloWorld::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
     
-    if (!bulletBody)
+    //bullet shape definition
+    b2CircleShape bulletShape;
+    bulletShape.m_p.Set(0, 0);
+    bulletShape.m_radius = 40/32;
+    
+    //bullet fixture definition
+    b2FixtureDef bulletFixture;
+    bulletFixture.density=1;
+    bulletFixture.friction=0.5;
+    bulletFixture.restitution=1;
+    bulletFixture.isSensor=false;
+    bulletFixture.shape=&bulletShape;
+    
+    if (networkLogic->playerNr == 1 || networkLogic->playerNr == 2)
     {
-        //bullet shape definition
-        b2CircleShape bulletShape;
-        bulletShape.m_p.Set(0, 0);
-        bulletShape.m_radius = 40/32;
-        
-        //bullet fixture definition
-        b2FixtureDef bulletFixture;
-        bulletFixture.density=1;
-        bulletFixture.friction=0.5;
-        bulletFixture.restitution=1;
-        bulletFixture.isSensor=false;
-        bulletFixture.shape=&bulletShape;
-        
         //create bullet
         bullet = CCSprite::create("laserBlue08.png");
         bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*3) *32,
                                     (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*3) *32));
         bullet->setScale(1);
+        bullet->setTag(3);
         worldLayer->addChild(bullet);
         
         //body definition for bullet
@@ -501,11 +540,32 @@ void HelloWorld::fireButtonCall(CCObject *sender)
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 100) , (sin(shipBody1->GetAngle()-4.7) * 100));
         bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
-        
-        pathLength = 0;
-        prevPosition = bulletBody->GetPosition();
     }
-    
+    else if (networkLogic->playerNr == 3 || networkLogic->playerNr ==4)
+    {
+        //create bullet
+        bullet = CCSprite::create("laserGreen14.png");
+        bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*3) *32,
+                                    (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*3) *32));
+        bullet->setScale(1);
+        bullet->setTag(3);
+        worldLayer->addChild(bullet);
+        
+        //body definition for bullet
+        b2BodyDef bulletBodyDef;
+        bulletBodyDef.type= b2_dynamicBody;
+        bulletBodyDef.userData=bullet;
+        bulletBodyDef.position.Set(bullet->getPosition().x/32,bullet->getPosition().y/32);
+        
+        bulletBody = world->CreateBody(&bulletBodyDef);
+        bulletBody->CreateFixture(&bulletFixture);
+        bulletBody->SetGravityScale(1);
+        bulletBody->IsBullet();
+        
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 100) , (sin(shipBody1->GetAngle()-4.7) * 100));
+        bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
+    }
+        
 }
 
 void HelloWorld::turnButtonCall(CCObject *sender)

@@ -294,10 +294,10 @@
 		23AD03D91AB21137001E9929 /* redButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03D51AB21137001E9929 /* redButton.png */; };
 		23AD03DA1AB21137001E9929 /* redButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03D61AB21137001E9929 /* redButtonPressed.png */; };
 		23AD03DE1AB2256F001E9929 /* laserBlue08.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03DD1AB2256F001E9929 /* laserBlue08.png */; };
-		23AD03E01AB227B1001E9929 /* laserBlue01.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03DF1AB227B1001E9929 /* laserBlue01.png */; };
 		23BFB8541AB0384400FADF7F /* boundary.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8531AB0384400FADF7F /* boundary.png */; };
 		23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8551AB03AE200FADF7F /* boundaryLR.png */; };
 		23EE2D531AB23EE4001A65DB /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EE2D511AB23EE4001A65DB /* ContactListener.cpp */; };
+		23EE2D5B1AB2B47B001A65DB /* laserGreen14.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EE2D5A1AB2B47B001A65DB /* laserGreen14.png */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		7855E0E1153FEF240059DD9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855E0DF153FEF240059DD9A /* Default.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -1065,11 +1065,11 @@
 		23AD03D51AB21137001E9929 /* redButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redButton.png; sourceTree = "<group>"; };
 		23AD03D61AB21137001E9929 /* redButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redButtonPressed.png; sourceTree = "<group>"; };
 		23AD03DD1AB2256F001E9929 /* laserBlue08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserBlue08.png; sourceTree = "<group>"; };
-		23AD03DF1AB227B1001E9929 /* laserBlue01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserBlue01.png; sourceTree = "<group>"; };
 		23BFB8531AB0384400FADF7F /* boundary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundary.png; sourceTree = "<group>"; };
 		23BFB8551AB03AE200FADF7F /* boundaryLR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundaryLR.png; sourceTree = "<group>"; };
 		23EE2D511AB23EE4001A65DB /* ContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContactListener.cpp; sourceTree = "<group>"; };
 		23EE2D521AB23EE4001A65DB /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListener.h; sourceTree = "<group>"; };
+		23EE2D5A1AB2B47B001A65DB /* laserGreen14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserGreen14.png; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		37C62C0718E156AE00D16FC4 /* ExtensionExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionExport.h; sourceTree = "<group>"; };
 		7855E0DF153FEF240059DD9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
@@ -2725,7 +2725,7 @@
 				232430CF1AB01EE40063751D /* playerShip2_blue.png */,
 				230B04431AB07F55003E3756 /* playerShip2_green.png */,
 				23AD03DD1AB2256F001E9929 /* laserBlue08.png */,
-				23AD03DF1AB227B1001E9929 /* laserBlue01.png */,
+				23EE2D5A1AB2B47B001A65DB /* laserGreen14.png */,
 				23AD03D31AB21137001E9929 /* greenButton.png */,
 				23AD03D41AB21137001E9929 /* greenButtonPressed.png */,
 				23AD03D51AB21137001E9929 /* redButton.png */,
@@ -2855,7 +2855,6 @@
 				23AD03D01AB20E1A001E9929 /* blueButton.png in Resources */,
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
-				23AD03E01AB227B1001E9929 /* laserBlue01.png in Resources */,
 				23AD03DE1AB2256F001E9929 /* laserBlue08.png in Resources */,
 				D4EF949E15BD2D9600D803EB /* Icon-72.png in Resources */,
 				D4EF94A015BD2D9800D803EB /* Icon-144.png in Resources */,
@@ -2863,6 +2862,7 @@
 				23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */,
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
 				23AD03D91AB21137001E9929 /* redButton.png in Resources */,
+				23EE2D5B1AB2B47B001A65DB /* laserGreen14.png in Resources */,
 				23AD03DA1AB21137001E9929 /* redButtonPressed.png in Resources */,
 				232430D01AB01EE40063751D /* playerShip2_blue.png in Resources */,
 				23AD03D21AB20E56001E9929 /* blueButtonPressed.png in Resources */,

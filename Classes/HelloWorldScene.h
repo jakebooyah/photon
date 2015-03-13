@@ -37,7 +37,7 @@ private:
     
     CCLayer *worldLayer;
     CCLayer *hudLayer;
-    
+
     CCSprite *ship1;
     b2Body *shipBody1;
     
@@ -46,9 +46,6 @@ private:
     
     CCSprite *bullet;
     b2Body *bulletBody;
-    
-    b2Vec2 prevPosition;
-    int pathLength;
     
     void fireButtonCall(CCObject *sender);
     void turnButtonCall(CCObject *sender);
