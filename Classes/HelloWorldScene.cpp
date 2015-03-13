@@ -324,7 +324,7 @@ void HelloWorld::update(float delta)
                     delay = networkLogic->getRoundTripTime()/100 / 2;
                     
                     futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
-                    futureAngle = angle1 + shipBody2->GetAngularVelocity() * delay;
+                    futureAngle = angle2 + shipBody2->GetAngularVelocity() * delay;
 
                     shipBody2->SetTransform(futurePosition, futureAngle);
                 }
@@ -565,6 +565,7 @@ void HelloWorld::update(float delta)
             CCSprite *sprite = (CCSprite *) body->GetUserData();
             worldLayer->removeChild(sprite, true);
         }
+        body->SetActive(false);
         world->DestroyBody(body);
     }
     
