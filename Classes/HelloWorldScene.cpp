@@ -196,21 +196,22 @@ bool HelloWorld::init()
     hudLayer = CCLayer::create();
     
     
-    CCSprite* fireButtonS = CCSprite::create("redButton.png");
-    CCSprite* fireButtonPressedS = CCSprite::create("redButtonPressed.png");
-    CCSprite* fireButtonDisS = CCSprite::create("redButtonPressed.png");
+    CCSprite* fireButtonS = CCSprite::create("fireButton.png");
+    CCSprite* fireButtonPressedS = CCSprite::create("fireButtonPressed.png");
+    CCSprite* fireButtonDisS = CCSprite::create("disabledButton.png");
 
     fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonPressedS, fireButtonDisS, this, menu_selector(HelloWorld::fireButtonCall));
+    fireButton->setScale(3);
     CCMenu* menuFire = CCMenu::create(fireButton, NULL);
-    
     menuFire->setPosition(CCPoint(visibleSize.width - 250, 250));
     hudLayer->addChild(menuFire);
     
     
-    CCSprite* turnButtonS = CCSprite::create("blueButton.png");
-    CCSprite* turnButtonPressedS = CCSprite::create("blueButtonPressed.png");
+    CCSprite* turnButtonS = CCSprite::create("turnRight.png");
+    CCSprite* turnButtonPressedS = CCSprite::create("turnRightPressed.png");
     
     CCMenuItemSprite* turnButton = CCMenuItemSprite::create(turnButtonS, turnButtonPressedS, this, menu_selector(HelloWorld::turnButtonCall));
+    turnButton->setScale(3);
     CCMenu* menuTurn = CCMenu::create(turnButton, NULL);
     
     menuTurn->setPosition(CCPoint(250, 250));
@@ -653,7 +654,7 @@ void HelloWorld::shoot(int playerN)
         bulletBody->SetGravityScale(1);
         bulletBody->IsBullet();
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 100) , (sin(shipBody1->GetAngle()-4.7) * 100));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 30) , (sin(shipBody1->GetAngle()-4.7) * 30));
         bulletBody->SetLinearVelocity(force);
         
     }
@@ -678,7 +679,7 @@ void HelloWorld::shoot(int playerN)
         bulletBody->SetGravityScale(1);
         bulletBody->IsBullet();
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 100) , (sin(shipBody2->GetAngle()-4.7) * 100));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 30) , (sin(shipBody2->GetAngle()-4.7) * 30));
         bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
         
     }
