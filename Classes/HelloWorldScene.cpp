@@ -141,8 +141,8 @@ bool HelloWorld::init()
     //ship fixture definition
     b2FixtureDef shipFixture;
     shipFixture.density=10;
-    shipFixture.friction=0.3;
-    shipFixture.restitution=0.9;
+    shipFixture.friction=0;
+    shipFixture.restitution=0;
     shipFixture.shape=&shipShape;
     
     //create ship 1
@@ -161,7 +161,7 @@ bool HelloWorld::init()
     shipBody1 = world->CreateBody(&shipBodyDef1);
     shipBody1->CreateFixture(&shipFixture);
     shipBody1->SetGravityScale(10);
-    shipBody1->SetAngularDamping(0.3);
+    shipBody1->SetAngularDamping(0);
     shipBody1->SetTransform(shipBody1->GetPosition(), CC_DEGREES_TO_RADIANS(-45));
     
     //create ship 2
@@ -180,7 +180,7 @@ bool HelloWorld::init()
     shipBody2 = world->CreateBody(&shipBodyDef);
     shipBody2->CreateFixture(&shipFixture);
     shipBody2->SetGravityScale(10);
-    shipBody2->SetAngularDamping(0.3);
+    shipBody2->SetAngularDamping(0);
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
     
     
@@ -314,8 +314,9 @@ void HelloWorld::update(float delta)
                     int delay = networkLogic->getRoundTripTime()/100 / 2;
                     
                     b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
+                    float futureAngle = angle1 + shipBody1->GetAngularVelocity() * delay;
                     
-                    shipBody1->SetTransform(futurePosition, angle1);
+                    shipBody1->SetTransform(futurePosition, futureAngle);
                     
                     //Correction of Ship 2 with dead reckoning
                     
@@ -323,8 +324,9 @@ void HelloWorld::update(float delta)
                     delay = networkLogic->getRoundTripTime()/100 / 2;
                     
                     futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
-                    
-                    shipBody2->SetTransform(futurePosition, angle2);
+                    futureAngle = angle1 + shipBody2->GetAngularVelocity() * delay;
+
+                    shipBody2->SetTransform(futurePosition, futureAngle);
                 }
                 
                 this->turn(playerNr);
@@ -579,7 +581,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
-        shipBody1->SetAngularVelocity(0.3);
+        shipBody1->SetAngularVelocity(0.5);
     }
     else if (playerN == 2)
     {
@@ -588,7 +590,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
-        shipBody1->SetAngularVelocity(-0.3);
+        shipBody1->SetAngularVelocity(-0.5);
     }
     else if (playerN == 3)
     {
@@ -597,7 +599,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
-        shipBody2->SetAngularVelocity(0.3);
+        shipBody2->SetAngularVelocity(0.5);
     }
     else if (playerN == 4)
     {
@@ -606,7 +608,7 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
-        shipBody2->SetAngularVelocity(-0.3);
+        shipBody2->SetAngularVelocity(-0.5);
     }
 }
 
@@ -621,7 +623,7 @@ void HelloWorld::shoot(int playerN)
     b2FixtureDef bulletFixture;
     bulletFixture.density=1;
     bulletFixture.friction=0.5;
-    bulletFixture.restitution=1;
+    bulletFixture.restitution=0;
     bulletFixture.isSensor=false;
     bulletFixture.shape=&bulletShape;
     
@@ -629,8 +631,8 @@ void HelloWorld::shoot(int playerN)
     {
         //create bullet
         bullet = CCSprite::create("laserBlue08.png");
-        bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*3) *32,
-                                    (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*3) *32));
+        bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*5) *32,
+                                    (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*5) *32));
         bullet->setScale(1);
         bullet->setTag(3);
         worldLayer->addChild(bullet);
@@ -653,8 +655,8 @@ void HelloWorld::shoot(int playerN)
     {
         //create bullet
         bullet = CCSprite::create("laserGreen14.png");
-        bullet->setPosition(CCPoint((shipBody2->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*3) *32,
-                                    (shipBody2->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*3) *32));
+        bullet->setPosition(CCPoint((shipBody2->GetPosition().x + cos(shipBody2->GetAngle()-4.7)*5) *32,
+                                    (shipBody2->GetPosition().y + sin(shipBody2->GetAngle()-4.7)*5) *32));
         bullet->setScale(1);
         bullet->setTag(4);
         worldLayer->addChild(bullet);
