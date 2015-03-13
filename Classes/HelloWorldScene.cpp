@@ -371,9 +371,9 @@ void HelloWorld::update(float delta)
     switch (networkLogic->getState())
     {
         case STATE_CONNECTED:
-            loadingLayer->setTouchPriority(0);
             loadingLayer->setVisible(false);
             loadingLayer->removeAllChildrenWithCleanup(true);
+            this->removeChild(loadingLayer, true);
         case STATE_LEFT:
             if (networkLogic->isRoomExists())
             {
