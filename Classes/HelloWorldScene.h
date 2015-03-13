@@ -43,6 +43,9 @@ private:
     CCLayer *worldLayer;
     CCLayer *hudLayer;
 
+    CCLabelTTF *scorelabel1;
+    CCLabelTTF *scorelabel2;
+
     CCSprite *ship1;
     b2Body *shipBody1;
     

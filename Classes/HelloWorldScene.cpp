@@ -215,6 +215,13 @@ bool HelloWorld::init()
     menuTurn->setPosition(CCPoint(250, 250));
     hudLayer->addChild(menuTurn);
     
+    scorelabel1 = CCLabelTTF::create("0", "Minecraftia.ttf", 70);
+    scorelabel1->setPosition(CCPoint(visibleSize.width/2 - 200, visibleSize.height - 200));
+    hudLayer->addChild(scorelabel1);
+
+    scorelabel2 = CCLabelTTF::create("0", "Minecraftia.ttf", 70);
+    scorelabel2->setPosition(CCPoint(visibleSize.width/2 + 200, visibleSize.height - 200));
+    hudLayer->addChild(scorelabel2);
     
     this->addChild(hudLayer);
     
@@ -362,10 +369,7 @@ void HelloWorld::update(float delta)
                 int playerNr = arr.back();
                 arr.pop_back();
                 
-                if (playerNr != networkLogic->playerNr)
-                {
-                    this->someOneGotHit(victim);
-                }
+                this->someOneGotHit(victim);
                 
                 break;
             }
@@ -438,10 +442,11 @@ void HelloWorld::update(float delta)
                 {
                     toDestroy.push_back(bodyB);
                     CCLOG("Ship 2 has been hit");
-                    someOneGotHit(2);
-                    
+
                     if (networkLogic->playerNr == 1)
                     {
+                        someOneGotHit(2);
+
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 2);
                         
@@ -457,10 +462,11 @@ void HelloWorld::update(float delta)
                 {
                     toDestroy.push_back(bodyA);
                     CCLOG("Ship 2 has been hit");
-                    someOneGotHit(2);
-                    
+
                     if (networkLogic->playerNr == 1)
                     {
+                        someOneGotHit(2);
+                        
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 2);
                         
@@ -477,10 +483,11 @@ void HelloWorld::update(float delta)
                 {
                     toDestroy.push_back(bodyB);
                     CCLOG("Ship 1 has been hit");
-                    someOneGotHit(1);
-                    
+
                     if (networkLogic->playerNr == 1)
                     {
+                        someOneGotHit(1);
+                        
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 1);
                         
@@ -496,10 +503,11 @@ void HelloWorld::update(float delta)
                 {
                     toDestroy.push_back(bodyA);
                     CCLOG("Ship 1 has been hit");
-                    someOneGotHit(1);
-                    
+
                     if (networkLogic->playerNr == 1)
                     {
+                        someOneGotHit(1);
+                        
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 1);
                         
@@ -672,12 +680,23 @@ void HelloWorld::someOneGotHit(int victim)
     if (victim == 1)
     {
         score2++;
-        CCLOG("Team 2 Score! Score: %d", score2);
+        
+        std::stringstream ss;
+        ss << score2;
+        std::string tmp = ss.str();
+        
+        scorelabel2->setString(tmp.c_str());
+
     }
     else if (victim == 2)
     {
         score1++;
-        CCLOG("Team 1 Score! Score: %d", score1);
+
+        std::stringstream ss;
+        ss << score1;
+        std::string tmp = ss.str();
+        
+        scorelabel1->setString(tmp.c_str());
     }
     
 
