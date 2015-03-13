@@ -222,8 +222,6 @@ bool HelloWorld::init()
     this->addChild(worldLayer);
     
     
-    
-    
     hudLayer = CCLayer::create();
     
     
@@ -247,7 +245,6 @@ bool HelloWorld::init()
     
     menuTurn->setPosition(CCPoint(250, 250));
     hudLayer->addChild(menuTurn);
-    
     
     
     cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("glassPanel.png");
@@ -328,14 +325,20 @@ bool HelloWorld::init()
     hudLayer->addChild(squareGreen5);
     
     
-    
     this->addChild(hudLayer);
-    
     
     
     //Contact Listener Init
     _contactListener = new ContactListener();
     world->SetContactListener(_contactListener);
+    
+    
+    CCDelayTime* delay = CCDelayTime::create(3);
+    CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(HelloWorld::sendPositions));
+    CCSequence* seq = CCSequence::create(delay, sendPositions, NULL);
+    CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
+    this->runAction(seqLoop);
+
     
     score1 = 5;
     score2 = 5;
@@ -412,7 +415,6 @@ void HelloWorld::update(float delta)
                 if (playerNr == 1)
                 {
                     CCLOG("Round Trip Time = %d", networkLogic->getRoundTripTime());
-                    CCLOG("Updating.. Player: %d", playerNr);
                     
                     //Correction of Ship 1 with dead reckoning
                     
@@ -434,8 +436,6 @@ void HelloWorld::update(float delta)
 
                     shipBody2->SetTransform(futurePosition, futureAngle);
                 }
-                
-                this->turn(playerNr);
                 
                 break;
             }
@@ -483,6 +483,14 @@ void HelloWorld::update(float delta)
                 this->someOneGotHit(victim);
                 
                 break;
+            }
+                
+            case 4:
+            {
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                this->turn(playerNr);
             }
                 
             default:
@@ -680,6 +688,22 @@ void HelloWorld::update(float delta)
     
     world->ClearForces();
     world->DrawDebugData();
+}
+
+void HelloWorld::sendPositions()
+{
+    if (networkLogic->playerNr)
+    {
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, shipBody1->GetPosition().x);
+        eventContent->put<int, float>(2, shipBody1->GetPosition().y);
+        eventContent->put<int, float>(3, shipBody1->GetAngle());
+        eventContent->put<int, float>(4, shipBody2->GetPosition().x);
+        eventContent->put<int, float>(5, shipBody2->GetPosition().y);
+        eventContent->put<int, float>(6, shipBody2->GetAngle());
+        
+        networkLogic->sendEvent(1, eventContent);
+    }
 }
 
 void HelloWorld::turn(int playerN)
@@ -918,25 +942,11 @@ void HelloWorld::turnButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");
     
+    this->turn(networkLogic->playerNr);
+
     if (networkLogic->playerNr)
     {
-        this->turn(networkLogic->playerNr);
-        
-        CCLOG("Sending from %d", networkLogic->playerNr);
-        
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-        eventContent->put<int, float>(1, shipBody1->GetPosition().x);
-        eventContent->put<int, float>(2, shipBody1->GetPosition().y);
-        eventContent->put<int, float>(3, shipBody1->GetAngle());
-        
-        CCLOG("Ship1 X: %f, Y:%f, Angle:%f", shipBody1->GetPosition().x, shipBody1->GetPosition().y, shipBody1->GetAngle());
-        
-        eventContent->put<int, float>(4, shipBody2->GetPosition().x);
-        eventContent->put<int, float>(5, shipBody2->GetPosition().y);
-        eventContent->put<int, float>(6, shipBody2->GetAngle());
-        
-        CCLOG("Ship2 X: %f, Y:%f, Angle:%f", shipBody2->GetPosition().x, shipBody2->GetPosition().y, shipBody2->GetAngle());
-        
-        networkLogic->sendEvent(1, eventContent);
+        networkLogic->sendEvent(4, eventContent);
     }
 }

@@ -37,6 +37,8 @@ private:
     void disableFireButton();
     void enableFireButton();
     
+    void sendPositions();
+    
     CCMenuItemSprite* fireButton;
     
     NetworkLogic* networkLogic;
