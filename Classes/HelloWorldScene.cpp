@@ -336,7 +336,7 @@ bool HelloWorld::init()
     loadingBackground->setScale(1.5);
     loadingLayer->addChild(loadingBackground);
     
-    CCLabelTTF* loading = CCLabelTTF::create("LOADING", "Kenvector Future.ttf", 60);
+    CCLabelTTF* loading = CCLabelTTF::create("LOADING", "Kenvector Future.ttf", 80);
     loading->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
     loadingLayer->addChild(loading);
     
@@ -371,9 +371,12 @@ void HelloWorld::update(float delta)
     switch (networkLogic->getState())
     {
         case STATE_CONNECTED:
-            loadingLayer->setVisible(false);
-            loadingLayer->removeAllChildrenWithCleanup(true);
-            this->removeChild(loadingLayer, true);
+        {
+            CCDelayTime* delay = CCDelayTime::create(2);
+            CCCallFunc* removeLoading = CCCallFunc::create(this, callfunc_selector(HelloWorld::removeLoading));
+            CCSequence* seq = CCSequence::create(delay, removeLoading, NULL);
+            this->runAction(seq);
+        }
         case STATE_LEFT:
             if (networkLogic->isRoomExists())
             {
@@ -707,6 +710,13 @@ void HelloWorld::update(float delta)
     
     world->ClearForces();
     world->DrawDebugData();
+}
+
+void HelloWorld::removeLoading()
+{
+    loadingLayer->setVisible(false);
+    loadingLayer->removeAllChildrenWithCleanup(true);
+    this->removeChild(loadingLayer, true);
 }
 
 void HelloWorld::sendPositions()

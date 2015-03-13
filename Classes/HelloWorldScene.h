@@ -34,6 +34,8 @@ private:
     void shoot(int playerNr);
     void someOneGotHit(int victim);
     
+    void removeLoading();
+    
     void disableFireButton();
     void enableFireButton();
     
