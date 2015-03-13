@@ -257,6 +257,7 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
     switch (eventCode)
     {
         case 1:
+        {
             event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
             float x1 = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
             float y1 = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
@@ -264,20 +265,41 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             float x2 = ExitGames::Common::ValueObject<float>(event->getValue(4)).getDataCopy();
             float y2 = ExitGames::Common::ValueObject<float>(event->getValue(5)).getDataCopy();
             float angle2 = ExitGames::Common::ValueObject<float>(event->getValue(6)).getDataCopy();
+            int code = 1;
             
-            std::vector<float> crap;
-            crap.push_back(playerNr);
-            crap.push_back(x1);
-            crap.push_back(y1);
-            crap.push_back(angle1);
-            crap.push_back(x2);
-            crap.push_back(y2);
-            crap.push_back(angle2);
-            eventQueue.push(crap);
+            std::vector<float> shipPosition;
+            shipPosition.push_back(playerNr);
+            shipPosition.push_back(x1);
+            shipPosition.push_back(y1);
+            shipPosition.push_back(angle1);
+            shipPosition.push_back(x2);
+            shipPosition.push_back(y2);
+            shipPosition.push_back(angle2);
+            shipPosition.push_back(code);
+            eventQueue.push(shipPosition);
             
             break;
-    }
+        }
+        case 2:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float x = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            float y = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
+            float angle = ExitGames::Common::ValueObject<float>(event->getValue(3)).getDataCopy();
+            int code = 2;
+            
+            std::vector<float> bulletPosition;
+            bulletPosition.push_back(playerNr);
+            bulletPosition.push_back(x);
+            bulletPosition.push_back(y);
+            bulletPosition.push_back(angle);
+            bulletPosition.push_back(code);
+            eventQueue.push(bulletPosition);
+            
+            break;
     
+        }
+    }
 	EGLOG(ExitGames::Common::DebugLevel::ALL, L"");
 }
 

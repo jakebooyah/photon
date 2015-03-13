@@ -264,54 +264,98 @@ void HelloWorld::update(float delta)
     {
         std::vector<float> arr = networkLogic->eventQueue.front();
         networkLogic->eventQueue.pop();
-
-        float angle2 = arr.back();
-        arr.pop_back();
         
-        float y2 = arr.back();
+        int code = arr.back();
         arr.pop_back();
 
-        float x2 = arr.back();
-        arr.pop_back();
-        
-        float angle1 = arr.back();
-        arr.pop_back();
-        
-        float y1 = arr.back();
-        arr.pop_back();
-        
-        float x1 = arr.back();
-        arr.pop_back();
-        
-        int playerNr = arr.back();
-        arr.pop_back();
-        
-        //If information is from Host (Player 1)
-        if (playerNr == 1)
+        switch (code)
         {
-            CCLOG("Round Trip Time = %d", networkLogic->getRoundTripTime());
-            CCLOG("Updating.. Player: %d", playerNr);
-            
-            //Correction of Ship 1 with dead reckoning
-            
-            b2Vec2 velocity = shipBody1->GetLinearVelocity();
-            int delay = networkLogic->getRoundTripTime()/100 / 2;
-            
-            b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
-            
-            shipBody1->SetTransform(futurePosition, angle1);
-            
-            //Correction of Ship 2 with dead reckoning
-            
-            velocity = shipBody2->GetLinearVelocity();
-            delay = networkLogic->getRoundTripTime()/100 / 2;
-            
-            futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
-            
-            shipBody2->SetTransform(futurePosition, angle2);
+            case 1:
+            {
+                float angle2 = arr.back();
+                arr.pop_back();
+                
+                float y2 = arr.back();
+                arr.pop_back();
+                
+                float x2 = arr.back();
+                arr.pop_back();
+                
+                float angle1 = arr.back();
+                arr.pop_back();
+                
+                float y1 = arr.back();
+                arr.pop_back();
+                
+                float x1 = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                //If information is from Host (Player 1)
+                if (playerNr == 1)
+                {
+                    CCLOG("Round Trip Time = %d", networkLogic->getRoundTripTime());
+                    CCLOG("Updating.. Player: %d", playerNr);
+                    
+                    //Correction of Ship 1 with dead reckoning
+                    
+                    b2Vec2 velocity = shipBody1->GetLinearVelocity();
+                    int delay = networkLogic->getRoundTripTime()/100 / 2;
+                    
+                    b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
+                    
+                    shipBody1->SetTransform(futurePosition, angle1);
+                    
+                    //Correction of Ship 2 with dead reckoning
+                    
+                    velocity = shipBody2->GetLinearVelocity();
+                    delay = networkLogic->getRoundTripTime()/100 / 2;
+                    
+                    futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
+                    
+                    shipBody2->SetTransform(futurePosition, angle2);
+                }
+                
+                this->turn(playerNr);
+                
+                break;
+            }
+                
+            case 2:
+            {
+                float angle = arr.back();
+                arr.pop_back();
+                
+                float y = arr.back();
+                arr.pop_back();
+                
+                float x = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr != networkLogic->playerNr)
+                {
+                    this->shoot(playerNr);
+                    
+                    b2Vec2 velocity = bulletBody->GetLinearVelocity();
+                    int delay = networkLogic->getRoundTripTime()/100 / 2;
+                    
+                    b2Vec2 futurePosition = b2Vec2(x + velocity.x * delay, y + velocity.y * delay);
+                    
+                    bulletBody->SetTransform(futurePosition, angle);
+                }
+                
+                break;
+            }
+                
+            default:
+                break;
         }
         
-        this->turn(playerNr);
 
     }
     
@@ -414,7 +458,7 @@ void HelloWorld::update(float delta)
                 }
             }
             
-            // Sprite A = Bullet, Sprite B = Wall
+            // Sprite A = Bullet1, Sprite B = Wall
             else if (spriteA->getTag() == 3 && spriteB->getTag() == 5)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
@@ -422,8 +466,25 @@ void HelloWorld::update(float delta)
                     toDestroy.push_back(bodyA);
                 }
             }
-            // Sprite A = Wall, Sprite B = Bullet
+            // Sprite A = Wall, Sprite B = Bullet1
             else if (spriteA->getTag() == 5 && spriteB->getTag() == 3)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                }
+            }
+            
+            // Sprite A = Bullet2, Sprite B = Wall
+            else if (spriteA->getTag() == 4 && spriteB->getTag() == 5)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            // Sprite A = Wall, Sprite B = Bullet2
+            else if (spriteA->getTag() == 5 && spriteB->getTag() == 4)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
@@ -490,27 +551,8 @@ void HelloWorld::turn(int playerN)
     }
 }
 
-void HelloWorld::setViewPointCenter(CCPoint position)
+void HelloWorld::shoot(int playerN)
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    
-    int x = MAX(position.x, winSize.width/2);
-    int y = MAX(position.y, winSize.height/2);
-    
-    //Edit according to map size
-    x = MIN(x, 3072 - winSize.width/2);
-    y = MIN(y, 3072 - winSize.height/2);
-    CCPoint actualPosition = CCPoint(x, y);
-    
-    CCPoint centerOfView = CCPoint(winSize.width/2, winSize.height/2);
-    CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
-    worldLayer->setPosition(viewPoint);
-}
-
-void HelloWorld::fireButtonCall(CCObject *sender)
-{
-    CCLOG("Fire Button");
-    
     //bullet shape definition
     b2CircleShape bulletShape;
     bulletShape.m_p.Set(0, 0);
@@ -524,7 +566,7 @@ void HelloWorld::fireButtonCall(CCObject *sender)
     bulletFixture.isSensor=false;
     bulletFixture.shape=&bulletShape;
     
-    if (networkLogic->playerNr == 1 || networkLogic->playerNr == 2)
+    if (playerN == 1 || playerN == 2)
     {
         //create bullet
         bullet = CCSprite::create("laserBlue08.png");
@@ -546,9 +588,9 @@ void HelloWorld::fireButtonCall(CCObject *sender)
         bulletBody->IsBullet();
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 100) , (sin(shipBody1->GetAngle()-4.7) * 100));
-        bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
+        bulletBody->SetLinearVelocity(force);
     }
-    else if (networkLogic->playerNr == 3 || networkLogic->playerNr ==4)
+    else if (playerN == 3 || playerN ==4)
     {
         //create bullet
         bullet = CCSprite::create("laserGreen14.png");
@@ -572,7 +614,43 @@ void HelloWorld::fireButtonCall(CCObject *sender)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 100) , (sin(shipBody2->GetAngle()-4.7) * 100));
         bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
     }
+}
+
+void HelloWorld::setViewPointCenter(CCPoint position)
+{
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    
+    int x = MAX(position.x, winSize.width/2);
+    int y = MAX(position.y, winSize.height/2);
+    
+    //Edit according to map size
+    x = MIN(x, 3072 - winSize.width/2);
+    y = MIN(y, 3072 - winSize.height/2);
+    CCPoint actualPosition = CCPoint(x, y);
+    
+    CCPoint centerOfView = CCPoint(winSize.width/2, winSize.height/2);
+    CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
+    worldLayer->setPosition(viewPoint);
+}
+
+void HelloWorld::fireButtonCall(CCObject *sender)
+{
+    CCLOG("Fire Button");
+    
+    this->shoot(networkLogic->playerNr);
         
+    if (networkLogic->playerNr)
+    {
+        CCLOG("Sending from %d", networkLogic->playerNr);
+        
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, bulletBody->GetPosition().x);
+        eventContent->put<int, float>(2, bulletBody->GetPosition().y);
+        eventContent->put<int, float>(3, bulletBody->GetAngle());
+        CCLOG("Bullet X: %f, Y:%f, Angle:%f", bulletBody->GetPosition().x, bulletBody->GetPosition().y, bulletBody->GetAngle());
+        
+        networkLogic->sendEvent(2, eventContent);
+    }
 }
 
 void HelloWorld::turnButtonCall(CCObject *sender)

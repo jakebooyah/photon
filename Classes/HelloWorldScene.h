@@ -28,6 +28,7 @@ private:
     virtual void update(float delta);
         
     void turn(int playerNr);
+    void shoot(int playerNr);
         
     NetworkLogic* networkLogic;
     
