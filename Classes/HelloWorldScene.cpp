@@ -224,6 +224,8 @@ bool HelloWorld::init()
     _contactListener = new ContactListener();
     world->SetContactListener(_contactListener);
     
+    score1 = 0;
+    score2 = 0;
     
     scheduleUpdate();
         
@@ -352,6 +354,22 @@ void HelloWorld::update(float delta)
                 break;
             }
                 
+            case 3:
+            {
+                int victim = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr != networkLogic->playerNr)
+                {
+                    this->someOneGotHit(victim);
+                }
+                
+                break;
+            }
+                
             default:
                 break;
         }
@@ -419,8 +437,17 @@ void HelloWorld::update(float delta)
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyB);
-                    toDestroy.push_back(bodyA);
-                    CCLOG("Ship 2 has fallen");
+                    CCLOG("Ship 2 has been hit");
+                    someOneGotHit(2);
+                    
+                    if (networkLogic->playerNr == 1)
+                    {
+                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                        eventContent->put<int, float>(1, 2);
+                        
+                        networkLogic->sendEvent(3, eventContent);
+                    }
+
                 }
             }
             // Sprite A = Bullet1, Sprite B = Ship2
@@ -428,9 +455,17 @@ void HelloWorld::update(float delta)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
-                    toDestroy.push_back(bodyB);
                     toDestroy.push_back(bodyA);
-                    CCLOG("Ship 2 has fallen");
+                    CCLOG("Ship 2 has been hit");
+                    someOneGotHit(2);
+                    
+                    if (networkLogic->playerNr == 1)
+                    {
+                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                        eventContent->put<int, float>(1, 2);
+                        
+                        networkLogic->sendEvent(3, eventContent);
+                    }
 
                 }
             }
@@ -441,8 +476,16 @@ void HelloWorld::update(float delta)
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyB);
-                    toDestroy.push_back(bodyA);
-                    CCLOG("Ship 1 has fallen");
+                    CCLOG("Ship 1 has been hit");
+                    someOneGotHit(1);
+                    
+                    if (networkLogic->playerNr == 1)
+                    {
+                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                        eventContent->put<int, float>(1, 1);
+                        
+                        networkLogic->sendEvent(3, eventContent);
+                    }
 
                 }
             }
@@ -451,9 +494,17 @@ void HelloWorld::update(float delta)
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
-                    toDestroy.push_back(bodyB);
                     toDestroy.push_back(bodyA);
-                    CCLOG("Ship 1 has fallen");
+                    CCLOG("Ship 1 has been hit");
+                    someOneGotHit(1);
+                    
+                    if (networkLogic->playerNr == 1)
+                    {
+                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                        eventContent->put<int, float>(1, 1);
+                        
+                        networkLogic->sendEvent(3, eventContent);
+                    }
 
                 }
             }
@@ -614,6 +665,22 @@ void HelloWorld::shoot(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 100) , (sin(shipBody2->GetAngle()-4.7) * 100));
         bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
     }
+}
+
+void HelloWorld::someOneGotHit(int victim)
+{
+    if (victim == 1)
+    {
+        score2++;
+        CCLOG("Team 2 Score! Score: %d", score2);
+    }
+    else if (victim == 2)
+    {
+        score1++;
+        CCLOG("Team 1 Score! Score: %d", score1);
+    }
+    
+
 }
 
 void HelloWorld::setViewPointCenter(CCPoint position)

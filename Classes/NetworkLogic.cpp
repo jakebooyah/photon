@@ -297,8 +297,23 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             eventQueue.push(bulletPosition);
             
             break;
-    
         }
+        case 3:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float victim = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            int code = 3;
+            
+            std::vector<float> victimN;
+            victimN.push_back(playerNr);
+            victimN.push_back(victim);
+            victimN.push_back(code);
+            eventQueue.push(victimN);
+            
+            break;
+            
+        }
+
     }
 	EGLOG(ExitGames::Common::DebugLevel::ALL, L"");
 }

@@ -26,9 +26,13 @@ public:
 
 private:
     virtual void update(float delta);
-        
+    
+    int score1;
+    int score2;
+    
     void turn(int playerNr);
     void shoot(int playerNr);
+    void someOneGotHit(int victim);
         
     NetworkLogic* networkLogic;
     
