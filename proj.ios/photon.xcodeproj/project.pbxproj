@@ -271,6 +271,7 @@
 		235830FD1AB4318700CDA237 /* meteorGrey_med2.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F71AB4318700CDA237 /* meteorGrey_med2.png */; };
 		235830FF1AB43ABA00CDA237 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830FE1AB43ABA00CDA237 /* title.png */; };
 		235831021AB446ED00CDA237 /* GameOverScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235831001AB446ED00CDA237 /* GameOverScene.cpp */; };
+		235831061AB4DC8600CDA237 /* sfx_zap.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 235831051AB4DC8600CDA237 /* sfx_zap.ogg */; };
 		2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */; };
 		2382BEB91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE81AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a */; };
 		2382BEBA1AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a */; };
@@ -907,6 +908,7 @@
 		235830FE1AB43ABA00CDA237 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		235831001AB446ED00CDA237 /* GameOverScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverScene.cpp; sourceTree = "<group>"; };
 		235831011AB446ED00CDA237 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		235831051AB4DC8600CDA237 /* sfx_zap.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = sfx_zap.ogg; sourceTree = "<group>"; };
 		2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogic.cpp; sourceTree = "<group>"; };
 		2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		2382BDD21AA8B0E8000CE3E5 /* Chat-cpp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Chat-cpp.xcodeproj"; sourceTree = "<group>"; };
@@ -2765,6 +2767,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				235831051AB4DC8600CDA237 /* sfx_zap.ogg */,
 				23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */,
 				235830FE1AB43ABA00CDA237 /* title.png */,
 				233BE9C31AAB40200059B892 /* bg.png */,
@@ -2938,6 +2941,7 @@
 				235830E71AB3752300CDA237 /* squareGreen.png in Resources */,
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
 				235830D01AB3642400CDA237 /* playerShip2_damage2.png in Resources */,
+				235831061AB4DC8600CDA237 /* sfx_zap.ogg in Resources */,
 				235830F81AB4318700CDA237 /* meteorBrown_big1.png in Resources */,
 				23EE2D5B1AB2B47B001A65DB /* laserGreen14.png in Resources */,
 				235830E11AB374FC00CDA237 /* glassPanel.png in Resources */,

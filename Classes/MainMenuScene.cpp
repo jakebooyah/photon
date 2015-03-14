@@ -9,6 +9,7 @@
 #include "MainMenuScene.h"
 #include "HelloWorldScene.h"
 #include "CCScale9Sprite.h"
+#include "SimpleAudioEngine.h"
 
 CCScene* MainMenu::scene()
 {
@@ -70,6 +71,8 @@ bool MainMenu::init()
 
 void MainMenu::startGame()
 {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.ogg");
+
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,HelloWorld::scene(), ccWHITE);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
