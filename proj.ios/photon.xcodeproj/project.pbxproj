@@ -270,6 +270,7 @@
 		235830FC1AB4318700CDA237 /* meteorGrey_big4.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F61AB4318700CDA237 /* meteorGrey_big4.png */; };
 		235830FD1AB4318700CDA237 /* meteorGrey_med2.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F71AB4318700CDA237 /* meteorGrey_med2.png */; };
 		235830FF1AB43ABA00CDA237 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830FE1AB43ABA00CDA237 /* title.png */; };
+		235831021AB446ED00CDA237 /* GameOverScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235831001AB446ED00CDA237 /* GameOverScene.cpp */; };
 		2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */; };
 		2382BEB91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE81AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a */; };
 		2382BEBA1AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a */; };
@@ -904,6 +905,8 @@
 		235830F61AB4318700CDA237 /* meteorGrey_big4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_big4.png; sourceTree = "<group>"; };
 		235830F71AB4318700CDA237 /* meteorGrey_med2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_med2.png; sourceTree = "<group>"; };
 		235830FE1AB43ABA00CDA237 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
+		235831001AB446ED00CDA237 /* GameOverScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverScene.cpp; sourceTree = "<group>"; };
+		235831011AB446ED00CDA237 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogic.cpp; sourceTree = "<group>"; };
 		2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		2382BDD21AA8B0E8000CE3E5 /* Chat-cpp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Chat-cpp.xcodeproj"; sourceTree = "<group>"; };
@@ -1667,6 +1670,8 @@
 				235830E91AB4153D00CDA237 /* MainMenuScene.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
+				235831001AB446ED00CDA237 /* GameOverScene.cpp */,
+				235831011AB446ED00CDA237 /* GameOverScene.h */,
 				2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */,
 				2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */,
 				23EE2D511AB23EE4001A65DB /* ContactListener.cpp */,
@@ -3087,6 +3092,7 @@
 				15C0B58A196D412F007F909D /* LabelBMFontReader.cpp in Sources */,
 				15C0B54E196D412F007F909D /* CCActionManager.cpp in Sources */,
 				15A3DA341682F826002FB0C5 /* CCBReader.cpp in Sources */,
+				235831021AB446ED00CDA237 /* GameOverScene.cpp in Sources */,
 				15C0B574196D412F007F909D /* UITouchGroup.cpp in Sources */,
 				15A3DA351682F826002FB0C5 /* CCBSequence.cpp in Sources */,
 				15A3DA361682F826002FB0C5 /* CCBSequenceProperty.cpp in Sources */,

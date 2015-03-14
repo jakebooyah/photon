@@ -1,19 +1,19 @@
 //
-//  MainMenuScene.h
+//  GameOverScene.h
 //  photon
 //
 //  Created by Jake on 3/14/15.
 //
 //
 
-#ifndef __photon__MainMenuScene__
-#define __photon__MainMenuScene__
+#ifndef __photon__GameOverScene__
+#define __photon__GameOverScene__
 
 #include "cocos2d.h"
 
 using namespace cocos2d;
 
-class MainMenu : public CCLayer
+class GameOver : public CCLayer
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -23,11 +23,9 @@ public:
     static cocos2d::CCScene* scene();
     
     // implement the "static node()" method manually
-    CREATE_FUNC(MainMenu);
+    CREATE_FUNC(GameOver);
     
 private:
-    void startGame();
-    
+    void goToStart();
 };
-
-#endif /* defined(__photon__MainMenuScene__) */
+#endif /* defined(__photon__GameOverScene__) */

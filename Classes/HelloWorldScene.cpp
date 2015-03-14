@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "CCScale9Sprite.h"
+#include "GameOverScene.h"
 
 USING_NS_CC;
 
@@ -29,7 +30,6 @@ bool HelloWorld::init()
     }
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
     
     networkLogic = new NetworkLogic();
         
@@ -706,6 +706,12 @@ void HelloWorld::update(float delta)
         }
         body->SetActive(false);
         world->DestroyBody(body);
+    }
+    
+    if (score1 == 0 || score2 == 0)
+    {
+        CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
+        CCDirector::sharedDirector()->replaceScene(pScene);
     }
     
     world->ClearForces();
