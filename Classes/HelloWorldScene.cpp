@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "CCScale9Sprite.h"
 #include "GameOverScene.h"
+#include "MainMenuScene.h"
 
 USING_NS_CC;
 
@@ -370,22 +371,29 @@ void HelloWorld::update(float delta)
     
     switch (networkLogic->getState())
     {
-        case STATE_CONNECTED:
+        case STATE_ROOMFULL:
         {
-            CCDelayTime* delay = CCDelayTime::create(2);
-            CCCallFunc* removeLoading = CCCallFunc::create(this, callfunc_selector(HelloWorld::removeLoading));
-            CCSequence* seq = CCSequence::create(delay, removeLoading, NULL);
-            this->runAction(seq);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
+            CCDirector::sharedDirector()->replaceScene(pScene);
         }
+            break;
+        case STATE_CONNECTED:
         case STATE_LEFT:
-            if (networkLogic->isRoomExists())
             {
-                CCLOG("Join");
-                networkLogic->setLastInput(INPUT_2);
-            } else
-            {
-                CCLOG("Create");
-                networkLogic->setLastInput(INPUT_1);
+                if (networkLogic->isRoomExists())
+                {
+                    CCLOG("Join");
+                    networkLogic->setLastInput(INPUT_2);
+                    
+                } else
+                {
+                    CCLOG("Create");
+                    networkLogic->setLastInput(INPUT_1);
+                }
+                CCDelayTime* delay = CCDelayTime::create(2);
+                CCCallFunc* removeLoading = CCCallFunc::create(this, callfunc_selector(HelloWorld::removeLoading));
+                CCSequence* seq = CCSequence::create(delay, removeLoading, NULL);
+                this->runAction(seq);
             }
             break;
         case STATE_DISCONNECTED:
@@ -721,7 +729,6 @@ void HelloWorld::update(float delta)
 void HelloWorld::removeLoading()
 {
     loadingLayer->setVisible(false);
-    loadingLayer->removeAllChildrenWithCleanup(true);
     this->removeChild(loadingLayer, true);
 }
 

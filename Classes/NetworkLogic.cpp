@@ -391,6 +391,11 @@ void NetworkLogic::joinRandomRoomReturn(int localPlayerNr, const ExitGames::Comm
 	{
 		EGLOG(ExitGames::Common::DebugLevel::ERRORS, L"%ls", errorString.cstr());
 		mStateAccessor.setState(STATE_CONNECTED);
+        if (errorCode == 32760)
+        {
+            mStateAccessor.setState(STATE_ROOMFULL);
+
+        }
 		return;
 	}
 
