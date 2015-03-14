@@ -260,6 +260,15 @@
 		235830E51AB3752300CDA237 /* square_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E21AB3752300CDA237 /* square_shadow.png */; };
 		235830E61AB3752300CDA237 /* squareBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E31AB3752300CDA237 /* squareBlue.png */; };
 		235830E71AB3752300CDA237 /* squareGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E41AB3752300CDA237 /* squareGreen.png */; };
+		235830EA1AB4153E00CDA237 /* MainMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235830E81AB4153D00CDA237 /* MainMenuScene.cpp */; };
+		235830EF1AB41A6000CDA237 /* metalPanel_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830EE1AB41A6000CDA237 /* metalPanel_yellow.png */; };
+		235830F11AB41B2C00CDA237 /* metalPanel_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F01AB41B2C00CDA237 /* metalPanel_red.png */; };
+		235830F81AB4318700CDA237 /* meteorBrown_big1.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F21AB4318700CDA237 /* meteorBrown_big1.png */; };
+		235830F91AB4318700CDA237 /* meteorBrown_big3.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F31AB4318700CDA237 /* meteorBrown_big3.png */; };
+		235830FA1AB4318700CDA237 /* meteorBrown_med1.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F41AB4318700CDA237 /* meteorBrown_med1.png */; };
+		235830FB1AB4318700CDA237 /* meteorGrey_big2.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F51AB4318700CDA237 /* meteorGrey_big2.png */; };
+		235830FC1AB4318700CDA237 /* meteorGrey_big4.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F61AB4318700CDA237 /* meteorGrey_big4.png */; };
+		235830FD1AB4318700CDA237 /* meteorGrey_med2.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F71AB4318700CDA237 /* meteorGrey_med2.png */; };
 		2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */; };
 		2382BEB91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE81AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a */; };
 		2382BEBA1AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a */; };
@@ -883,6 +892,16 @@
 		235830E21AB3752300CDA237 /* square_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square_shadow.png; sourceTree = "<group>"; };
 		235830E31AB3752300CDA237 /* squareBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squareBlue.png; sourceTree = "<group>"; };
 		235830E41AB3752300CDA237 /* squareGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squareGreen.png; sourceTree = "<group>"; };
+		235830E81AB4153D00CDA237 /* MainMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuScene.cpp; sourceTree = "<group>"; };
+		235830E91AB4153D00CDA237 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
+		235830EE1AB41A6000CDA237 /* metalPanel_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metalPanel_yellow.png; sourceTree = "<group>"; };
+		235830F01AB41B2C00CDA237 /* metalPanel_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metalPanel_red.png; sourceTree = "<group>"; };
+		235830F21AB4318700CDA237 /* meteorBrown_big1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorBrown_big1.png; sourceTree = "<group>"; };
+		235830F31AB4318700CDA237 /* meteorBrown_big3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorBrown_big3.png; sourceTree = "<group>"; };
+		235830F41AB4318700CDA237 /* meteorBrown_med1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorBrown_med1.png; sourceTree = "<group>"; };
+		235830F51AB4318700CDA237 /* meteorGrey_big2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_big2.png; sourceTree = "<group>"; };
+		235830F61AB4318700CDA237 /* meteorGrey_big4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_big4.png; sourceTree = "<group>"; };
+		235830F71AB4318700CDA237 /* meteorGrey_med2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_med2.png; sourceTree = "<group>"; };
 		2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogic.cpp; sourceTree = "<group>"; };
 		2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		2382BDD21AA8B0E8000CE3E5 /* Chat-cpp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Chat-cpp.xcodeproj"; sourceTree = "<group>"; };
@@ -1642,6 +1661,8 @@
 			children = (
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
+				235830E81AB4153D00CDA237 /* MainMenuScene.cpp */,
+				235830E91AB4153D00CDA237 /* MainMenuScene.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
 				2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */,
@@ -2759,6 +2780,14 @@
 				235830E21AB3752300CDA237 /* square_shadow.png */,
 				235830E31AB3752300CDA237 /* squareBlue.png */,
 				235830E41AB3752300CDA237 /* squareGreen.png */,
+				235830EE1AB41A6000CDA237 /* metalPanel_yellow.png */,
+				235830F01AB41B2C00CDA237 /* metalPanel_red.png */,
+				235830F21AB4318700CDA237 /* meteorBrown_big1.png */,
+				235830F31AB4318700CDA237 /* meteorBrown_big3.png */,
+				235830F41AB4318700CDA237 /* meteorBrown_med1.png */,
+				235830F51AB4318700CDA237 /* meteorGrey_big2.png */,
+				235830F61AB4318700CDA237 /* meteorGrey_big4.png */,
+				235830F71AB4318700CDA237 /* meteorGrey_med2.png */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
 				D446FD6D16102124000ADA7B /* Default@2x.png */,
@@ -2878,10 +2907,13 @@
 			files = (
 				233BE9C41AAB40200059B892 /* bg.png in Resources */,
 				7855E0E1153FEF240059DD9A /* Default.png in Resources */,
+				235830F11AB41B2C00CDA237 /* metalPanel_red.png in Resources */,
 				23BFB8541AB0384400FADF7F /* boundary.png in Resources */,
+				235830FD1AB4318700CDA237 /* meteorGrey_med2.png in Resources */,
 				23EE2D5F1AB311A3001A65DB /* Kenvector Future.ttf in Resources */,
 				235830D31AB365D800CDA237 /* fireButton.png in Resources */,
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
+				235830EF1AB41A6000CDA237 /* metalPanel_yellow.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
 				235830D11AB3642400CDA237 /* playerShip2_damage3.png in Resources */,
 				235830DE1AB3678C00CDA237 /* turnLeft.png in Resources */,
@@ -2890,11 +2922,14 @@
 				235830DB1AB366F400CDA237 /* turnRightPressed.png in Resources */,
 				D4EF94A015BD2D9800D803EB /* Icon-144.png in Resources */,
 				230B04441AB07F55003E3756 /* playerShip2_green.png in Resources */,
+				235830FC1AB4318700CDA237 /* meteorGrey_big4.png in Resources */,
+				235830FB1AB4318700CDA237 /* meteorGrey_big2.png in Resources */,
 				23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */,
 				235830DF1AB3678C00CDA237 /* turnLeftPressed.png in Resources */,
 				235830E71AB3752300CDA237 /* squareGreen.png in Resources */,
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
 				235830D01AB3642400CDA237 /* playerShip2_damage2.png in Resources */,
+				235830F81AB4318700CDA237 /* meteorBrown_big1.png in Resources */,
 				23EE2D5B1AB2B47B001A65DB /* laserGreen14.png in Resources */,
 				235830E11AB374FC00CDA237 /* glassPanel.png in Resources */,
 				235830D91AB366E200CDA237 /* fireButtonPressed.png in Resources */,
@@ -2902,6 +2937,8 @@
 				232430D01AB01EE40063751D /* playerShip2_blue.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				15A3D9961682F7F9002FB0C5 /* CMakeLists.txt in Resources */,
+				235830FA1AB4318700CDA237 /* meteorBrown_med1.png in Resources */,
+				235830F91AB4318700CDA237 /* meteorBrown_big3.png in Resources */,
 				235830CF1AB3642400CDA237 /* playerShip2_damage1.png in Resources */,
 				235830E51AB3752300CDA237 /* square_shadow.png in Resources */,
 				235830D71AB365F000CDA237 /* turnRight.png in Resources */,
@@ -3125,6 +3162,7 @@
 				15A3DAEC1682F8A6002FB0C5 /* CDOpenALSupport.m in Sources */,
 				15A3DAED1682F8A6002FB0C5 /* CocosDenshion.m in Sources */,
 				15A3DAEE1682F8A6002FB0C5 /* SimpleAudioEngine.mm in Sources */,
+				235830EA1AB4153E00CDA237 /* MainMenuScene.cpp in Sources */,
 				15C0B554196D412F007F909D /* CCNodeReader.cpp in Sources */,
 				15C0B551196D412F007F909D /* CCActionTimeline.cpp in Sources */,
 				15A3DAEF1682F8A6002FB0C5 /* SimpleAudioEngine_objc.m in Sources */,
