@@ -44,6 +44,11 @@ bool MainMenu::init()
     background->setScale(1.5);
     this->addChild(background);
     
+    CCSprite *title = CCSprite::create("title.png");
+    title->setScale(2);
+    title->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2+180));
+    this->addChild(title);
+    
     cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("metalPanel_yellow.png");
     buttonS->setContentSize(CCSize(800, 200));
     
@@ -53,12 +58,12 @@ bool MainMenu::init()
     CCMenuItemSprite* startButton = CCMenuItemSprite::create(buttonS, buttonPressedS, this, menu_selector(MainMenu::startGame));
     CCMenu* menuStart = CCMenu::create(startButton, NULL);
     
-    menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-200));
+    menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-280));
     this->addChild(menuStart);
     
     CCLabelTTF* buttonLabel = CCLabelTTF::create("PLAY", "Kenvector Future.ttf", 60);
     buttonLabel->setColor(ccBLACK);
-    buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-210));
+    buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-290));
     this->addChild(buttonLabel);
     
     return true;

@@ -269,6 +269,7 @@
 		235830FB1AB4318700CDA237 /* meteorGrey_big2.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F51AB4318700CDA237 /* meteorGrey_big2.png */; };
 		235830FC1AB4318700CDA237 /* meteorGrey_big4.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F61AB4318700CDA237 /* meteorGrey_big4.png */; };
 		235830FD1AB4318700CDA237 /* meteorGrey_med2.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F71AB4318700CDA237 /* meteorGrey_med2.png */; };
+		235830FF1AB43ABA00CDA237 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830FE1AB43ABA00CDA237 /* title.png */; };
 		2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */; };
 		2382BEB91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE81AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a */; };
 		2382BEBA1AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a */; };
@@ -902,6 +903,7 @@
 		235830F51AB4318700CDA237 /* meteorGrey_big2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_big2.png; sourceTree = "<group>"; };
 		235830F61AB4318700CDA237 /* meteorGrey_big4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_big4.png; sourceTree = "<group>"; };
 		235830F71AB4318700CDA237 /* meteorGrey_med2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_med2.png; sourceTree = "<group>"; };
+		235830FE1AB43ABA00CDA237 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogic.cpp; sourceTree = "<group>"; };
 		2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		2382BDD21AA8B0E8000CE3E5 /* Chat-cpp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Chat-cpp.xcodeproj"; sourceTree = "<group>"; };
@@ -2759,6 +2761,7 @@
 			isa = PBXGroup;
 			children = (
 				23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */,
+				235830FE1AB43ABA00CDA237 /* title.png */,
 				233BE9C31AAB40200059B892 /* bg.png */,
 				23BFB8531AB0384400FADF7F /* boundary.png */,
 				23BFB8551AB03AE200FADF7F /* boundaryLR.png */,
@@ -2907,6 +2910,7 @@
 			files = (
 				233BE9C41AAB40200059B892 /* bg.png in Resources */,
 				7855E0E1153FEF240059DD9A /* Default.png in Resources */,
+				235830FF1AB43ABA00CDA237 /* title.png in Resources */,
 				235830F11AB41B2C00CDA237 /* metalPanel_red.png in Resources */,
 				23BFB8541AB0384400FADF7F /* boundary.png in Resources */,
 				235830FD1AB4318700CDA237 /* meteorGrey_med2.png in Resources */,
