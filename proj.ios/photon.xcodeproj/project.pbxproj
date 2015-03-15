@@ -278,6 +278,9 @@
 		235831121AB5C8FE00CDA237 /* sfx_shieldDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2358310C1AB5C8FE00CDA237 /* sfx_shieldDown.mp3 */; };
 		235831131AB5C8FE00CDA237 /* sfx_shieldUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2358310D1AB5C8FE00CDA237 /* sfx_shieldUp.mp3 */; };
 		235831141AB5C8FE00CDA237 /* sfx_twoTone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2358310E1AB5C8FE00CDA237 /* sfx_twoTone.mp3 */; };
+		235831181AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 235831151AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 */; };
+		235831191AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 235831161AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 */; };
+		2358311A1AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 235831171AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 */; };
 		2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */; };
 		2382BEB91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE81AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a */; };
 		2382BEBA1AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a */; };
@@ -921,6 +924,9 @@
 		2358310C1AB5C8FE00CDA237 /* sfx_shieldDown.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sfx_shieldDown.mp3; sourceTree = "<group>"; };
 		2358310D1AB5C8FE00CDA237 /* sfx_shieldUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sfx_shieldUp.mp3; sourceTree = "<group>"; };
 		2358310E1AB5C8FE00CDA237 /* sfx_twoTone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sfx_twoTone.mp3; sourceTree = "<group>"; };
+		235831151AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "C418 - Seven Years of Server Data - 01 Atempause.mp3"; sourceTree = "<group>"; };
+		235831161AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3"; sourceTree = "<group>"; };
+		235831171AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3"; sourceTree = "<group>"; };
 		2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogic.cpp; sourceTree = "<group>"; };
 		2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		2382BDD21AA8B0E8000CE3E5 /* Chat-cpp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Chat-cpp.xcodeproj"; sourceTree = "<group>"; };
@@ -2779,6 +2785,9 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				235831151AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 */,
+				235831161AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 */,
+				235831171AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 */,
 				235831071AB5C8CE00CDA237 /* sfx_zap.mp3 */,
 				235831091AB5C8FE00CDA237 /* sfx_laser1.mp3 */,
 				2358310A1AB5C8FE00CDA237 /* sfx_laser2.mp3 */,
@@ -2946,12 +2955,14 @@
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
 				235830EF1AB41A6000CDA237 /* metalPanel_yellow.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
+				235831191AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 in Resources */,
 				235830D11AB3642400CDA237 /* playerShip2_damage3.png in Resources */,
 				235831081AB5C8CE00CDA237 /* sfx_zap.mp3 in Resources */,
 				235830DE1AB3678C00CDA237 /* turnLeft.png in Resources */,
 				23AD03DE1AB2256F001E9929 /* laserBlue08.png in Resources */,
 				D4EF949E15BD2D9600D803EB /* Icon-72.png in Resources */,
 				235830DB1AB366F400CDA237 /* turnRightPressed.png in Resources */,
+				2358311A1AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 in Resources */,
 				D4EF94A015BD2D9800D803EB /* Icon-144.png in Resources */,
 				230B04441AB07F55003E3756 /* playerShip2_green.png in Resources */,
 				235830FC1AB4318700CDA237 /* meteorGrey_big4.png in Resources */,
@@ -2972,6 +2983,7 @@
 				232430D01AB01EE40063751D /* playerShip2_blue.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				15A3D9961682F7F9002FB0C5 /* CMakeLists.txt in Resources */,
+				235831181AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 in Resources */,
 				235830FA1AB4318700CDA237 /* meteorBrown_med1.png in Resources */,
 				235830F91AB4318700CDA237 /* meteorBrown_big3.png in Resources */,
 				235830CF1AB3642400CDA237 /* playerShip2_damage1.png in Resources */,

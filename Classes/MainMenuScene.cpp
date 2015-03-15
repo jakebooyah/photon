@@ -66,6 +66,8 @@ bool MainMenu::init()
     buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-290));
     this->addChild(buttonLabel);
     
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3", true);
+    
     return true;
 }
 

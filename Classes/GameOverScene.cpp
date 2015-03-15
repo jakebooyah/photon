@@ -65,6 +65,7 @@ bool GameOver::init()
     buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-110));
     this->addChild(buttonLabel);
 
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 01 Atempause.mp3", true);
     
     return true;
 }
