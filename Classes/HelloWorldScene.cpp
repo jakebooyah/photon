@@ -2,6 +2,7 @@
 #include "CCScale9Sprite.h"
 #include "GameOverScene.h"
 #include "MainMenuScene.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -718,6 +719,8 @@ void HelloWorld::update(float delta)
     
     if (score1 == 0 || score2 == 0)
     {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+        
         CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
         CCDirector::sharedDirector()->replaceScene(pScene);
     }
@@ -873,6 +876,8 @@ void HelloWorld::enableFireButton()
 
 void HelloWorld::someOneGotHit(int victim)
 {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+
     if (victim == 1)
     {
         if (score2 != 0)
@@ -964,6 +969,8 @@ void HelloWorld::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
     
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
+    
     if (networkLogic->playerNr)
     {
         this->shoot(networkLogic->playerNr);
@@ -983,6 +990,8 @@ void HelloWorld::fireButtonCall(CCObject *sender)
 void HelloWorld::turnButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");
+    
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_twoTone.mp3");
 
     if (networkLogic->playerNr)
     {

@@ -71,7 +71,7 @@ bool MainMenu::init()
 
 void MainMenu::startGame()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.ogg");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
 
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,HelloWorld::scene(), ccWHITE);
     CCDirector::sharedDirector()->replaceScene(pScene);

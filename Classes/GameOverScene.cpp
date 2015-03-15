@@ -9,6 +9,7 @@
 #include "GameOverScene.h"
 #include "CCScale9Sprite.h"
 #include "MainMenuScene.h"
+#include "SimpleAudioEngine.h"
 
 CCScene* GameOver::scene()
 {
@@ -70,6 +71,8 @@ bool GameOver::init()
 
 void GameOver::goToStart()
 {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
+
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
