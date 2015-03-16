@@ -980,6 +980,8 @@ void HelloWorld::fireButtonCall(CCObject *sender)
     
     if (networkLogic->playerNr)
     {
+        this->shoot(networkLogic->playerNr);
+
         CCLOG("Sending from %d", networkLogic->playerNr);
         
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
@@ -989,8 +991,6 @@ void HelloWorld::fireButtonCall(CCObject *sender)
         CCLOG("Bullet X: %f, Y:%f, Angle:%f", bulletBody->GetPosition().x, bulletBody->GetPosition().y, bulletBody->GetAngle());
         
         networkLogic->sendEvent(2, eventContent);
-        
-        this->shoot(networkLogic->playerNr);
     }
 }
 
@@ -1002,9 +1002,9 @@ void HelloWorld::turnButtonCall(CCObject *sender)
 
     if (networkLogic->playerNr)
     {
+        this->turn(networkLogic->playerNr);
+
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         networkLogic->sendEvent(4, eventContent);
-        
-        this->turn(networkLogic->playerNr);
     }
 }
