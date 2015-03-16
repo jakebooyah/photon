@@ -598,12 +598,12 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        someOneGotHit(2);
-
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 2);
                         
                         networkLogic->sendEvent(3, eventContent);
+                        
+                        someOneGotHit(2);
                     }
 
                 }
@@ -618,12 +618,13 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        someOneGotHit(2);
-                        
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 2);
                         
                         networkLogic->sendEvent(3, eventContent);
+                        
+                        someOneGotHit(2);
+
                     }
 
                 }
@@ -639,12 +640,13 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        someOneGotHit(1);
-                        
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 1);
                         
                         networkLogic->sendEvent(3, eventContent);
+                        
+                        someOneGotHit(1);
+
                     }
 
                 }
@@ -659,12 +661,13 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        someOneGotHit(1);
-                        
                         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                         eventContent->put<int, float>(1, 1);
                         
                         networkLogic->sendEvent(3, eventContent);
+                        
+                        someOneGotHit(1);
+
                     }
 
                 }
@@ -977,8 +980,6 @@ void HelloWorld::fireButtonCall(CCObject *sender)
     
     if (networkLogic->playerNr)
     {
-        this->shoot(networkLogic->playerNr);
-
         CCLOG("Sending from %d", networkLogic->playerNr);
         
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
@@ -988,6 +989,8 @@ void HelloWorld::fireButtonCall(CCObject *sender)
         CCLOG("Bullet X: %f, Y:%f, Angle:%f", bulletBody->GetPosition().x, bulletBody->GetPosition().y, bulletBody->GetAngle());
         
         networkLogic->sendEvent(2, eventContent);
+        
+        this->shoot(networkLogic->playerNr);
     }
 }
 
@@ -999,9 +1002,9 @@ void HelloWorld::turnButtonCall(CCObject *sender)
 
     if (networkLogic->playerNr)
     {
-        this->turn(networkLogic->playerNr);
-
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         networkLogic->sendEvent(4, eventContent);
+        
+        this->turn(networkLogic->playerNr);
     }
 }
