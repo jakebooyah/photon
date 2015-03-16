@@ -375,10 +375,12 @@ void HelloWorld::update(float delta)
     switch (networkLogic->getState())
     {
         case STATE_ROOMFULL:
-        {
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
-            CCDirector::sharedDirector()->replaceScene(pScene);
-        }
+            {
+                networkLogic->setLastInput(INPUT_EXIT);
+
+                CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
+                CCDirector::sharedDirector()->replaceScene(pScene);
+            }
             break;
         case STATE_CONNECTED:
         case STATE_LEFT:
