@@ -577,8 +577,7 @@ void HelloWorld::update(float delta)
     
     std::vector<b2Body *>toDestroy;
     std::vector<MyContact>::iterator pos;
-    for(pos = _contactListener->_contacts.begin();
-        pos != _contactListener->_contacts.end(); ++pos)
+    for(pos = _contactListener->_contacts.begin(); pos != _contactListener->_contacts.end(); ++pos)
     {
         MyContact contact = *pos;
         
@@ -724,7 +723,8 @@ void HelloWorld::update(float delta)
     if (score1 == 0 || score2 == 0)
     {
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
-        
+        networkLogic->setLastInput(INPUT_EXIT);
+
         CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
         CCDirector::sharedDirector()->replaceScene(pScene);
     }
