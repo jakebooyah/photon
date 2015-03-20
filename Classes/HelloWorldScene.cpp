@@ -639,12 +639,15 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-                        eventContent->put<int, float>(1, 2);
-                        
-                        networkLogic->sendEvent(3, eventContent);
-                        
-                        someOneGotHit(2);
+                        if (!ship2ShieldBool)
+                        {
+                            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                            eventContent->put<int, float>(1, 2);
+                            
+                            networkLogic->sendEvent(3, eventContent);
+                            
+                            someOneGotHit(2);
+                        }
                     }
 
                 }
@@ -659,13 +662,15 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-                        eventContent->put<int, float>(1, 2);
-                        
-                        networkLogic->sendEvent(3, eventContent);
-                        
-                        someOneGotHit(2);
-
+                        if (!ship2ShieldBool)
+                        {
+                            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                            eventContent->put<int, float>(1, 2);
+                            
+                            networkLogic->sendEvent(3, eventContent);
+                            
+                            someOneGotHit(2);
+                        }
                     }
 
                 }
@@ -681,13 +686,15 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-                        eventContent->put<int, float>(1, 1);
-                        
-                        networkLogic->sendEvent(3, eventContent);
-                        
-                        someOneGotHit(1);
-
+                        if (!ship1ShieldBool)
+                        {
+                            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                            eventContent->put<int, float>(1, 1);
+                            
+                            networkLogic->sendEvent(3, eventContent);
+                            
+                            someOneGotHit(1);
+                        }
                     }
 
                 }
@@ -702,13 +709,15 @@ void HelloWorld::update(float delta)
 
                     if (networkLogic->playerNr == 1)
                     {
-                        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-                        eventContent->put<int, float>(1, 1);
-                        
-                        networkLogic->sendEvent(3, eventContent);
-                        
-                        someOneGotHit(1);
-
+                        if (!ship1ShieldBool)
+                        {
+                            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                            eventContent->put<int, float>(1, 1);
+                            
+                            networkLogic->sendEvent(3, eventContent);
+                            
+                            someOneGotHit(1);
+                        }
                     }
 
                 }
@@ -787,8 +796,6 @@ void HelloWorld::removeLoading()
     loadingLayer->setVisible(false);
     this->removeChild(loadingLayer, true);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
-    toggleShield(1);
-    toggleShield(2);
 }
 
 void HelloWorld::sendPositions()
