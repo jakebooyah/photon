@@ -361,6 +361,35 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             
             break;
         }
+        //Players joined
+        case 7:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            int code = 7;
+            
+            std::vector<float> room;
+            room.push_back(playerNr);
+            room.push_back(code);
+            eventQueue.push(room);
+            
+            break;
+        }
+        //All Joined
+        case 8:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            int code = 8;
+            
+            std::vector<float> room;
+            room.push_back(playerNr);
+            room.push_back(code);
+            eventQueue.push(room);
+            
+            break;
+        }
+        
+        default:
+            break;
 
     }
 	EGLOG(ExitGames::Common::DebugLevel::ALL, L"");
@@ -438,8 +467,11 @@ void NetworkLogic::joinRandomRoomReturn(int localPlayerNr, const ExitGames::Comm
 	mLastJoinedRoom = mLoadBalancingClient.getCurrentlyJoinedRoom().getName();
 	mLastActorNr = localPlayerNr;
     playerNr = localPlayerNr;
+    
+    ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+    sendEvent(7, eventContent);
 
-	EGLOG(ExitGames::Common::DebugLevel::INFO, L"localPlayerNr: %d", localPlayerNr);	
+	EGLOG(ExitGames::Common::DebugLevel::INFO, L"localPlayerNr: %d", localPlayerNr);
 	mStateAccessor.setState(STATE_JOINED);
 }
 

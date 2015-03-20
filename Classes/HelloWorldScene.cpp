@@ -373,6 +373,10 @@ bool HelloWorld::init()
     score1 = 5;
     score2 = 5;
     
+    Player2Joined = false;
+    Player3Joined = false;
+    Player4Joined = false;
+
     scheduleUpdate();
         
     return true;
@@ -399,16 +403,12 @@ void HelloWorld::update(float delta)
                 {
                     CCLOG("Join");
                     networkLogic->setLastInput(INPUT_2);
-                    
-                } else
+                }
+                else
                 {
                     CCLOG("Create");
                     networkLogic->setLastInput(INPUT_1);
                 }
-                CCDelayTime* delay = CCDelayTime::create(2);
-                CCCallFunc* removeLoading = CCCallFunc::create(this, callfunc_selector(HelloWorld::removeLoading));
-                CCSequence* seq = CCSequence::create(delay, removeLoading, NULL);
-                this->runAction(seq);
             }
             break;
         case STATE_DISCONNECTED:
@@ -423,6 +423,21 @@ void HelloWorld::update(float delta)
             break;
     }
     
+    //if all player joined
+    if (Player2Joined /*&& Player3Joined && Player4Joined*/)
+    {
+        //if from Host
+        if (networkLogic->playerNr == 1)
+        {
+            if (this->loadingLayer->isVisible())
+            {
+                ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                networkLogic->sendEvent(8, eventContent);
+                removeLoading();
+            }
+        }
+    }
+    
     while (!networkLogic->eventQueue.empty())
     {
         std::vector<float> arr = networkLogic->eventQueue.front();
@@ -433,6 +448,7 @@ void HelloWorld::update(float delta)
 
         switch (code)
         {
+            //Update position
             case 1:
             {
                 float angle2 = arr.back();
@@ -484,7 +500,7 @@ void HelloWorld::update(float delta)
                 
                 break;
             }
-                
+            //Shooting
             case 2:
             {
                 float angle = arr.back();
@@ -516,7 +532,7 @@ void HelloWorld::update(float delta)
                 
                 break;
             }
-                
+            //Someone got hit
             case 3:
             {
                 int victim = arr.back();
@@ -531,7 +547,7 @@ void HelloWorld::update(float delta)
                 }
                 break;
             }
-                
+            //Turn
             case 4:
             {
                 int playerNr = arr.back();
@@ -539,7 +555,7 @@ void HelloWorld::update(float delta)
                 
                 this->turn(playerNr);
             }
-            
+            //Shield
             case 5:
             {
                 int ship = arr.back();
@@ -553,7 +569,7 @@ void HelloWorld::update(float delta)
                     this->toggleShield(ship);
                 }
             }
-            
+            //GameOver
             case 6:
             {
                 int score2 = arr.back();
@@ -568,6 +584,44 @@ void HelloWorld::update(float delta)
                 if (playerNr == 1)
                 {
                     this->gameOver();
+                }
+            }
+            //Player joined room
+            case 7:
+            {
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (networkLogic->playerNr == 1)
+                {
+                    if (playerNr == 2)
+                    {
+                        CCLOG("Player 2 joined");
+                        Player2Joined = true;
+                    }
+                    
+                    if (playerNr == 3)
+                    {
+                        CCLOG("Player 3 joined");
+                        Player3Joined = true;
+                    }
+                    
+                    if (playerNr == 4)
+                    {
+                        CCLOG("Player 4 joined");
+                        Player4Joined = true;
+                    }
+                }
+            }
+            //All player joined
+            case 8:
+            {
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    this->removeLoading();
                 }
             }
             

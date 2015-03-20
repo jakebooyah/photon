@@ -33,6 +33,10 @@ private:
     bool ship1ShieldBool;
     bool ship2ShieldBool;
     
+    bool Player2Joined;
+    bool Player3Joined;
+    bool Player4Joined;
+    
     void turn(int playerNr);
     void shoot(int playerNr);
     void someOneGotHit(int victim);
