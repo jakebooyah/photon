@@ -849,6 +849,8 @@ void HelloWorld::removeLoading()
 {
     loadingLayer->setVisible(false);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
+    toggleShield(1);
+    toggleShield(2);
 }
 
 void HelloWorld::sendPositions()
@@ -1074,6 +1076,8 @@ void HelloWorld::someOneGotHit(int victim)
 
 void HelloWorld::toggleShield(int ship)
 {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
+
     if (ship == 1)
     {
         ship1ShieldBool = true;
@@ -1110,6 +1114,7 @@ void HelloWorld::toggleShield(int ship)
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
     }
+    
 }
 
 void HelloWorld::disableShip1Shield()
@@ -1118,6 +1123,8 @@ void HelloWorld::disableShip1Shield()
     {
         ship1ShieldBool = false;
         ship1shield->setVisible(false);
+        
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
@@ -1127,6 +1134,8 @@ void HelloWorld::disableShip2Shield()
     {
         ship2ShieldBool = false;
         ship2shield->setVisible(false);
+        
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
