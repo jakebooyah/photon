@@ -794,7 +794,6 @@ void HelloWorld::update(float delta)
 void HelloWorld::removeLoading()
 {
     loadingLayer->setVisible(false);
-    this->removeChild(loadingLayer, true);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
 }
 
@@ -817,10 +816,9 @@ void HelloWorld::sendPositions()
 void HelloWorld::gameOver()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
-//    networkLogic->setLastInput(INPUT_EXIT);
-    
-//    CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
-//    CCDirector::sharedDirector()->replaceScene(pScene);
+        
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
+    CCDirector::sharedDirector()->replaceScene(pScene);
 }
 
 void HelloWorld::turn(int playerN)
