@@ -554,6 +554,23 @@ void HelloWorld::update(float delta)
                 }
             }
             
+            case 6:
+            {
+                int score2 = arr.back();
+                arr.pop_back();
+                
+                int score1 = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    this->gameOver();
+                }
+            }
+            
             default:
                 break;
         }
@@ -749,11 +766,16 @@ void HelloWorld::update(float delta)
     
     if (score1 == 0 || score2 == 0)
     {
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
-        networkLogic->setLastInput(INPUT_EXIT);
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, score1);
+            eventContent->put<int, float>(1, score2);
 
-        CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
-        CCDirector::sharedDirector()->replaceScene(pScene);
+            networkLogic->sendEvent(6, eventContent);
+            
+            gameOver();
+        }
     }
     
     world->ClearForces();
@@ -783,6 +805,15 @@ void HelloWorld::sendPositions()
         
         networkLogic->sendEvent(1, eventContent);
     }
+}
+
+void HelloWorld::gameOver()
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+//    networkLogic->setLastInput(INPUT_EXIT);
+    
+//    CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
+//    CCDirector::sharedDirector()->replaceScene(pScene);
 }
 
 void HelloWorld::turn(int playerN)

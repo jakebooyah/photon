@@ -46,6 +46,8 @@ private:
     void disableShip1Shield();
     void disableShip2Shield();
     
+    void gameOver();
+    
     void sendPositions();
     
     CCMenuItemSprite* fireButton;

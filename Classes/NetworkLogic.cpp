@@ -344,6 +344,23 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             
             break;
         }
+        //GameOver
+        case 6:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float score1 = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            float score2 = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            int code = 6;
+            
+            std::vector<float> gameOver;
+            gameOver.push_back(playerNr);
+            gameOver.push_back(score1);
+            gameOver.push_back(score2);
+            gameOver.push_back(code);
+            eventQueue.push(gameOver);
+            
+            break;
+        }
 
     }
 	EGLOG(ExitGames::Common::DebugLevel::ALL, L"");
