@@ -1,4 +1,4 @@
-APPNAME="photon"
+APPNAME="Photon"
 NDK_ROOT="/Users/jake/dev/android-ndk"
 
 # options

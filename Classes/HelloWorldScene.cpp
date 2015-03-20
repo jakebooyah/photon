@@ -38,6 +38,7 @@ bool HelloWorld::init()
     networkLogic = new NetworkLogic();
         
     b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
+
     world = new b2World(gravity);
     
     worldLayer = CCLayer::create();
@@ -424,7 +425,7 @@ void HelloWorld::update(float delta)
     }
     
     //if all player joined
-    if (Player2Joined /*&& Player3Joined && Player4Joined*/)
+    if (true /*Player2Joined && Player3Joined && Player4Joined*/)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
