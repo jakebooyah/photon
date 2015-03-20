@@ -256,6 +256,7 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
 
     switch (eventCode)
     {
+        //update position
         case 1:
         {
             event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
@@ -280,6 +281,7 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             
             break;
         }
+        //shoot
         case 2:
         {
             event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
@@ -298,6 +300,7 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             
             break;
         }
+        //someone got hit
         case 3:
         {
             event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
@@ -313,6 +316,7 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             break;
             
         }
+        //turn event
         case 4:
         {
             event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
@@ -322,6 +326,21 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             turn.push_back(playerNr);
             turn.push_back(code);
             eventQueue.push(turn);
+            
+            break;
+        }
+        //shield
+        case 5:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float ship = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            int code = 5;
+            
+            std::vector<float> shield;
+            shield.push_back(playerNr);
+            shield.push_back(ship);
+            shield.push_back(code);
+            eventQueue.push(shield);
             
             break;
         }

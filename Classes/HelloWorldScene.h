@@ -30,6 +30,9 @@ private:
     int score1;
     int score2;
     
+    bool ship1ShieldBool;
+    bool ship2ShieldBool;
+    
     void turn(int playerNr);
     void shoot(int playerNr);
     void someOneGotHit(int victim);
@@ -38,6 +41,10 @@ private:
     
     void disableFireButton();
     void enableFireButton();
+    
+    void toggleShield(int ship);
+    void disableShip1Shield();
+    void disableShip2Shield();
     
     void sendPositions();
     
@@ -69,6 +76,7 @@ private:
     CCSprite *ship1damage1;
     CCSprite *ship1damage2;
     CCSprite *ship1damage3;
+    CCSprite *ship1shield;
 
     b2Body *shipBody1;
     
@@ -76,11 +84,10 @@ private:
     CCSprite *ship2damage1;
     CCSprite *ship2damage2;
     CCSprite *ship2damage3;
-
+    CCSprite *ship2shield;
     
     b2Body *shipBody2;
     
-    CCSprite *bullet;
     b2Body *bulletBody;
     
     void fireButtonCall(CCObject *sender);

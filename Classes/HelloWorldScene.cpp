@@ -172,6 +172,11 @@ bool HelloWorld::init()
     ship1damage3->setVisible(false);
     ship1->addChild(ship1damage3);
     
+    ship1shield = CCSprite::create("shield1.png");
+    ship1shield->setPosition(CCPoint(56, 38));
+    ship1shield->setVisible(false);
+    ship1->addChild(ship1shield);
+    
     //body definition for ship 1
     b2BodyDef shipBodyDef1;
     shipBodyDef1.type= b2_dynamicBody;
@@ -205,6 +210,11 @@ bool HelloWorld::init()
     ship2damage3->setPosition(CCPoint(56, 38));
     ship2damage3->setVisible(false);
     ship2->addChild(ship2damage3);
+    
+    ship2shield = CCSprite::create("shield1.png");
+    ship2shield->setPosition(CCPoint(56, 38));
+    ship2shield->setVisible(false);
+    ship2->addChild(ship2shield);
     
     //body definition for ship 2
     b2BodyDef shipBodyDef;
@@ -493,7 +503,7 @@ void HelloWorld::update(float delta)
                 {
                     this->shoot(playerNr);
                     
-                    if (bulletBody->GetMass())
+                    if (bulletBody->GetUserData() != NULL)
                     {
                         b2Vec2 velocity = bulletBody->GetLinearVelocity();
                         int delay = networkLogic->getRoundTripTime()/100 / 2;
@@ -515,8 +525,10 @@ void HelloWorld::update(float delta)
                 int playerNr = arr.back();
                 arr.pop_back();
                 
-                this->someOneGotHit(victim);
-                
+                if (playerNr == 1)
+                {
+                    this->someOneGotHit(victim);
+                }
                 break;
             }
                 
@@ -527,7 +539,21 @@ void HelloWorld::update(float delta)
                 
                 this->turn(playerNr);
             }
+            
+            case 5:
+            {
+                int ship = arr.back();
+                arr.pop_back();
                 
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    this->toggleShield(ship);
+                }
+            }
+            
             default:
                 break;
         }
@@ -572,8 +598,6 @@ void HelloWorld::update(float delta)
         default:
             break;
     }
-    
-    
     
     std::vector<b2Body *>toDestroy;
     std::vector<MyContact>::iterator pos;
@@ -740,6 +764,9 @@ void HelloWorld::removeLoading()
 {
     loadingLayer->setVisible(false);
     this->removeChild(loadingLayer, true);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
+    toggleShield(1);
+    toggleShield(2);
 }
 
 void HelloWorld::sendPositions()
@@ -816,7 +843,7 @@ void HelloWorld::shoot(int playerN)
     if (playerN == 1 || playerN == 2)
     {
         //create bullet
-        bullet = CCSprite::create("laserBlue08.png");
+        CCSprite* bullet = CCSprite::create("laserBlue08.png");
         bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*5) *32,
                                     (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*5) *32));
         bullet->setScale(1);
@@ -841,7 +868,7 @@ void HelloWorld::shoot(int playerN)
     else if (playerN == 3 || playerN ==4)
     {
         //create bullet
-        bullet = CCSprite::create("laserGreen14.png");
+        CCSprite* bullet = CCSprite::create("laserGreen14.png");
         bullet->setPosition(CCPoint((shipBody2->GetPosition().x + cos(shipBody2->GetAngle()-4.7)*5) *32,
                                     (shipBody2->GetPosition().y + sin(shipBody2->GetAngle()-4.7)*5) *32));
         bullet->setScale(1);
@@ -955,6 +982,65 @@ void HelloWorld::someOneGotHit(int victim)
 
 }
 
+void HelloWorld::toggleShield(int ship)
+{
+    if (ship == 1)
+    {
+        ship1ShieldBool = true;
+        ship1shield->setVisible(true);
+        
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(5, eventContent);
+        }
+        
+        CCDelayTime* delay = CCDelayTime::create(7);
+        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1Shield));
+        CCSequence* seq = CCSequence::create(delay, offShield, NULL);
+        this->runAction(seq);
+    }
+    else if (ship == 2)
+    {
+        ship2ShieldBool = true;
+        ship2shield->setVisible(true);
+        
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(5, eventContent);
+        }
+        
+        CCDelayTime* delay = CCDelayTime::create(7);
+        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2Shield));
+        CCSequence* seq = CCSequence::create(delay, offShield, NULL);
+        this->runAction(seq);
+    }
+}
+
+void HelloWorld::disableShip1Shield()
+{
+    if (ship1ShieldBool)
+    {
+        ship1ShieldBool = false;
+        ship1shield->setVisible(false);
+    }
+}
+
+void HelloWorld::disableShip2Shield()
+{
+    if (ship2ShieldBool)
+    {
+        ship2ShieldBool = false;
+        ship2shield->setVisible(false);
+    }
+}
+
+
 void HelloWorld::setViewPointCenter(CCPoint position)
 {
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -999,7 +1085,7 @@ void HelloWorld::turnButtonCall(CCObject *sender)
     CCLOG("Turn Button");
     
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_twoTone.mp3");
-
+    
     if (networkLogic->playerNr)
     {
         this->turn(networkLogic->playerNr);

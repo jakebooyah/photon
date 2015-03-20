@@ -322,6 +322,7 @@
 		2382BEDE1AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB61AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a */; };
 		2382BEDF1AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB71AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a */; };
 		2382BEE01AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB81AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a */; };
+		23A54D9F1ABC3E2E00BD65F4 /* shield1.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A54D9E1ABC3E2E00BD65F4 /* shield1.png */; };
 		23AD03DE1AB2256F001E9929 /* laserBlue08.png in Resources */ = {isa = PBXBuildFile; fileRef = 23AD03DD1AB2256F001E9929 /* laserBlue08.png */; };
 		23BFB8541AB0384400FADF7F /* boundary.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8531AB0384400FADF7F /* boundary.png */; };
 		23BFB8561AB03AE200FADF7F /* boundaryLR.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BFB8551AB03AE200FADF7F /* boundaryLR.png */; };
@@ -1125,6 +1126,7 @@
 		2382BEB61AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_debug_iphonesimulator.a"; sourceTree = "<group>"; };
 		2382BEB71AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphoneos.a"; sourceTree = "<group>"; };
 		2382BEB81AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphonesimulator.a"; sourceTree = "<group>"; };
+		23A54D9E1ABC3E2E00BD65F4 /* shield1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield1.png; sourceTree = "<group>"; };
 		23AD03DD1AB2256F001E9929 /* laserBlue08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserBlue08.png; sourceTree = "<group>"; };
 		23BFB8531AB0384400FADF7F /* boundary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundary.png; sourceTree = "<group>"; };
 		23BFB8551AB03AE200FADF7F /* boundaryLR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boundaryLR.png; sourceTree = "<group>"; };
@@ -2800,6 +2802,7 @@
 				233BE9C31AAB40200059B892 /* bg.png */,
 				23BFB8531AB0384400FADF7F /* boundary.png */,
 				23BFB8551AB03AE200FADF7F /* boundaryLR.png */,
+				23A54D9E1ABC3E2E00BD65F4 /* shield1.png */,
 				232430CF1AB01EE40063751D /* playerShip2_blue.png */,
 				230B04431AB07F55003E3756 /* playerShip2_green.png */,
 				235830CC1AB3642400CDA237 /* playerShip2_damage1.png */,
@@ -2955,6 +2958,7 @@
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
 				235830EF1AB41A6000CDA237 /* metalPanel_yellow.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
+				23A54D9F1ABC3E2E00BD65F4 /* shield1.png in Resources */,
 				235831191AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 in Resources */,
 				235830D11AB3642400CDA237 /* playerShip2_damage3.png in Resources */,
 				235831081AB5C8CE00CDA237 /* sfx_zap.mp3 in Resources */,
