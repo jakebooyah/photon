@@ -851,6 +851,42 @@ void HelloWorld::update(float delta)
                 }
             }
             
+            
+            
+            // Sprite A = Bullet1, Sprite B = Planet
+            else if (spriteA->getTag() == 3 && spriteB->getTag() == 6)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            // Sprite A = Planet, Sprite B = Bullet1
+            else if (spriteA->getTag() == 6 && spriteB->getTag() == 3)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                }
+            }
+            
+            // Sprite A = Bullet2, Sprite B = Planet
+            else if (spriteA->getTag() == 4 && spriteB->getTag() == 6)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            // Sprite A = Planet, Sprite B = Bullet2
+            else if (spriteA->getTag() == 6 && spriteB->getTag() == 4)
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                }
+            }
+            
         }
     }
     
