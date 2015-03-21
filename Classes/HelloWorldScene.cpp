@@ -673,12 +673,11 @@ void HelloWorld::update(float delta)
         b2Vec2 distance = center - position;
         
         // The further away the objects are, the weaker the gravitational force is
-        float force = 5550 / distance.LengthSquared(); // 150 can be changed to adjust the amount of force
+        float force = 10000 / distance.LengthSquared(); // can be changed to adjust the amount of force
         distance.Normalize();
         
         b2Vec2 F = force * distance;
         // Finally apply a force on the body in the direction of the "Planet"
-//        body->ApplyForce(F, position);
         body->ApplyForceToCenter(F);
         
         if (body->GetUserData())
@@ -882,7 +881,6 @@ void HelloWorld::update(float delta)
         }
     }
     
-    world->ClearForces();
     world->DrawDebugData();
 }
 
