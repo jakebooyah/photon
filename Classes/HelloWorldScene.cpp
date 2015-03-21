@@ -850,8 +850,6 @@ void HelloWorld::removeLoading()
 {
     loadingLayer->setVisible(false);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
-    toggleShield(1);
-    toggleShield(2);
 }
 
 void HelloWorld::sendPositions()
