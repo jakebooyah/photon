@@ -723,8 +723,8 @@ void HelloWorld::update(float delta)
             CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
             CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
             
-            // Sprite A = Ship2, Sprite B = Bullet1
-            if (spriteA->getTag() == 2 && spriteB->getTag() == 3)
+            // Sprite A = Ship2, Sprite B = Bullet1 or Bullet2
+            if ((spriteA->getTag() == 2 && spriteB->getTag() == 3) || ((spriteA->getTag() == 2 && spriteB->getTag() == 4)))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
                 {
@@ -743,11 +743,10 @@ void HelloWorld::update(float delta)
                             someOneGotHit(2);
                         }
                     }
-
                 }
             }
-            // Sprite A = Bullet1, Sprite B = Ship2
-            else if (spriteA->getTag() == 3 && spriteB->getTag() == 2)
+            // Sprite A = Bullet1 or Bullet2, Sprite B = Ship2
+            else if ((spriteA->getTag() == 3 && spriteB->getTag() == 2) || (spriteA->getTag() == 4 && spriteB->getTag() == 2))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
@@ -766,12 +765,11 @@ void HelloWorld::update(float delta)
                             someOneGotHit(2);
                         }
                     }
-
                 }
             }
             
-            // Sprite A = Ship1, Sprite B = Bullet2
-            if (spriteA->getTag() == 1 && spriteB->getTag() == 4)
+            // Sprite A = Ship1, Sprite B = Bullet2 or Bullet1
+            if ((spriteA->getTag() == 1 && spriteB->getTag() == 4) || (spriteA->getTag() == 1 && spriteB->getTag() == 3))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
                 {
@@ -790,11 +788,10 @@ void HelloWorld::update(float delta)
                             someOneGotHit(1);
                         }
                     }
-
                 }
             }
-            // Sprite A = Bullet2, Sprite B = Ship1
-            else if (spriteA->getTag() == 4 && spriteB->getTag() == 1)
+            // Sprite A = Bullet2 or Bullet1, Sprite B = Ship1
+            else if ((spriteA->getTag() == 4 && spriteB->getTag() == 1) || (spriteA->getTag() == 3 && spriteB->getTag() == 1))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
@@ -813,37 +810,19 @@ void HelloWorld::update(float delta)
                             someOneGotHit(1);
                         }
                     }
-
                 }
             }
             
-            // Sprite A = Bullet1, Sprite B = Wall
-            else if (spriteA->getTag() == 3 && spriteB->getTag() == 5)
+            // Sprite A = Bullet1 or Bullet2, Sprite B = Wall
+            else if ((spriteA->getTag() == 3 && spriteB->getTag() == 5) || (spriteA->getTag() == 4 && spriteB->getTag() == 5))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyA);
                 }
             }
-            // Sprite A = Wall, Sprite B = Bullet1
-            else if (spriteA->getTag() == 5 && spriteB->getTag() == 3)
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyB);
-                }
-            }
-            
-            // Sprite A = Bullet2, Sprite B = Wall
-            else if (spriteA->getTag() == 4 && spriteB->getTag() == 5)
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyA);
-                }
-            }
-            // Sprite A = Wall, Sprite B = Bullet2
-            else if (spriteA->getTag() == 5 && spriteB->getTag() == 4)
+            // Sprite A = Wall, Sprite B = Bullet1 or Bullet2
+            else if ((spriteA->getTag() == 5 && spriteB->getTag() == 3) || (spriteA->getTag() == 5 && spriteB->getTag() == 4))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
@@ -852,41 +831,22 @@ void HelloWorld::update(float delta)
             }
             
             
-            
-            // Sprite A = Bullet1, Sprite B = Planet
-            else if (spriteA->getTag() == 3 && spriteB->getTag() == 6)
+            // Sprite A = Bullet1 or Bullet2, Sprite B = Planet
+            else if ((spriteA->getTag() == 3 && spriteB->getTag() == 6) || (spriteA->getTag() == 4 && spriteB->getTag() == 6))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyA);
                 }
             }
-            // Sprite A = Planet, Sprite B = Bullet1
-            else if (spriteA->getTag() == 6 && spriteB->getTag() == 3)
+            // Sprite A = Planet, Sprite B = Bullet1 or Bullet2
+            else if ((spriteA->getTag() == 6 && spriteB->getTag() == 3) || (spriteA->getTag() == 6 && spriteB->getTag() == 4))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
                     toDestroy.push_back(bodyB);
                 }
             }
-            
-            // Sprite A = Bullet2, Sprite B = Planet
-            else if (spriteA->getTag() == 4 && spriteB->getTag() == 6)
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyA);
-                }
-            }
-            // Sprite A = Planet, Sprite B = Bullet2
-            else if (spriteA->getTag() == 6 && spriteB->getTag() == 4)
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyB);
-                }
-            }
-            
         }
     }
     
