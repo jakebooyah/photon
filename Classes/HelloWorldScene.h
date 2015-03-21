@@ -94,6 +94,9 @@ private:
     
     b2Body *shipBody2;
     
+    CCSprite *planet;
+    b2Body *planetBody;
+    
     b2Body *bulletBody;
     
     void fireButtonCall(CCObject *sender);

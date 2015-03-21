@@ -101,8 +101,6 @@ bool HelloWorld::init()
     b2Body* wallUBody = world->CreateBody(&wallUBodyDef);
     wallUBody->CreateFixture(&wallUDFixtureDef);
     wallUBody->SetGravityScale(10);
-    
-    
 
     //body definition for wallGround
     b2BodyDef wallDBodyDef;
@@ -114,8 +112,6 @@ bool HelloWorld::init()
     wallDBody->CreateFixture(&wallUDFixtureDef);
     wallDBody->SetGravityScale(10);
     
-    
-    
     //body definition for wallLeft
     b2BodyDef wallLBodyDef;
     wallLBodyDef.type= b2_staticBody;
@@ -125,8 +121,6 @@ bool HelloWorld::init()
     b2Body* wallLBody = world->CreateBody(&wallLBodyDef);
     wallLBody->CreateFixture(&wallLRFixtureDef);
     wallLBody->SetGravityScale(10);
-
-    
     
     //body definition for wallRight
     b2BodyDef wallRBodyDef;
@@ -139,6 +133,38 @@ bool HelloWorld::init()
     wallRBody->SetGravityScale(10);
     
     
+    
+    //planet shape definition
+    b2CircleShape planetShape;
+    planetShape.m_p.Set(0, 0);
+    planetShape.m_radius = 430/32;
+    
+    //planet fixture definition
+    b2FixtureDef planetFixture;
+    planetFixture.density=10;
+    planetFixture.friction=0;
+    planetFixture.restitution=0;
+    planetFixture.shape=&planetShape;
+    
+    //create planet
+    planet = CCSprite::create("planet.png");
+    planet->setPosition(CCPoint(1536, 1536));
+    planet->setScale(2);
+    planet->setTag(6);
+    worldLayer->addChild(planet);
+    
+    //body definition for planet
+    b2BodyDef planetBodyDef;
+    planetBodyDef.type= b2_staticBody;
+    planetBodyDef.userData=planet;
+    planetBodyDef.position.Set(planet->getPosition().x/32,planet->getPosition().y/32);
+    
+    planetBody = world->CreateBody(&planetBodyDef);
+    planetBody->CreateFixture(&planetFixture);
+    planetBody->SetGravityScale(10);
+    
+    
+    
     //ship shape definition
     b2CircleShape shipShape;
     shipShape.m_p.Set(0, 0);
@@ -146,7 +172,7 @@ bool HelloWorld::init()
     
     //ship fixture definition
     b2FixtureDef shipFixture;
-    shipFixture.density=10;
+    shipFixture.density=1;
     shipFixture.friction=0;
     shipFixture.restitution=0;
     shipFixture.shape=&shipShape;
@@ -186,7 +212,6 @@ bool HelloWorld::init()
     
     shipBody1 = world->CreateBody(&shipBodyDef1);
     shipBody1->CreateFixture(&shipFixture);
-    shipBody1->SetGravityScale(10);
     shipBody1->SetAngularDamping(0);
     shipBody1->SetTransform(shipBody1->GetPosition(), CC_DEGREES_TO_RADIANS(-45));
     
@@ -225,7 +250,6 @@ bool HelloWorld::init()
     
     shipBody2 = world->CreateBody(&shipBodyDef);
     shipBody2->CreateFixture(&shipFixture);
-    shipBody2->SetGravityScale(10);
     shipBody2->SetAngularDamping(0);
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
     
@@ -641,6 +665,22 @@ void HelloWorld::update(float delta)
     
     for (b2Body *body = world->GetBodyList(); body != NULL; body = body->GetNext())
     {
+        b2Vec2 center = planetBody->GetPosition();
+        
+        b2Vec2 position = body->GetPosition();
+
+        // Get the distance between the two objects.
+        b2Vec2 distance = center - position;
+        
+        // The further away the objects are, the weaker the gravitational force is
+        float force = 5550 / distance.LengthSquared(); // 150 can be changed to adjust the amount of force
+        distance.Normalize();
+        
+        b2Vec2 F = force * distance;
+        // Finally apply a force on the body in the direction of the "Planet"
+//        body->ApplyForce(F, position);
+        body->ApplyForceToCenter(F);
+        
         if (body->GetUserData())
         {
             CCSprite *sprite = (CCSprite *) body->GetUserData();
@@ -974,7 +1014,6 @@ void HelloWorld::shoot(int playerN)
         
         bulletBody = world->CreateBody(&bulletBodyDef);
         bulletBody->CreateFixture(&bulletFixture);
-        bulletBody->SetGravityScale(1);
         bulletBody->IsBullet();
         
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 30) , (sin(shipBody2->GetAngle()-4.7) * 30));
