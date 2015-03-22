@@ -402,7 +402,21 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             
             break;
         }
-        
+        //Double Damage
+        case 10:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float ship = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            int code = 10;
+            
+            std::vector<float> doubleD;
+            doubleD.push_back(playerNr);
+            doubleD.push_back(ship);
+            doubleD.push_back(code);
+            eventQueue.push(doubleD);
+            
+            break;
+        }
         default:
             break;
 

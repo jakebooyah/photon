@@ -404,13 +404,18 @@ bool HelloWorld::init()
     CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
     this->runAction(seqLoop);
 
-    
     score1 = 5;
     score2 = 5;
     
     Player2Joined = false;
     Player3Joined = false;
     Player4Joined = false;
+    
+    ship1ShieldBool = false;
+    ship2ShieldBool = false;
+    
+    ship1DoubleDamageBool = false;
+    ship2DoubleDamageBool = false;
 
     scheduleUpdate();
         
@@ -673,6 +678,21 @@ void HelloWorld::update(float delta)
                     this->toggleHPUp(ship);
                 }
             }
+            //DoubleDamage
+            case 10:
+            {
+                int ship = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    this->toggleDoubleDamage(ship);
+                }
+            }
+            
             
             default:
                 break;
@@ -705,6 +725,17 @@ void HelloWorld::update(float delta)
                 toggleHPUp(1);
             }
         }
+        
+        //Double Damage Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 3)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleDoubleDamage(1);
+            }
+        }
     }
     
     //Rune Ship2
@@ -729,6 +760,17 @@ void HelloWorld::update(float delta)
             if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(2);
+            }
+        }
+        
+        //Double Damage Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 3)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleDoubleDamage(2);
             }
         }
     }
@@ -1225,6 +1267,28 @@ void HelloWorld::toggleShield(int ship)
     
 }
 
+void HelloWorld::disableShip1Shield()
+{
+    if (ship1ShieldBool)
+    {
+        ship1ShieldBool = false;
+        ship1shield->setVisible(false);
+        
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
+    }
+}
+
+void HelloWorld::disableShip2Shield()
+{
+    if (ship2ShieldBool)
+    {
+        ship2ShieldBool = false;
+        ship2shield->setVisible(false);
+        
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
+    }
+}
+
 void HelloWorld::toggleHPUp(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
@@ -1304,28 +1368,64 @@ void HelloWorld::toggleHPUp(int ship)
     
 }
 
-void HelloWorld::disableShip1Shield()
+void HelloWorld::toggleDoubleDamage(int ship)
 {
-    if (ship1ShieldBool)
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
+    
+    if (ship == 1)
     {
-        ship1ShieldBool = false;
-        ship1shield->setVisible(false);
+        ship1DoubleDamageBool = true;
         
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(10, eventContent);
+        }
+        
+        CCDelayTime* delay = CCDelayTime::create(7);
+        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1DoubleDamage));
+        CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
+        this->runAction(seq);
+    }
+    else if (ship == 2)
+    {
+        ship2DoubleDamageBool = true;
+        
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(10, eventContent);
+        }
+        
+        CCDelayTime* delay = CCDelayTime::create(7);
+        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2DoubleDamage));
+        CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
+        this->runAction(seq);
+    }
+    
+}
+
+void HelloWorld::disableShip1DoubleDamage()
+{
+    if (ship1DoubleDamageBool)
+    {
+        ship1DoubleDamageBool = false;
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
-void HelloWorld::disableShip2Shield()
+void HelloWorld::disableShip2DoubleDamage()
 {
-    if (ship2ShieldBool)
+    if (ship2DoubleDamageBool)
     {
-        ship2ShieldBool = false;
-        ship2shield->setVisible(false);
-        
+        ship2DoubleDamageBool = false;
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
-
 
 void HelloWorld::setViewPointCenter(CCPoint position)
 {

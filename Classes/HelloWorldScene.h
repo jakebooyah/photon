@@ -30,9 +30,6 @@ private:
     int score1;
     int score2;
     
-    bool ship1ShieldBool;
-    bool ship2ShieldBool;
-    
     bool Player2Joined;
     bool Player3Joined;
     bool Player4Joined;
@@ -48,9 +45,19 @@ private:
     
     void toggleHPUp(int ship);
     
+    bool ship1ShieldBool;
+    bool ship2ShieldBool;
+    
     void toggleShield(int ship);
     void disableShip1Shield();
     void disableShip2Shield();
+    
+    bool ship1DoubleDamageBool;
+    bool ship2DoubleDamageBool;
+    
+    void toggleDoubleDamage(int ship);
+    void disableShip1DoubleDamage();
+    void disableShip2DoubleDamage();
     
     void gameOver();
     
