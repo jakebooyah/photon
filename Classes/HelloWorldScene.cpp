@@ -754,39 +754,43 @@ void HelloWorld::update(float delta)
             if (networkLogic->playerNr == 1)
             {
                 toggleShield(1);
+                initSpawnRunesCountDown();
             }
         }
         
         //HPup Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(1);
+                initSpawnRunesCountDown();
             }
         }
         
         //Double Damage Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(1);
+                initSpawnRunesCountDown();
             }
         }
         
         //Invert Role Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(1);
+                initSpawnRunesCountDown();
             }
         }
     }
@@ -802,39 +806,43 @@ void HelloWorld::update(float delta)
             if (networkLogic->playerNr == 1)
             {
                 toggleShield(2);
+                initSpawnRunesCountDown();
             }
         }
         
         //HPup Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(2);
+                initSpawnRunesCountDown();
             }
         }
         
         //Double Damage Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(2);
+                initSpawnRunesCountDown();
             }
         }
         
         //Invert Role Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(2);
+                initSpawnRunesCountDown();
             }
         }
     }
@@ -850,39 +858,43 @@ void HelloWorld::update(float delta)
             if (networkLogic->playerNr == 1)
             {
                 toggleShield(1);
+                initSpawnRunesCountDown();
             }
         }
         
         //HPup Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(1);
+                initSpawnRunesCountDown();
             }
         }
         
         //Double Damage Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(1);
+                initSpawnRunesCountDown();
             }
         }
         
         //Invert Role Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(1);
+                initSpawnRunesCountDown();
             }
         }
     }
@@ -898,39 +910,43 @@ void HelloWorld::update(float delta)
             if (networkLogic->playerNr == 1)
             {
                 toggleShield(2);
+                initSpawnRunesCountDown();
             }
         }
         
         //HPup Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(2);
+                initSpawnRunesCountDown();
             }
         }
         
         //Double Damage Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(2);
+                initSpawnRunesCountDown();
             }
         }
         
         //Invert Role Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(2);
+                initSpawnRunesCountDown();
             }
         }
     }
@@ -1718,6 +1734,14 @@ void HelloWorld::disableShip2InvertRole()
         ship2InvertRoleBool = false;
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
+}
+
+void HelloWorld::initSpawnRunesCountDown()
+{
+    CCDelayTime* delay = CCDelayTime::create(30);
+    CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(HelloWorld::spawnRunes));
+    CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
+    this->runAction(seq);
 }
 
 void HelloWorld::spawnRunes()
