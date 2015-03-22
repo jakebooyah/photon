@@ -853,6 +853,16 @@ void HelloWorld::update(float delta)
                     {
                         if (!ship2ShieldBool)
                         {
+                            if (ship2DoubleDamageBool)
+                            {
+                                ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                                eventContent->put<int, float>(1, 2);
+                                
+                                networkLogic->sendEvent(3, eventContent);
+                                
+                                someOneGotHit(2);
+                            }
+                            
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 2);
                             
@@ -875,6 +885,16 @@ void HelloWorld::update(float delta)
                     {
                         if (!ship2ShieldBool)
                         {
+                            if (ship2DoubleDamageBool)
+                            {
+                                ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                                eventContent->put<int, float>(1, 2);
+                                
+                                networkLogic->sendEvent(3, eventContent);
+                                
+                                someOneGotHit(2);
+                            }
+                            
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 2);
                             
@@ -898,6 +918,16 @@ void HelloWorld::update(float delta)
                     {
                         if (!ship1ShieldBool)
                         {
+                            if (ship1DoubleDamageBool)
+                            {
+                                ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                                eventContent->put<int, float>(1, 1);
+                                
+                                networkLogic->sendEvent(3, eventContent);
+                                
+                                someOneGotHit(1);
+                            }
+                            
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 1);
                             
@@ -920,6 +950,16 @@ void HelloWorld::update(float delta)
                     {
                         if (!ship1ShieldBool)
                         {
+                            if (ship1DoubleDamageBool)
+                            {
+                                ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                                eventContent->put<int, float>(1, 1);
+                                
+                                networkLogic->sendEvent(3, eventContent);
+                                
+                                someOneGotHit(1);
+                            }
+                            
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 1);
                             
