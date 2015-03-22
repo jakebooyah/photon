@@ -62,6 +62,9 @@ private:
     
     ContactListener *_contactListener;
     
+    CCTMXTiledMap *tilemap;
+    CCTMXLayer *tileMapLayer;
+    
     CCLayer *worldLayer;
     CCLayer *hudLayer;
     CCLayer *loadingLayer;

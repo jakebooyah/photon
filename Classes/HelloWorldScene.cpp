@@ -172,7 +172,7 @@ bool HelloWorld::init()
     
     //ship fixture definition
     b2FixtureDef shipFixture;
-    shipFixture.density=1;
+    shipFixture.density=100;
     shipFixture.friction=0;
     shipFixture.restitution=0;
     shipFixture.shape=&shipShape;
@@ -254,8 +254,15 @@ bool HelloWorld::init()
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
     
     
+    //PowerUP tilemap
+    tilemap = CCTMXTiledMap::create("powerUpTileM.tmx");
+    tileMapLayer = tilemap->layerNamed("baseLayer");
+    tilemap->setAnchorPoint(CCPoint(0.5, 0.5));
+    tilemap->setScale(2);
+    tilemap->setPosition(CCPoint(2584, 512));
+    worldLayer->addChild(tilemap);
     
-    
+    tileMapLayer->setTileGID(5, CCPoint(0, 0));
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
@@ -658,6 +665,12 @@ void HelloWorld::update(float delta)
         }
         
 
+    }
+    
+    if (ship1->boundingBox().intersectsRect(tilemap->boundingBox()))
+    {
+        tileMapLayer->setTileGID(1, CCPoint(0, 0));
+        toggleShield(1);
     }
     
     int positionIterations = 10;
