@@ -3,6 +3,7 @@
 #include "GameOverScene.h"
 #include "MainMenuScene.h"
 #include "SimpleAudioEngine.h"
+#include <cstdlib>
 
 USING_NS_CC;
 
@@ -269,8 +270,6 @@ bool HelloWorld::init()
     tilemapSpawn2->setPosition(CCPoint(2584, 512));
     worldLayer->addChild(tilemapSpawn2);
     
-    tileMapSpawn1Layer->setTileGID(6, CCPoint(0, 0));
-    
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
     worldLayer->setPosition(viewPoint);
@@ -426,7 +425,7 @@ bool HelloWorld::init()
     
     ship1InvertRoleBool = false;
     ship2InvertRoleBool = false;
-
+    
     scheduleUpdate();
         
     return true;
@@ -484,6 +483,8 @@ void HelloWorld::update(float delta)
                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                 networkLogic->sendEvent(8, eventContent);
                 removeLoading();
+                
+                spawnRunes();
             }
         }
     }
@@ -714,6 +715,24 @@ void HelloWorld::update(float delta)
                 if (playerNr == 1)
                 {
                     this->toggleInvertRole(ship);
+                }
+            }
+            //Spawn Rune
+            case 12:
+            {
+                int rune2 = arr.back();
+                arr.pop_back();
+                
+                int rune1 = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    tileMapSpawn2Layer->setTileGID(rune2, CCPoint(0, 0));
+                    tileMapSpawn1Layer->setTileGID(rune1, CCPoint(0, 0));
                 }
             }
             
@@ -1169,7 +1188,7 @@ void HelloWorld::update(float delta)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, score1);
-            eventContent->put<int, float>(1, score2);
+            eventContent->put<int, float>(2, score2);
 
             networkLogic->sendEvent(6, eventContent);
             
@@ -1698,6 +1717,29 @@ void HelloWorld::disableShip2InvertRole()
     {
         ship2InvertRoleBool = false;
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
+    }
+}
+
+void HelloWorld::spawnRunes()
+{
+    CCLOG("spawning runes");
+    if (networkLogic->playerNr == 1)
+    {
+        int random1 = rand() % 4 + 3;
+        // random in the range 3 to 6
+        
+        tileMapSpawn1Layer->setTileGID(random1, CCPoint(0, 0));
+        
+        int random2 = rand() % 4 + 3;
+        // random in the range 3 to 6
+        
+        tileMapSpawn2Layer->setTileGID(random2, CCPoint(0, 0));
+        
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, random1);
+        eventContent->put<int, float>(2, random2);
+        
+        networkLogic->sendEvent(12, eventContent);
     }
 }
 

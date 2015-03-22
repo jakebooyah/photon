@@ -349,7 +349,7 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
         {
             event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
             float score1 = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
-            float score2 = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            float score2 = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
             int code = 6;
             
             std::vector<float> gameOver;
@@ -429,6 +429,23 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             invertR.push_back(ship);
             invertR.push_back(code);
             eventQueue.push(invertR);
+            
+            break;
+        }
+        //Spawn Rune
+        case 12:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float rune1 = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            float rune2 = ExitGames::Common::ValueObject<float>(event->getValue(2)).getDataCopy();
+            int code = 12;
+            
+            std::vector<float> rune;
+            rune.push_back(playerNr);
+            rune.push_back(rune1);
+            rune.push_back(rune2);
+            rune.push_back(code);
+            eventQueue.push(rune);
             
             break;
         }

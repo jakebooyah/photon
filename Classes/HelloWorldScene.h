@@ -43,6 +43,8 @@ private:
     void disableFireButton();
     void enableFireButton();
     
+    void spawnRunes();
+    
     void toggleHPUp(int ship);
     
     bool ship1ShieldBool;
