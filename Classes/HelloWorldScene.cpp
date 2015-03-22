@@ -262,7 +262,7 @@ bool HelloWorld::init()
     tilemap->setPosition(CCPoint(2584, 512));
     worldLayer->addChild(tilemap);
     
-    tileMapLayer->setTileGID(4, CCPoint(0, 0));
+    tileMapLayer->setTileGID(6, CCPoint(0, 0));
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
@@ -416,6 +416,9 @@ bool HelloWorld::init()
     
     ship1DoubleDamageBool = false;
     ship2DoubleDamageBool = false;
+    
+    ship1InvertRoleBool = false;
+    ship2InvertRoleBool = false;
 
     scheduleUpdate();
         
@@ -692,7 +695,20 @@ void HelloWorld::update(float delta)
                     this->toggleDoubleDamage(ship);
                 }
             }
-            
+            //Invert Role
+            case 11:
+            {
+                int ship = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    this->toggleInvertRole(ship);
+                }
+            }
             
             default:
                 break;
@@ -736,6 +752,17 @@ void HelloWorld::update(float delta)
                 toggleDoubleDamage(1);
             }
         }
+        
+        //Invert Role Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 6)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleInvertRole(1);
+            }
+        }
     }
     
     //Rune Ship2
@@ -771,6 +798,17 @@ void HelloWorld::update(float delta)
             if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(2);
+            }
+        }
+        
+        //Invert Role Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 6)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleInvertRole(2);
             }
         }
     }
@@ -1077,7 +1115,15 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
-        shipBody1->SetAngularVelocity(0.5);
+        
+        if (!ship1InvertRoleBool)
+        {
+            shipBody1->SetAngularVelocity(-0.5);
+        }
+        else
+        {
+            shipBody1->SetAngularVelocity(0.5);
+        }
     }
     else if (playerN == 2)
     {
@@ -1086,7 +1132,15 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
         shipBody1->SetLinearVelocity(force);
-        shipBody1->SetAngularVelocity(-0.5);
+        
+        if (!ship1InvertRoleBool)
+        {
+            shipBody1->SetAngularVelocity(0.5);
+        }
+        else
+        {
+            shipBody1->SetAngularVelocity(-0.5);
+        }
     }
     else if (playerN == 3)
     {
@@ -1095,7 +1149,15 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
-        shipBody2->SetAngularVelocity(0.5);
+        
+        if (!ship2InvertRoleBool)
+        {
+            shipBody2->SetAngularVelocity(-0.5);
+        }
+        else
+        {
+            shipBody2->SetAngularVelocity(0.5);
+        }
     }
     else if (playerN == 4)
     {
@@ -1104,7 +1166,15 @@ void HelloWorld::turn(int playerN)
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
         shipBody2->SetLinearVelocity(force);
-        shipBody2->SetAngularVelocity(-0.5);
+        
+        if (!ship2InvertRoleBool)
+        {
+            shipBody2->SetAngularVelocity(0.5);
+        }
+        else
+        {
+            shipBody2->SetAngularVelocity(-0.5);
+        }
     }
 }
 
@@ -1408,6 +1478,7 @@ void HelloWorld::toggleHPUp(int ship)
     
 }
 
+//to do: make visual effect
 void HelloWorld::toggleDoubleDamage(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
@@ -1463,6 +1534,65 @@ void HelloWorld::disableShip2DoubleDamage()
     if (ship2DoubleDamageBool)
     {
         ship2DoubleDamageBool = false;
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
+    }
+}
+
+void HelloWorld::toggleInvertRole(int ship)
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
+    
+    if (ship == 1)
+    {
+        ship1InvertRoleBool = true;
+        
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(11, eventContent);
+        }
+        
+        CCDelayTime* delay = CCDelayTime::create(7);
+        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1InvertRole));
+        CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
+        this->runAction(seq);
+    }
+    else if (ship == 2)
+    {
+        ship2InvertRoleBool = true;
+        
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(11, eventContent);
+        }
+        
+        CCDelayTime* delay = CCDelayTime::create(7);
+        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2InvertRole));
+        CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
+        this->runAction(seq);
+    }
+    
+}
+
+void HelloWorld::disableShip1InvertRole()
+{
+    if (ship1InvertRoleBool)
+    {
+        ship1InvertRoleBool = false;
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
+    }
+}
+
+void HelloWorld::disableShip2InvertRole()
+{
+    if (ship1InvertRoleBool)
+    {
+        ship2InvertRoleBool = false;
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }

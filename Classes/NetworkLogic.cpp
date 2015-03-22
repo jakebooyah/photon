@@ -417,6 +417,21 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             
             break;
         }
+        //Invert Role
+        case 11:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float ship = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            int code = 11;
+            
+            std::vector<float> invertR;
+            invertR.push_back(playerNr);
+            invertR.push_back(ship);
+            invertR.push_back(code);
+            eventQueue.push(invertR);
+            
+            break;
+        }
         default:
             break;
 

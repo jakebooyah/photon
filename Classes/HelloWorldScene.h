@@ -59,6 +59,13 @@ private:
     void disableShip1DoubleDamage();
     void disableShip2DoubleDamage();
     
+    bool ship1InvertRoleBool;
+    bool ship2InvertRoleBool;
+    
+    void toggleInvertRole(int ship);
+    void disableShip1InvertRole();
+    void disableShip2InvertRole();
+    
     void gameOver();
     
     void sendPositions();
