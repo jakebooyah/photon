@@ -255,14 +255,21 @@ bool HelloWorld::init()
     
     
     //PowerUP tilemap
-    tilemap = CCTMXTiledMap::create("powerUpTileM.tmx");
-    tileMapLayer = tilemap->layerNamed("baseLayer");
-    tilemap->setAnchorPoint(CCPoint(0.5, 0.5));
-    tilemap->setScale(2);
-    tilemap->setPosition(CCPoint(2584, 512));
-    worldLayer->addChild(tilemap);
+    tilemapSpawn1 = CCTMXTiledMap::create("powerUpTileM.tmx");
+    tileMapSpawn1Layer = tilemapSpawn1->layerNamed("baseLayer");
+    tilemapSpawn1->setAnchorPoint(CCPoint(0.5, 0.5));
+    tilemapSpawn1->setScale(3);
+    tilemapSpawn1->setPosition(CCPoint(512, 2584));
+    worldLayer->addChild(tilemapSpawn1);
     
-    tileMapLayer->setTileGID(6, CCPoint(0, 0));
+    tilemapSpawn2 = CCTMXTiledMap::create("powerUpTileM.tmx");
+    tileMapSpawn2Layer = tilemapSpawn2->layerNamed("baseLayer");
+    tilemapSpawn2->setAnchorPoint(CCPoint(0.5, 0.5));
+    tilemapSpawn2->setScale(3);
+    tilemapSpawn2->setPosition(CCPoint(2584, 512));
+    worldLayer->addChild(tilemapSpawn2);
+    
+    tileMapSpawn1Layer->setTileGID(6, CCPoint(0, 0));
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
@@ -717,13 +724,13 @@ void HelloWorld::update(float delta)
 
     }
     
-    //Rune Ship1
-    if (ship1->boundingBox().intersectsRect(tilemap->boundingBox()))
+    //RuneSpawn1 Ship1
+    if (ship1->boundingBox().intersectsRect(tilemapSpawn1->boundingBox()))
     {
         //Shield Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship1ShieldBool)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship1ShieldBool)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -732,9 +739,9 @@ void HelloWorld::update(float delta)
         }
         
         //HPup Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 4)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -743,9 +750,9 @@ void HelloWorld::update(float delta)
         }
         
         //Double Damage Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 3)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -754,9 +761,9 @@ void HelloWorld::update(float delta)
         }
         
         //Invert Role Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 6)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -765,13 +772,13 @@ void HelloWorld::update(float delta)
         }
     }
     
-    //Rune Ship2
-    if (ship2->boundingBox().intersectsRect(tilemap->boundingBox()))
+    //RuneSpawn1 Ship2
+    if (ship2->boundingBox().intersectsRect(tilemapSpawn1->boundingBox()))
     {
         //Shield Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship2ShieldBool)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship2ShieldBool)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -780,9 +787,9 @@ void HelloWorld::update(float delta)
         }
         
         //HPup Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 4)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -791,9 +798,9 @@ void HelloWorld::update(float delta)
         }
         
         //Double Damage Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 3)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -802,9 +809,9 @@ void HelloWorld::update(float delta)
         }
         
         //Invert Role Rune
-        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 6)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
         {
-            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
             if (networkLogic->playerNr == 1)
             {
@@ -812,6 +819,103 @@ void HelloWorld::update(float delta)
             }
         }
     }
+    
+    //RuneSpawn2 Ship1
+    if (ship1->boundingBox().intersectsRect(tilemapSpawn2->boundingBox()))
+    {
+        //Shield Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship1ShieldBool)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleShield(1);
+            }
+        }
+        
+        //HPup Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleHPUp(1);
+            }
+        }
+        
+        //Double Damage Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleDoubleDamage(1);
+            }
+        }
+        
+        //Invert Role Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleInvertRole(1);
+            }
+        }
+    }
+    
+    //RuneSpawn2 Ship2
+    if (ship2->boundingBox().intersectsRect(tilemapSpawn2->boundingBox()))
+    {
+        //Shield Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship2ShieldBool)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleShield(2);
+            }
+        }
+        
+        //HPup Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleHPUp(2);
+            }
+        }
+        
+        //Double Damage Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleDoubleDamage(2);
+            }
+        }
+        
+        //Invert Role Rune
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        {
+            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleInvertRole(2);
+            }
+        }
+    }
+
     
     int positionIterations = 10;
     int velocityIterations = 10;

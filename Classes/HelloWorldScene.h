@@ -78,8 +78,11 @@ private:
     
     ContactListener *_contactListener;
     
-    CCTMXTiledMap *tilemap;
-    CCTMXLayer *tileMapLayer;
+    CCTMXTiledMap *tilemapSpawn1;
+    CCTMXLayer *tileMapSpawn1Layer;
+    
+    CCTMXTiledMap *tilemapSpawn2;
+    CCTMXLayer *tileMapSpawn2Layer;
     
     CCLayer *worldLayer;
     CCLayer *hudLayer;
