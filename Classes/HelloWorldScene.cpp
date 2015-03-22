@@ -254,6 +254,9 @@ bool HelloWorld::init()
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
     
     
+    
+    
+    
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
     worldLayer->setPosition(viewPoint);
@@ -388,7 +391,7 @@ bool HelloWorld::init()
     world->SetContactListener(_contactListener);
     
     
-    CCDelayTime* delay = CCDelayTime::create(3);
+    CCDelayTime* delay = CCDelayTime::create(1);
     CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(HelloWorld::sendPositions));
     CCSequence* seq = CCSequence::create(delay, sendPositions, NULL);
     CCRepeatForever* seqLoop = CCRepeatForever::create(seq);

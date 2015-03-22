@@ -99,6 +99,7 @@ private:
     
     b2Body *bulletBody;
     
+    
     void fireButtonCall(CCObject *sender);
     void turnButtonCall(CCObject *sender);
 };
