@@ -46,6 +46,8 @@ private:
     void disableFireButton();
     void enableFireButton();
     
+    void toggleHPUp(int ship);
+    
     void toggleShield(int ship);
     void disableShip1Shield();
     void disableShip2Shield();

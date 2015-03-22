@@ -387,6 +387,21 @@ void NetworkLogic::customEventAction(int playerNr, nByte eventCode, const ExitGa
             
             break;
         }
+        //HPup
+        case 9:
+        {
+            event = ExitGames::Common::ValueObject< ExitGames::Common::Hashtable* >(eventContent).getDataCopy();
+            float ship = ExitGames::Common::ValueObject<float>(event->getValue(1)).getDataCopy();
+            int code = 9;
+            
+            std::vector<float> HPup;
+            HPup.push_back(playerNr);
+            HPup.push_back(ship);
+            HPup.push_back(code);
+            eventQueue.push(HPup);
+            
+            break;
+        }
         
         default:
             break;

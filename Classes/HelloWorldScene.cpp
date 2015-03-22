@@ -262,7 +262,7 @@ bool HelloWorld::init()
     tilemap->setPosition(CCPoint(2584, 512));
     worldLayer->addChild(tilemap);
     
-    tileMapLayer->setTileGID(5, CCPoint(0, 0));
+    tileMapLayer->setTileGID(4, CCPoint(0, 0));
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
@@ -398,7 +398,7 @@ bool HelloWorld::init()
     world->SetContactListener(_contactListener);
     
     
-    CCDelayTime* delay = CCDelayTime::create(1);
+    CCDelayTime* delay = CCDelayTime::create(3);
     CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(HelloWorld::sendPositions));
     CCSequence* seq = CCSequence::create(delay, sendPositions, NULL);
     CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
@@ -659,6 +659,20 @@ void HelloWorld::update(float delta)
                     this->removeLoading();
                 }
             }
+            //HPUp
+            case 9:
+            {
+                int ship = arr.back();
+                arr.pop_back();
+                
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    this->toggleHPUp(ship);
+                }
+            }
             
             default:
                 break;
@@ -667,10 +681,56 @@ void HelloWorld::update(float delta)
 
     }
     
+    //Rune Ship1
     if (ship1->boundingBox().intersectsRect(tilemap->boundingBox()))
     {
-        tileMapLayer->setTileGID(1, CCPoint(0, 0));
-        toggleShield(1);
+        //Shield Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship1ShieldBool)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleShield(1);
+            }
+        }
+        
+        //HPup Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 4)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleHPUp(1);
+            }
+        }
+    }
+    
+    //Rune Ship2
+    if (ship2->boundingBox().intersectsRect(tilemap->boundingBox()))
+    {
+        //Shield Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship2ShieldBool)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleShield(2);
+            }
+        }
+        
+        //HPup Rune
+        if (tileMapLayer->tileGIDAt(CCPoint(0, 0)) == 4)
+        {
+            tileMapLayer->setTileGID(1, CCPoint(0, 0));
+            
+            if (networkLogic->playerNr == 1)
+            {
+                toggleHPUp(2);
+            }
+        }
     }
     
     int positionIterations = 10;
@@ -689,7 +749,7 @@ void HelloWorld::update(float delta)
         b2Vec2 distance = center - position;
         
         // The further away the objects are, the weaker the gravitational force is
-        float force = 7000 / distance.LengthSquared(); // can be changed to adjust the amount of force
+        float force = 8000 / distance.LengthSquared(); // can be changed to adjust the amount of force
         distance.Normalize();
         
         b2Vec2 F = force * distance;
@@ -1161,6 +1221,85 @@ void HelloWorld::toggleShield(int ship)
         CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2Shield));
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
+    }
+    
+}
+
+void HelloWorld::toggleHPUp(int ship)
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
+    
+    if (ship == 1)
+    {
+        if (score1 != 0 && score1 != 5)
+        {
+            score1++;
+        }
+        
+        switch (score1)
+        {
+            case 5:
+                squareBlue5->setVisible(true);
+                break;
+            case 4:
+                squareBlue4->setVisible(true);
+                ship1damage1->setVisible(false);
+                break;
+            case 3:
+                squareBlue3->setVisible(true);
+                ship1damage2->setVisible(false);
+                break;
+            case 2:
+                squareBlue2->setVisible(true);
+                ship1damage3->setVisible(false);
+                break;
+            default:
+                break;
+        }
+        
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(9, eventContent);
+        }
+    }
+    else if (ship == 2)
+    {
+        if (score2 != 0 && score2 != 5)
+        {
+            score2++;
+        }
+        
+        switch (score1)
+        {
+            case 5:
+                squareGreen5->setVisible(true);
+                break;
+            case 4:
+                squareGreen4->setVisible(true);
+                ship2damage1->setVisible(false);
+                break;
+            case 3:
+                squareGreen3->setVisible(true);
+                ship2damage2->setVisible(false);
+                break;
+            case 2:
+                squareGreen2->setVisible(true);
+                ship2damage3->setVisible(false);
+                break;
+            default:
+                break;
+        }
+        
+        if (networkLogic->playerNr == 1)
+        {
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, ship);
+            
+            networkLogic->sendEvent(9, eventContent);
+        }
     }
     
 }
