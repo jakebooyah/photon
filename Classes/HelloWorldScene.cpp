@@ -753,8 +753,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleShield(1);
                 initSpawnRunesCountDown();
+                toggleShield(1);
             }
         }
         
@@ -765,8 +765,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleHPUp(1);
                 initSpawnRunesCountDown();
+                toggleHPUp(1);
             }
         }
         
@@ -777,8 +777,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleDoubleDamage(1);
                 initSpawnRunesCountDown();
+                toggleDoubleDamage(1);
             }
         }
         
@@ -789,8 +789,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleInvertRole(1);
                 initSpawnRunesCountDown();
+                toggleInvertRole(1);
             }
         }
     }
@@ -805,8 +805,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleShield(2);
                 initSpawnRunesCountDown();
+                toggleShield(2);
             }
         }
         
@@ -817,8 +817,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleHPUp(2);
                 initSpawnRunesCountDown();
+                toggleHPUp(2);
             }
         }
         
@@ -829,8 +829,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleDoubleDamage(2);
                 initSpawnRunesCountDown();
+                toggleDoubleDamage(2);
             }
         }
         
@@ -841,8 +841,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleInvertRole(2);
                 initSpawnRunesCountDown();
+                toggleInvertRole(2);
             }
         }
     }
@@ -857,8 +857,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleShield(1);
                 initSpawnRunesCountDown();
+                toggleShield(1);
             }
         }
         
@@ -869,8 +869,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleHPUp(1);
                 initSpawnRunesCountDown();
+                toggleHPUp(1);
             }
         }
         
@@ -881,8 +881,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleDoubleDamage(1);
                 initSpawnRunesCountDown();
+                toggleDoubleDamage(1);
             }
         }
         
@@ -893,8 +893,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleInvertRole(1);
                 initSpawnRunesCountDown();
+                toggleInvertRole(1);
             }
         }
     }
@@ -909,8 +909,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleShield(2);
                 initSpawnRunesCountDown();
+                toggleShield(2);
             }
         }
         
@@ -921,8 +921,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleHPUp(2);
                 initSpawnRunesCountDown();
+                toggleHPUp(2);
             }
         }
         
@@ -933,8 +933,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleDoubleDamage(2);
                 initSpawnRunesCountDown();
+                toggleDoubleDamage(2);
             }
         }
         
@@ -945,8 +945,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                toggleInvertRole(2);
                 initSpawnRunesCountDown();
+                toggleInvertRole(2);
             }
         }
     }
@@ -1240,6 +1240,8 @@ void HelloWorld::sendPositions()
 void HelloWorld::gameOver()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    
+    CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
         
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
     CCDirector::sharedDirector()->replaceScene(pScene);
@@ -1470,6 +1472,7 @@ void HelloWorld::someOneGotHit(int victim)
         
     }
     
+    CCLOG("Someone got hit, Score1 %d, Score2 %d", score1, score2);
 
 }
 
@@ -1570,13 +1573,6 @@ void HelloWorld::toggleHPUp(int ship)
                 break;
         }
         
-        if (networkLogic->playerNr == 1)
-        {
-            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-            eventContent->put<int, float>(1, ship);
-            
-            networkLogic->sendEvent(9, eventContent);
-        }
     }
     else if (ship == 2)
     {
@@ -1605,14 +1601,16 @@ void HelloWorld::toggleHPUp(int ship)
             default:
                 break;
         }
+    }
+    
+    CCLOG("HP UP, Score1 %d, Score2 %d", score1, score2);
+    
+    if (networkLogic->playerNr == 1)
+    {
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, ship);
         
-        if (networkLogic->playerNr == 1)
-        {
-            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-            eventContent->put<int, float>(1, ship);
-            
-            networkLogic->sendEvent(9, eventContent);
-        }
+        networkLogic->sendEvent(9, eventContent);
     }
     
 }
