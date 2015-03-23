@@ -409,7 +409,16 @@ bool HelloWorld::init()
     CCSequence* seq = CCSequence::create(delay, sendPositions, NULL);
     CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
     this->runAction(seqLoop);
-
+    
+    if (networkLogic->playerNr == 1)
+    {
+        CCDelayTime* delay = CCDelayTime::create(60);
+        CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(HelloWorld::spawnRunes));
+        CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
+        CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
+        this->runAction(seqLoop);
+    }
+    
     score1 = 5;
     score2 = 5;
     
@@ -473,7 +482,7 @@ void HelloWorld::update(float delta)
     }
     
     //if all player joined
-    if (Player2Joined /*&& Player3Joined && Player4Joined*/)
+    if (Player2Joined && Player3Joined && Player4Joined)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
@@ -605,6 +614,8 @@ void HelloWorld::update(float delta)
                 arr.pop_back();
                 
                 this->turn(playerNr);
+                
+                break;
             }
             //Shield
             case 5:
@@ -619,6 +630,8 @@ void HelloWorld::update(float delta)
                 {
                     this->toggleShield(ship);
                 }
+                
+                break;
             }
             //GameOver
             case 6:
@@ -636,6 +649,8 @@ void HelloWorld::update(float delta)
                 {
                     this->gameOver();
                 }
+                
+                break;
             }
             //Player joined room
             case 7:
@@ -663,6 +678,8 @@ void HelloWorld::update(float delta)
                         Player4Joined = true;
                     }
                 }
+                
+                break;
             }
             //All player joined
             case 8:
@@ -674,6 +691,8 @@ void HelloWorld::update(float delta)
                 {
                     this->removeLoading();
                 }
+                
+                break;
             }
             //HPUp
             case 9:
@@ -688,6 +707,8 @@ void HelloWorld::update(float delta)
                 {
                     this->toggleHPUp(ship);
                 }
+                
+                break;
             }
             //DoubleDamage
             case 10:
@@ -702,6 +723,8 @@ void HelloWorld::update(float delta)
                 {
                     this->toggleDoubleDamage(ship);
                 }
+                
+                break;
             }
             //Invert Role
             case 11:
@@ -716,6 +739,8 @@ void HelloWorld::update(float delta)
                 {
                     this->toggleInvertRole(ship);
                 }
+                
+                break;
             }
             //Spawn Rune
             case 12:
@@ -734,6 +759,8 @@ void HelloWorld::update(float delta)
                     tileMapSpawn2Layer->setTileGID(rune2, CCPoint(0, 0));
                     tileMapSpawn1Layer->setTileGID(rune1, CCPoint(0, 0));
                 }
+                
+                break;
             }
             
             default:
@@ -753,8 +780,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleShield(1);
+                CCLOG("Toggle shield 1");
             }
         }
         
@@ -765,8 +792,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleHPUp(1);
+                CCLOG("Toggle Hp UP 1");
             }
         }
         
@@ -777,8 +804,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleDoubleDamage(1);
+                CCLOG("Toggle DD 1");
             }
         }
         
@@ -789,8 +816,8 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleInvertRole(1);
+                CCLOG("Toggle invert role 1");
             }
         }
     }
@@ -805,7 +832,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleShield(2);
             }
         }
@@ -817,7 +843,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleHPUp(2);
             }
         }
@@ -829,7 +854,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleDoubleDamage(2);
             }
         }
@@ -841,7 +865,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleInvertRole(2);
             }
         }
@@ -857,7 +880,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleShield(1);
             }
         }
@@ -869,7 +891,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleHPUp(1);
             }
         }
@@ -881,7 +902,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleDoubleDamage(1);
             }
         }
@@ -893,7 +913,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleInvertRole(1);
             }
         }
@@ -909,7 +928,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleShield(2);
             }
         }
@@ -921,7 +939,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleHPUp(2);
             }
         }
@@ -933,7 +950,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleDoubleDamage(2);
             }
         }
@@ -945,7 +961,6 @@ void HelloWorld::update(float delta)
             
             if (networkLogic->playerNr == 1)
             {
-                initSpawnRunesCountDown();
                 toggleInvertRole(2);
             }
         }
@@ -1251,7 +1266,7 @@ void HelloWorld::turn(int playerN)
 {
     if (playerN == 1)
     {
-        CCLOG("Player 1 Turning Left");
+        CCLOG("Player 1 Turning");
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
@@ -1268,7 +1283,7 @@ void HelloWorld::turn(int playerN)
     }
     else if (playerN == 2)
     {
-        CCLOG("Player 2 Turning Right");
+        CCLOG("Player 2 Turning");
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
 
@@ -1285,7 +1300,7 @@ void HelloWorld::turn(int playerN)
     }
     else if (playerN == 3)
     {
-        CCLOG("Player 3 Turning Right");
+        CCLOG("Player 3 Turning");
         
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
@@ -1302,7 +1317,7 @@ void HelloWorld::turn(int playerN)
     }
     else if (playerN == 4)
     {
-        CCLOG("Player 4 Turning Right");
+        CCLOG("Player 4 Turning");
         
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
         
@@ -1493,7 +1508,7 @@ void HelloWorld::toggleShield(int ship)
             networkLogic->sendEvent(5, eventContent);
         }
         
-        CCDelayTime* delay = CCDelayTime::create(7);
+        CCDelayTime* delay = CCDelayTime::create(13);
         CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1Shield));
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
@@ -1511,7 +1526,7 @@ void HelloWorld::toggleShield(int ship)
             networkLogic->sendEvent(5, eventContent);
         }
         
-        CCDelayTime* delay = CCDelayTime::create(7);
+        CCDelayTime* delay = CCDelayTime::create(13);
         CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2Shield));
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
@@ -1632,7 +1647,7 @@ void HelloWorld::toggleDoubleDamage(int ship)
             networkLogic->sendEvent(10, eventContent);
         }
         
-        CCDelayTime* delay = CCDelayTime::create(7);
+        CCDelayTime* delay = CCDelayTime::create(13);
         CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1DoubleDamage));
         CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
         this->runAction(seq);
@@ -1649,7 +1664,7 @@ void HelloWorld::toggleDoubleDamage(int ship)
             networkLogic->sendEvent(10, eventContent);
         }
         
-        CCDelayTime* delay = CCDelayTime::create(7);
+        CCDelayTime* delay = CCDelayTime::create(13);
         CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2DoubleDamage));
         CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
         this->runAction(seq);
@@ -1691,7 +1706,7 @@ void HelloWorld::toggleInvertRole(int ship)
             networkLogic->sendEvent(11, eventContent);
         }
         
-        CCDelayTime* delay = CCDelayTime::create(7);
+        CCDelayTime* delay = CCDelayTime::create(13);
         CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1InvertRole));
         CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
         this->runAction(seq);
@@ -1708,7 +1723,7 @@ void HelloWorld::toggleInvertRole(int ship)
             networkLogic->sendEvent(11, eventContent);
         }
         
-        CCDelayTime* delay = CCDelayTime::create(7);
+        CCDelayTime* delay = CCDelayTime::create(13);
         CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2InvertRole));
         CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
         this->runAction(seq);
@@ -1732,14 +1747,6 @@ void HelloWorld::disableShip2InvertRole()
         ship2InvertRoleBool = false;
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
-}
-
-void HelloWorld::initSpawnRunesCountDown()
-{
-    CCDelayTime* delay = CCDelayTime::create(30);
-    CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(HelloWorld::spawnRunes));
-    CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
-    this->runAction(seq);
 }
 
 void HelloWorld::spawnRunes()

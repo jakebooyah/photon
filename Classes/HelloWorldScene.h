@@ -43,7 +43,6 @@ private:
     void disableFireButton();
     void enableFireButton();
     
-    void initSpawnRunesCountDown();
     void spawnRunes();
     
     void toggleHPUp(int ship);
