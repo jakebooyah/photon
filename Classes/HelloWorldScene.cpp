@@ -482,7 +482,7 @@ void HelloWorld::update(float delta)
     }
     
     //if all player joined
-    if (true /*Player2Joined && Player3Joined && Player4Joined*/)
+    if (Player2Joined && Player3Joined && Player4Joined)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
