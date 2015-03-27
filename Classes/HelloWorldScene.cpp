@@ -43,97 +43,12 @@ bool HelloWorld::init()
     world = new b2World(gravity);
     
     worldLayer = CCLayer::create();
-
-    //background init
-    CCSprite *background = CCSprite::create("bg.png");
-    background->setAnchorPoint(CCPoint(0, 0));
-    background->setScale(1.5);
+    
+    CCSprite *background = CCSprite::create("background.png");
+    background->setAnchorPoint(CCPoint(0.5, 0.5));
+    background->setPosition(CCPoint(1536, 1536));
+    background->setScale(2);
     worldLayer->addChild(background);
-    
-    
-    //create wall
-    CCSprite* wallCeiling = CCSprite::create("boundary.png");
-    wallCeiling->setPosition(CCPoint(1536, 3072));
-    wallCeiling->setScale(1.5);
-    wallCeiling->setTag(5);
-    worldLayer->addChild(wallCeiling);
-    
-    CCSprite* wallGround = CCSprite::create("boundary.png");
-    wallGround->setPosition(CCPoint(1536, 0));
-    wallGround->setScale(1.5);
-    wallGround->setTag(5);
-    worldLayer->addChild(wallGround);
-    
-    CCSprite* wallLeft = CCSprite::create("boundaryLR.png");
-    wallLeft->setPosition(CCPoint(0, 1536));
-    wallLeft->setScale(1.5);
-    wallLeft->setTag(5);
-    worldLayer->addChild(wallLeft);
-    
-    CCSprite* wallRight = CCSprite::create("boundaryLR.png");
-    wallRight->setPosition(CCPoint(3072, 1536));
-    wallRight->setScale(1.5);
-    wallRight->setTag(5);
-    worldLayer->addChild(wallRight);
-    
-    
-    
-    //shape definition
-    b2PolygonShape wallUDShape;
-    wallUDShape.SetAsBox(3072/32, 48/32);
-    
-    b2FixtureDef wallUDFixtureDef;
-    wallUDFixtureDef.shape = &wallUDShape;
-    
-    b2PolygonShape wallLRShape;
-    wallLRShape.SetAsBox(48/32, 3072/32);
-    
-    b2FixtureDef wallLRFixtureDef;
-    wallLRFixtureDef.shape = &wallLRShape;
-    
-    
-    
-    //body definition for wallCeling
-    b2BodyDef wallUBodyDef;
-    wallUBodyDef.type= b2_staticBody;
-    wallUBodyDef.userData=wallCeiling;
-    wallUBodyDef.position.Set(wallCeiling->getPosition().x/32,wallCeiling->getPosition().y/32);
-    
-    b2Body* wallUBody = world->CreateBody(&wallUBodyDef);
-    wallUBody->CreateFixture(&wallUDFixtureDef);
-    wallUBody->SetGravityScale(10);
-
-    //body definition for wallGround
-    b2BodyDef wallDBodyDef;
-    wallDBodyDef.type= b2_staticBody;
-    wallDBodyDef.userData=wallGround;
-    wallDBodyDef.position.Set(wallGround->getPosition().x/32,wallGround->getPosition().y/32);
-    
-    b2Body* wallDBody = world->CreateBody(&wallDBodyDef);
-    wallDBody->CreateFixture(&wallUDFixtureDef);
-    wallDBody->SetGravityScale(10);
-    
-    //body definition for wallLeft
-    b2BodyDef wallLBodyDef;
-    wallLBodyDef.type= b2_staticBody;
-    wallLBodyDef.userData=wallLeft;
-    wallLBodyDef.position.Set(wallLeft->getPosition().x/32,wallLeft->getPosition().y/32);
-    
-    b2Body* wallLBody = world->CreateBody(&wallLBodyDef);
-    wallLBody->CreateFixture(&wallLRFixtureDef);
-    wallLBody->SetGravityScale(10);
-    
-    //body definition for wallRight
-    b2BodyDef wallRBodyDef;
-    wallRBodyDef.type= b2_staticBody;
-    wallRBodyDef.userData=wallRight;
-    wallRBodyDef.position.Set(wallRight->getPosition().x/32,wallRight->getPosition().y/32);
-    
-    b2Body* wallRBody = world->CreateBody(&wallRBodyDef);
-    wallRBody->CreateFixture(&wallLRFixtureDef);
-    wallRBody->SetGravityScale(10);
-    
-    
     
     //planet shape definition
     b2CircleShape planetShape;
@@ -150,7 +65,6 @@ bool HelloWorld::init()
     //create planet
     planet = CCSprite::create("planet.png");
     planet->setPosition(CCPoint(1536, 1536));
-    planet->setScale(2);
     planet->setTag(6);
     worldLayer->addChild(planet);
     
@@ -173,15 +87,14 @@ bool HelloWorld::init()
     
     //ship fixture definition
     b2FixtureDef shipFixture;
-    shipFixture.density=100;
+    shipFixture.density=1;
     shipFixture.friction=0;
     shipFixture.restitution=0;
     shipFixture.shape=&shipShape;
     
     //create ship 1
-    ship1 = CCSprite::create("playerShip2_blue.png");
+    ship1 = CCSprite::create("ship_blue.png");
     ship1->setPosition(CCPoint(512,512));
-    ship1->setScale(2);
     ship1->setTag(1);
     worldLayer->addChild(ship1);
     
@@ -217,9 +130,8 @@ bool HelloWorld::init()
     shipBody1->SetTransform(shipBody1->GetPosition(), CC_DEGREES_TO_RADIANS(-45));
     
     //create ship 2
-    ship2 = CCSprite::create("playerShip2_green.png");
+    ship2 = CCSprite::create("ship_green.png");
     ship2->setPosition(CCPoint(2584, 2584));
-    ship2->setScale(2);
     ship2->setTag(2);
     worldLayer->addChild(ship2);
     
@@ -482,7 +394,7 @@ void HelloWorld::update(float delta)
     }
     
     //if all player joined
-    if (Player2Joined && Player3Joined && Player4Joined)
+    if (true /*Player2Joined && Player3Joined && Player4Joined*/)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
@@ -982,8 +894,7 @@ void HelloWorld::update(float delta)
         // Get the distance between the two objects.
         b2Vec2 distance = center - position;
         
-        // The further away the objects are, the weaker the gravitational force is
-        float force = 8000 / distance.LengthSquared(); // can be changed to adjust the amount of force
+        float force =  pow((distance.Length()/6 - 5), 2); //genius equation handle with care radioactive
         distance.Normalize();
         
         b2Vec2 F = force * distance;
@@ -1163,24 +1074,6 @@ void HelloWorld::update(float delta)
                 }
             }
             
-            // Sprite A = Bullet1 or Bullet2, Sprite B = Wall
-            else if ((spriteA->getTag() == 3 && spriteB->getTag() == 5) || (spriteA->getTag() == 4 && spriteB->getTag() == 5))
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyA);
-                }
-            }
-            // Sprite A = Wall, Sprite B = Bullet1 or Bullet2
-            else if ((spriteA->getTag() == 5 && spriteB->getTag() == 3) || (spriteA->getTag() == 5 && spriteB->getTag() == 4))
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyB);
-                }
-            }
-            
-            
             // Sprite A = Bullet1 or Bullet2, Sprite B = Planet
             else if ((spriteA->getTag() == 3 && spriteB->getTag() == 6) || (spriteA->getTag() == 4 && spriteB->getTag() == 6))
             {
@@ -1268,7 +1161,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 1 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 7) , (sin(shipBody1->GetAngle()-4.7) * 7));
 
         shipBody1->SetLinearVelocity(force);
         
@@ -1285,7 +1178,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 2 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 5) , (sin(shipBody1->GetAngle()-4.7) * 5));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 7) , (sin(shipBody1->GetAngle()-4.7) * 7));
 
         shipBody1->SetLinearVelocity(force);
         
@@ -1302,7 +1195,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 3 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 7) , (sin(shipBody2->GetAngle()-4.7) * 7));
         
         shipBody2->SetLinearVelocity(force);
         
@@ -1319,7 +1212,7 @@ void HelloWorld::turn(int playerN)
     {
         CCLOG("Player 4 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 5) , (sin(shipBody2->GetAngle()-4.7) * 5));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 7) , (sin(shipBody2->GetAngle()-4.7) * 7));
         
         shipBody2->SetLinearVelocity(force);
         
@@ -1343,7 +1236,7 @@ void HelloWorld::shoot(int playerN)
     
     //bullet fixture definition
     b2FixtureDef bulletFixture;
-    bulletFixture.density=0.1;
+    bulletFixture.density=0.05;
     bulletFixture.friction=0.5;
     bulletFixture.restitution=0.5;
     bulletFixture.isSensor=false;
@@ -1352,10 +1245,9 @@ void HelloWorld::shoot(int playerN)
     if (playerN == 1 || playerN == 2)
     {
         //create bullet
-        CCSprite* bullet = CCSprite::create("laserBlue08.png");
+        CCSprite* bullet = CCSprite::create("bullet_blue.png");
         bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*5) *32,
                                     (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*5) *32));
-        bullet->setScale(1);
         bullet->setTag(3);
         worldLayer->addChild(bullet);
         
@@ -1377,10 +1269,9 @@ void HelloWorld::shoot(int playerN)
     else if (playerN == 3 || playerN ==4)
     {
         //create bullet
-        CCSprite* bullet = CCSprite::create("laserGreen14.png");
+        CCSprite* bullet = CCSprite::create("bullet_green.png");
         bullet->setPosition(CCPoint((shipBody2->GetPosition().x + cos(shipBody2->GetAngle()-4.7)*5) *32,
                                     (shipBody2->GetPosition().y + sin(shipBody2->GetAngle()-4.7)*5) *32));
-        bullet->setScale(1);
         bullet->setTag(4);
         worldLayer->addChild(bullet);
         
@@ -1782,10 +1673,12 @@ void HelloWorld::setViewPointCenter(CCPoint position)
     //Edit according to map size
     x = MIN(x, 3072 - winSize.width/2);
     y = MIN(y, 3072 - winSize.height/2);
-    CCPoint actualPosition = CCPoint(x, y);
+//    CCPoint actualPosition = CCPoint(x, y);
+    CCPoint actualPosition = position;
     
     CCPoint centerOfView = CCPoint(winSize.width/2, winSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
+
     worldLayer->setPosition(viewPoint);
 }
 
