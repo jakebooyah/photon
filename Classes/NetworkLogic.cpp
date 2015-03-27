@@ -7,6 +7,8 @@ static const ExitGames::Common::JString appVersion = L"1.0";
 static const bool autoLobbbyStats = true;
 static const bool useDefaultRegion = false;
 
+NetworkLogic* NetworkLogic::instance = NULL;
+
 static const ExitGames::Common::JString PLAYER_NAME =
 #if defined _EG_MARMALADE_PLATFORM
 #	if defined I3D_ARCH_X86
@@ -97,6 +99,19 @@ NetworkLogic::NetworkLogic(const ExitGames::LoadBalancing::AuthenticationValues&
 	mLogger.setDebugOutputLevel(DEBUG_RELEASE(ExitGames::Common::DebugLevel::INFO, ExitGames::Common::DebugLevel::WARNINGS)); // this class
 	ExitGames::Common::Base::setListener(this);
 	ExitGames::Common::Base::setDebugOutputLevel(DEBUG_RELEASE(ExitGames::Common::DebugLevel::INFO, ExitGames::Common::DebugLevel::WARNINGS)); // all classes that inherit from Base 
+}
+
+NetworkLogic* NetworkLogic::getInstance()
+{
+    //If the singleton has no instance yet, create one
+    if(NULL == instance)
+    {
+        //Create an instance to the singleton
+        instance = new NetworkLogic();
+    }
+    
+    //Return the singleton object
+    return instance;
 }
 
 void NetworkLogic::registerForStateUpdates(NetworkLogicListener* listener)
