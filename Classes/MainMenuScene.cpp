@@ -7,7 +7,7 @@
 //
 
 #include "MainMenuScene.h"
-#include "HelloWorldScene.h"
+#include "FourPlayerGameScene.h"
 #include "CCScale9Sprite.h"
 #include "SimpleAudioEngine.h"
 
@@ -70,6 +70,6 @@ void MainMenu::startGame()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
 
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7,HelloWorld::scene(), ccWHITE);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7,FourPlayerGameScene::scene(), ccWHITE);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }

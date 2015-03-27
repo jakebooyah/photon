@@ -1,4 +1,4 @@
-#include "HelloWorldScene.h"
+#include "FourPlayerGameScene.h"
 #include "CCScale9Sprite.h"
 #include "GameOverScene.h"
 #include "MainMenuScene.h"
@@ -7,13 +7,13 @@
 
 USING_NS_CC;
 
-CCScene* HelloWorld::scene()
+CCScene* FourPlayerGameScene::scene()
 {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
     // 'layer' is an autorelease object
-    HelloWorld *layer = HelloWorld::create();
+    FourPlayerGameScene *layer = FourPlayerGameScene::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -23,7 +23,7 @@ CCScene* HelloWorld::scene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool FourPlayerGameScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -174,7 +174,7 @@ bool HelloWorld::init()
     CCSprite* fireButtonPressedS = CCSprite::create("fireButtonPressed.png");
     CCSprite* fireButtonDisS = CCSprite::create("disabledButton.png");
 
-    fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonPressedS, fireButtonDisS, this, menu_selector(HelloWorld::fireButtonCall));
+    fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonPressedS, fireButtonDisS, this, menu_selector(FourPlayerGameScene::fireButtonCall));
     fireButton->setScale(3);
     CCMenu* menuFire = CCMenu::create(fireButton, NULL);
     menuFire->setPosition(CCPoint(visibleSize.width - 250, 250));
@@ -183,7 +183,7 @@ bool HelloWorld::init()
     CCSprite* turnButtonS = CCSprite::create("turnRight.png");
     CCSprite* turnButtonPressedS = CCSprite::create("turnRightPressed.png");
     
-    CCMenuItemSprite* turnButton = CCMenuItemSprite::create(turnButtonS, turnButtonPressedS, this, menu_selector(HelloWorld::turnButtonCall));
+    CCMenuItemSprite* turnButton = CCMenuItemSprite::create(turnButtonS, turnButtonPressedS, this, menu_selector(FourPlayerGameScene::turnButtonCall));
     turnButton->setScale(3);
     CCMenu* menuTurn = CCMenu::create(turnButton, NULL);
     
@@ -290,7 +290,7 @@ bool HelloWorld::init()
     
     
     CCDelayTime* delay = CCDelayTime::create(3);
-    CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(HelloWorld::sendPositions));
+    CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::sendPositions));
     CCSequence* seq = CCSequence::create(delay, sendPositions, NULL);
     CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
     this->runAction(seqLoop);
@@ -298,7 +298,7 @@ bool HelloWorld::init()
     if (networkLogic->playerNr == 1)
     {
         CCDelayTime* delay = CCDelayTime::create(10);
-        CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(HelloWorld::spawnRunes));
+        CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::spawnRunes));
         CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
         CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
         this->runAction(seqLoop);
@@ -325,7 +325,7 @@ bool HelloWorld::init()
     return true;
 }
 
-void HelloWorld::update(float delta)
+void FourPlayerGameScene::update(float delta)
 {
     networkLogic->run();
     
@@ -1096,13 +1096,13 @@ void HelloWorld::update(float delta)
     world->DrawDebugData();
 }
 
-void HelloWorld::removeLoading()
+void FourPlayerGameScene::removeLoading()
 {
     loadingLayer->setVisible(false);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
 }
 
-void HelloWorld::sendPositions()
+void FourPlayerGameScene::sendPositions()
 {
     if (networkLogic->playerNr)
     {
@@ -1118,7 +1118,7 @@ void HelloWorld::sendPositions()
     }
 }
 
-void HelloWorld::gameOver()
+void FourPlayerGameScene::gameOver()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
     
@@ -1128,7 +1128,7 @@ void HelloWorld::gameOver()
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
 
-void HelloWorld::turn(int playerN)
+void FourPlayerGameScene::turn(int playerN)
 {
     if (playerN == 1)
     {
@@ -1200,7 +1200,7 @@ void HelloWorld::turn(int playerN)
     }
 }
 
-void HelloWorld::shoot(int playerN)
+void FourPlayerGameScene::shoot(int playerN)
 {
     //bullet shape definition
     b2CircleShape bulletShape;
@@ -1263,24 +1263,24 @@ void HelloWorld::shoot(int playerN)
         
     }
     
-    CCCallFunc* disable = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableFireButton));
-    CCCallFunc* enable = CCCallFunc::create(this, callfunc_selector(HelloWorld::enableFireButton));
+    CCCallFunc* disable = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableFireButton));
+    CCCallFunc* enable = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::enableFireButton));
     CCDelayTime* delay = CCDelayTime::create(3);
     CCSequence* seq = CCSequence::create(disable, delay, enable, NULL);
     this->runAction(seq);
 }
 
-void HelloWorld::disableFireButton()
+void FourPlayerGameScene::disableFireButton()
 {
     fireButton->setEnabled(false);
 }
 
-void HelloWorld::enableFireButton()
+void FourPlayerGameScene::enableFireButton()
 {
     fireButton->setEnabled(true);
 }
 
-void HelloWorld::someOneGotHit(int victim)
+void FourPlayerGameScene::someOneGotHit(int victim)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
 
@@ -1309,7 +1309,7 @@ void HelloWorld::someOneGotHit(int victim)
 
 }
 
-void HelloWorld::toggleShield(int ship)
+void FourPlayerGameScene::toggleShield(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
 
@@ -1328,7 +1328,7 @@ void HelloWorld::toggleShield(int ship)
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1Shield));
+        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip1Shield));
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
     }
@@ -1347,14 +1347,14 @@ void HelloWorld::toggleShield(int ship)
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2Shield));
+        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip2Shield));
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
     }
     
 }
 
-void HelloWorld::disableShip1Shield()
+void FourPlayerGameScene::disableShip1Shield()
 {
     if (ship1ShieldBool)
     {
@@ -1366,7 +1366,7 @@ void HelloWorld::disableShip1Shield()
     }
 }
 
-void HelloWorld::disableShip2Shield()
+void FourPlayerGameScene::disableShip2Shield()
 {
     if (ship2ShieldBool)
     {
@@ -1378,7 +1378,7 @@ void HelloWorld::disableShip2Shield()
     }
 }
 
-void HelloWorld::toggleHPUp(int ship)
+void FourPlayerGameScene::toggleHPUp(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
     
@@ -1413,8 +1413,7 @@ void HelloWorld::toggleHPUp(int ship)
     
 }
 
-//to do: make visual effect
-void HelloWorld::toggleDoubleDamage(int ship)
+void FourPlayerGameScene::toggleDoubleDamage(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
     
@@ -1433,7 +1432,7 @@ void HelloWorld::toggleDoubleDamage(int ship)
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1DoubleDamage));
+        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip1DoubleDamage));
         CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
         this->runAction(seq);
     }
@@ -1452,14 +1451,14 @@ void HelloWorld::toggleDoubleDamage(int ship)
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2DoubleDamage));
+        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip2DoubleDamage));
         CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
         this->runAction(seq);
     }
     
 }
 
-void HelloWorld::disableShip1DoubleDamage()
+void FourPlayerGameScene::disableShip1DoubleDamage()
 {
     if (ship1DoubleDamageBool)
     {
@@ -1471,7 +1470,7 @@ void HelloWorld::disableShip1DoubleDamage()
     }
 }
 
-void HelloWorld::disableShip2DoubleDamage()
+void FourPlayerGameScene::disableShip2DoubleDamage()
 {
     if (ship2DoubleDamageBool)
     {
@@ -1483,7 +1482,7 @@ void HelloWorld::disableShip2DoubleDamage()
     }
 }
 
-void HelloWorld::toggleInvertRole(int ship)
+void FourPlayerGameScene::toggleInvertRole(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
     
@@ -1501,7 +1500,7 @@ void HelloWorld::toggleInvertRole(int ship)
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip1InvertRole));
+        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip1InvertRole));
         CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
         this->runAction(seq);
     }
@@ -1519,14 +1518,14 @@ void HelloWorld::toggleInvertRole(int ship)
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(HelloWorld::disableShip2InvertRole));
+        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip2InvertRole));
         CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
         this->runAction(seq);
     }
     
 }
 
-void HelloWorld::disableShip1InvertRole()
+void FourPlayerGameScene::disableShip1InvertRole()
 {
     if (ship1InvertRoleBool)
     {
@@ -1537,7 +1536,7 @@ void HelloWorld::disableShip1InvertRole()
     }
 }
 
-void HelloWorld::disableShip2InvertRole()
+void FourPlayerGameScene::disableShip2InvertRole()
 {
     if (ship1InvertRoleBool)
     {
@@ -1548,7 +1547,7 @@ void HelloWorld::disableShip2InvertRole()
     }
 }
 
-void HelloWorld::spawnRunes()
+void FourPlayerGameScene::spawnRunes()
 {
     CCLOG("spawning runes");
     if (networkLogic->playerNr == 1)
@@ -1571,7 +1570,7 @@ void HelloWorld::spawnRunes()
     }
 }
 
-void HelloWorld::updateHpBar()
+void FourPlayerGameScene::updateHpBar()
 {
     switch (score1)
     {
@@ -1682,7 +1681,7 @@ void HelloWorld::updateHpBar()
     }
 }
 
-void HelloWorld::setViewPointCenter(CCPoint position)
+void FourPlayerGameScene::setViewPointCenter(CCPoint position)
 {
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     
@@ -1692,7 +1691,7 @@ void HelloWorld::setViewPointCenter(CCPoint position)
     worldLayer->setPosition(viewPoint);
 }
 
-void HelloWorld::fireButtonCall(CCObject *sender)
+void FourPlayerGameScene::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
     
@@ -1714,7 +1713,7 @@ void HelloWorld::fireButtonCall(CCObject *sender)
     }
 }
 
-void HelloWorld::turnButtonCall(CCObject *sender)
+void FourPlayerGameScene::turnButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");
     

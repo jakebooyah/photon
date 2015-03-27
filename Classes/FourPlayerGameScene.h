@@ -1,5 +1,5 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __FOURPLAYERGAMESCENE_SCENE_H__
+#define __FOURPLAYERGAMESCENE_SCENE_H__
 
 #include "cocos2d.h"
 #include "NetworkLogic.h"
@@ -8,7 +8,7 @@
 
 using namespace cocos2d;
 
-class HelloWorld : public CCLayer, public b2ContactListener
+class FourPlayerGameScene : public CCLayer, public b2ContactListener
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -18,7 +18,7 @@ public:
     static cocos2d::CCScene* scene();
     
     // implement the "static node()" method manually
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(FourPlayerGameScene);
     
     float deltaTime;
     
@@ -138,4 +138,4 @@ private:
     void turnButtonCall(CCObject *sender);
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __FOURPLAYERGAMESCENE_SCENE_H__
