@@ -53,7 +53,7 @@ bool FourPlayerGameScene::init()
     //planet shape definition
     b2CircleShape planetShape;
     planetShape.m_p.Set(0, 0);
-    planetShape.m_radius = 430/32;
+    planetShape.m_radius = 450/32;
     
     //planet fixture definition
     b2FixtureDef planetFixture;
@@ -107,7 +107,7 @@ bool FourPlayerGameScene::init()
     //ship shape definition
     b2CircleShape shipShape;
     shipShape.m_p.Set(0, 0);
-    shipShape.m_radius = 100/32;
+    shipShape.m_radius = 75/32;
     
     //ship fixture definition
     b2FixtureDef shipFixture;
@@ -1200,13 +1200,11 @@ void FourPlayerGameScene::shoot(int playerN)
     //bullet shape definition
     b2CircleShape bulletShape;
     bulletShape.m_p.Set(0, 0);
-    bulletShape.m_radius = 40/32;
+    bulletShape.m_radius = 25/32;
     
     //bullet fixture definition
     b2FixtureDef bulletFixture;
     bulletFixture.density=0.05;
-    bulletFixture.friction=0.5;
-    bulletFixture.restitution=0.5;
     bulletFixture.isSensor=false;
     bulletFixture.shape=&bulletShape;
     
