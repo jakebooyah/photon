@@ -98,21 +98,6 @@ bool HelloWorld::init()
     ship1->setTag(1);
     worldLayer->addChild(ship1);
     
-    ship1damage1 = CCSprite::create("playerShip2_damage1.png");
-    ship1damage1->setPosition(CCPoint(56, 38));
-    ship1damage1->setVisible(false);
-    ship1->addChild(ship1damage1);
-    
-    ship1damage2 = CCSprite::create("playerShip2_damage2.png");
-    ship1damage2->setPosition(CCPoint(56, 38));
-    ship1damage2->setVisible(false);
-    ship1->addChild(ship1damage2);
-    
-    ship1damage3 = CCSprite::create("playerShip2_damage3.png");
-    ship1damage3->setPosition(CCPoint(56, 38));
-    ship1damage3->setVisible(false);
-    ship1->addChild(ship1damage3);
-    
     ship1shield = CCSprite::create("shield1.png");
     ship1shield->setPosition(CCPoint(56, 38));
     ship1shield->setVisible(false);
@@ -134,21 +119,6 @@ bool HelloWorld::init()
     ship2->setPosition(CCPoint(2584, 2584));
     ship2->setTag(2);
     worldLayer->addChild(ship2);
-    
-    ship2damage1 = CCSprite::create("playerShip2_damage1.png");
-    ship2damage1->setPosition(CCPoint(56, 38));
-    ship2damage1->setVisible(false);
-    ship2->addChild(ship2damage1);
-    
-    ship2damage2 = CCSprite::create("playerShip2_damage2.png");
-    ship2damage2->setPosition(CCPoint(56, 38));
-    ship2damage2->setVisible(false);
-    ship2->addChild(ship2damage2);
-    
-    ship2damage3 = CCSprite::create("playerShip2_damage3.png");
-    ship2damage3->setPosition(CCPoint(56, 38));
-    ship2damage3->setVisible(false);
-    ship2->addChild(ship2damage3);
     
     ship2shield = CCSprite::create("shield1.png");
     ship2shield->setPosition(CCPoint(56, 38));
@@ -214,7 +184,7 @@ bool HelloWorld::init()
     hudLayer->addChild(menuTurn);
     
     
-    cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("glassPanel.png");
+    cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("panel.png");
     panel->setContentSize(CCSize(1000, 150));
     panel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
     hudLayer->addChild(panel);
@@ -226,7 +196,6 @@ bool HelloWorld::init()
     for (int n = 0; n < 5; n++)
     {
         CCSprite* squareShadow = CCSprite::create("square_shadow.png");
-        squareShadow->setScale(2);
         squareShadow->setPosition(CCPoint(visibleSize.width/2 - 200 - n*50, visibleSize.height-150));
         hudLayer->addChild(squareShadow);
     }
@@ -234,60 +203,49 @@ bool HelloWorld::init()
     for (int n = 0; n < 5; n++)
     {
         CCSprite* squareShadow = CCSprite::create("square_shadow.png");
-        squareShadow->setScale(2);
         squareShadow->setPosition(CCPoint(visibleSize.width/2 + 200 + n*50, visibleSize.height-150));
         hudLayer->addChild(squareShadow);
     }
     
-    squareBlue1 = CCSprite::create("squareBlue.png");
-    squareBlue1->setScale(2);
+    squareBlue1 = CCSprite::create("square_blue.png");
     squareBlue1->setPosition(CCPoint(visibleSize.width/2 - 200 - 0*50, visibleSize.height-150));
     hudLayer->addChild(squareBlue1);
     
-    squareBlue2 = CCSprite::create("squareBlue.png");
-    squareBlue2->setScale(2);
+    squareBlue2 = CCSprite::create("square_blue.png");
     squareBlue2->setPosition(CCPoint(visibleSize.width/2 - 200 - 1*50, visibleSize.height-150));
     hudLayer->addChild(squareBlue2);
     
-    squareBlue3 = CCSprite::create("squareBlue.png");
-    squareBlue3->setScale(2);
+    squareBlue3 = CCSprite::create("square_blue.png");
     squareBlue3->setPosition(CCPoint(visibleSize.width/2 - 200 - 2*50, visibleSize.height-150));
     hudLayer->addChild(squareBlue3);
     
-    squareBlue4 = CCSprite::create("squareBlue.png");
-    squareBlue4->setScale(2);
+    squareBlue4 = CCSprite::create("square_blue.png");
     squareBlue4->setPosition(CCPoint(visibleSize.width/2 - 200 - 3*50, visibleSize.height-150));
     hudLayer->addChild(squareBlue4);
     
-    squareBlue5 = CCSprite::create("squareBlue.png");
-    squareBlue5->setScale(2);
+    squareBlue5 = CCSprite::create("square_blue.png");
     squareBlue5->setPosition(CCPoint(visibleSize.width/2 - 200 - 4*50, visibleSize.height-150));
     hudLayer->addChild(squareBlue5);
     
     
     
-    squareGreen1 = CCSprite::create("squareGreen.png");
-    squareGreen1->setScale(2);
+    squareGreen1 = CCSprite::create("square_green.png");
     squareGreen1->setPosition(CCPoint(visibleSize.width/2 + 200 + 0*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen1);
     
-    squareGreen2 = CCSprite::create("squareGreen.png");
-    squareGreen2->setScale(2);
+    squareGreen2 = CCSprite::create("square_green.png");
     squareGreen2->setPosition(CCPoint(visibleSize.width/2 + 200 + 1*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen2);
     
-    squareGreen3 = CCSprite::create("squareGreen.png");
-    squareGreen3->setScale(2);
+    squareGreen3 = CCSprite::create("square_green.png");
     squareGreen3->setPosition(CCPoint(visibleSize.width/2 + 200 + 2*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen3);
     
-    squareGreen4 = CCSprite::create("squareGreen.png");
-    squareGreen4->setScale(2);
+    squareGreen4 = CCSprite::create("square_green.png");
     squareGreen4->setPosition(CCPoint(visibleSize.width/2 + 200 + 3*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen4);
     
-    squareGreen5 = CCSprite::create("squareGreen.png");
-    squareGreen5->setScale(2);
+    squareGreen5 = CCSprite::create("square_green.png");
     squareGreen5->setPosition(CCPoint(visibleSize.width/2 + 200 + 4*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen5);
     
@@ -1326,15 +1284,12 @@ void HelloWorld::someOneGotHit(int victim)
                 break;
             case 3:
                 squareBlue4->setVisible(false);
-                ship1damage1->setVisible(true);
                 break;
             case 2:
                 squareBlue3->setVisible(false);
-                ship1damage2->setVisible(true);
                 break;
             case 1:
                 squareBlue2->setVisible(false);
-                ship1damage3->setVisible(true);
                 break;
             case 0:
                 squareBlue1->setVisible(false);
@@ -1359,15 +1314,12 @@ void HelloWorld::someOneGotHit(int victim)
                 break;
             case 3:
                 squareGreen4->setVisible(false);
-                ship2damage1->setVisible(true);
                 break;
             case 2:
                 squareGreen3->setVisible(false);
-                ship2damage2->setVisible(true);
                 break;
             case 1:
                 squareGreen2->setVisible(false);
-                ship2damage3->setVisible(true);
                 break;
             case 0:
                 squareGreen1->setVisible(false);
@@ -1465,15 +1417,12 @@ void HelloWorld::toggleHPUp(int ship)
                 break;
             case 4:
                 squareBlue4->setVisible(true);
-                ship1damage1->setVisible(false);
                 break;
             case 3:
                 squareBlue3->setVisible(true);
-                ship1damage2->setVisible(false);
                 break;
             case 2:
                 squareBlue2->setVisible(true);
-                ship1damage3->setVisible(false);
                 break;
             default:
                 break;
@@ -1494,15 +1443,12 @@ void HelloWorld::toggleHPUp(int ship)
                 break;
             case 4:
                 squareGreen4->setVisible(true);
-                ship2damage1->setVisible(false);
                 break;
             case 3:
                 squareGreen3->setVisible(true);
-                ship2damage2->setVisible(false);
                 break;
             case 2:
                 squareGreen2->setVisible(true);
-                ship2damage3->setVisible(false);
                 break;
             default:
                 break;
