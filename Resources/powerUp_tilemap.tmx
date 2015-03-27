@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="1" height="1" tilewidth="128" tileheight="128">
+ <tileset firstgid="1" name="powerUp_tileset" tilewidth="128" tileheight="128" spacing="1" margin="1">
+  <image source="powerUp_tileset.png" width="646" height="130"/>
+ </tileset>
+ <layer name="baseLayer" width="1" height="1">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgAAAACAAC
+  </data>
+ </layer>
+</map>

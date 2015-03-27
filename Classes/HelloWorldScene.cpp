@@ -79,6 +79,30 @@ bool HelloWorld::init()
     planetBody->SetGravityScale(10);
     
     
+    //PowerUp background
+    powerUpBg1 = CCSprite::create("powerUp_background.png");
+    powerUpBg1->setAnchorPoint(CCPoint(0.5, 0.5));
+    powerUpBg1->setPosition(CCPoint(512, 2584));
+    worldLayer->addChild(powerUpBg1);
+    
+    powerUpBg2 = CCSprite::create("powerUp_background.png");
+    powerUpBg2->setAnchorPoint(CCPoint(0.5, 0.5));
+    powerUpBg2->setPosition(CCPoint(2584, 512));
+    worldLayer->addChild(powerUpBg2);
+    
+    //PowerUP tilemap
+    tilemapSpawn1 = CCTMXTiledMap::create("powerUp_tilemap.tmx");
+    tileMapSpawn1Layer = tilemapSpawn1->layerNamed("baseLayer");
+    tilemapSpawn1->setAnchorPoint(CCPoint(0.5, 0.5));
+    tilemapSpawn1->setPosition(CCPoint(512, 2584));
+    worldLayer->addChild(tilemapSpawn1);
+    
+    tilemapSpawn2 = CCTMXTiledMap::create("powerUp_tilemap.tmx");
+    tileMapSpawn2Layer = tilemapSpawn2->layerNamed("baseLayer");
+    tilemapSpawn2->setAnchorPoint(CCPoint(0.5, 0.5));
+    tilemapSpawn2->setPosition(CCPoint(2584, 512));
+    worldLayer->addChild(tilemapSpawn2);
+    
     
     //ship shape definition
     b2CircleShape shipShape;
@@ -135,22 +159,7 @@ bool HelloWorld::init()
     shipBody2->CreateFixture(&shipFixture);
     shipBody2->SetAngularDamping(0);
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
-    
-    
-    //PowerUP tilemap
-    tilemapSpawn1 = CCTMXTiledMap::create("powerUpTileM.tmx");
-    tileMapSpawn1Layer = tilemapSpawn1->layerNamed("baseLayer");
-    tilemapSpawn1->setAnchorPoint(CCPoint(0.5, 0.5));
-    tilemapSpawn1->setScale(3);
-    tilemapSpawn1->setPosition(CCPoint(512, 2584));
-    worldLayer->addChild(tilemapSpawn1);
-    
-    tilemapSpawn2 = CCTMXTiledMap::create("powerUpTileM.tmx");
-    tileMapSpawn2Layer = tilemapSpawn2->layerNamed("baseLayer");
-    tilemapSpawn2->setAnchorPoint(CCPoint(0.5, 0.5));
-    tilemapSpawn2->setScale(3);
-    tilemapSpawn2->setPosition(CCPoint(2584, 512));
-    worldLayer->addChild(tilemapSpawn2);
+
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
@@ -160,7 +169,6 @@ bool HelloWorld::init()
     
     
     hudLayer = CCLayer::create();
-    
     
     CCSprite* fireButtonS = CCSprite::create("fireButton.png");
     CCSprite* fireButtonPressedS = CCSprite::create("fireButtonPressed.png");
@@ -172,7 +180,6 @@ bool HelloWorld::init()
     menuFire->setPosition(CCPoint(visibleSize.width - 250, 250));
     hudLayer->addChild(menuFire);
     
-    
     CCSprite* turnButtonS = CCSprite::create("turnRight.png");
     CCSprite* turnButtonPressedS = CCSprite::create("turnRightPressed.png");
     
@@ -182,7 +189,6 @@ bool HelloWorld::init()
     
     menuTurn->setPosition(CCPoint(250, 250));
     hudLayer->addChild(menuTurn);
-    
     
     cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("panel.png");
     panel->setContentSize(CCSize(1000, 150));
@@ -227,8 +233,6 @@ bool HelloWorld::init()
     squareBlue5->setPosition(CCPoint(visibleSize.width/2 - 200 - 4*50, visibleSize.height-150));
     hudLayer->addChild(squareBlue5);
     
-    
-    
     squareGreen1 = CCSprite::create("square_green.png");
     squareGreen1->setPosition(CCPoint(visibleSize.width/2 + 200 + 0*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen1);
@@ -249,7 +253,6 @@ bool HelloWorld::init()
     squareGreen5->setPosition(CCPoint(visibleSize.width/2 + 200 + 4*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen5);
     
-    
     this->addChild(hudLayer);
     
     
@@ -264,7 +267,6 @@ bool HelloWorld::init()
     CCLabelTTF* loading = CCLabelTTF::create("LOADING", "Kenvector Future.ttf", 80);
     loading->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
     loadingLayer->addChild(loading);
-    
     
     this->addChild(loadingLayer);
     
@@ -282,7 +284,7 @@ bool HelloWorld::init()
     
     if (networkLogic->playerNr == 1)
     {
-        CCDelayTime* delay = CCDelayTime::create(60);
+        CCDelayTime* delay = CCDelayTime::create(10);
         CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(HelloWorld::spawnRunes));
         CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
         CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
@@ -644,7 +646,7 @@ void HelloWorld::update(float delta)
     if (ship1->boundingBox().intersectsRect(tilemapSpawn1->boundingBox()))
     {
         //Shield Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship1ShieldBool)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship1ShieldBool)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -656,7 +658,7 @@ void HelloWorld::update(float delta)
         }
         
         //HPup Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -668,7 +670,7 @@ void HelloWorld::update(float delta)
         }
         
         //Double Damage Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -680,7 +682,7 @@ void HelloWorld::update(float delta)
         }
         
         //Invert Role Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -696,7 +698,7 @@ void HelloWorld::update(float delta)
     if (ship2->boundingBox().intersectsRect(tilemapSpawn1->boundingBox()))
     {
         //Shield Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship2ShieldBool)
+        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship2ShieldBool)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -707,7 +709,7 @@ void HelloWorld::update(float delta)
         }
         
         //HPup Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -718,7 +720,7 @@ void HelloWorld::update(float delta)
         }
         
         //Double Damage Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -729,7 +731,7 @@ void HelloWorld::update(float delta)
         }
         
         //Invert Role Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -744,7 +746,7 @@ void HelloWorld::update(float delta)
     if (ship1->boundingBox().intersectsRect(tilemapSpawn2->boundingBox()))
     {
         //Shield Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship1ShieldBool)
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship1ShieldBool)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -755,7 +757,7 @@ void HelloWorld::update(float delta)
         }
         
         //HPup Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -766,7 +768,7 @@ void HelloWorld::update(float delta)
         }
         
         //Double Damage Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -777,7 +779,7 @@ void HelloWorld::update(float delta)
         }
         
         //Invert Role Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -792,7 +794,7 @@ void HelloWorld::update(float delta)
     if (ship2->boundingBox().intersectsRect(tilemapSpawn2->boundingBox()))
     {
         //Shield Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5 && !ship2ShieldBool)
+        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship2ShieldBool)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -803,7 +805,7 @@ void HelloWorld::update(float delta)
         }
         
         //HPup Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -814,7 +816,7 @@ void HelloWorld::update(float delta)
         }
         
         //Double Damage Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -825,7 +827,7 @@ void HelloWorld::update(float delta)
         }
         
         //Invert Role Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 6)
+        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
@@ -1269,7 +1271,7 @@ void HelloWorld::someOneGotHit(int victim)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
 
-    if (victim == 1)
+    if (victim == 2)
     {
         if (score2 != 0)
         {
@@ -1277,29 +1279,9 @@ void HelloWorld::someOneGotHit(int victim)
         }
         
         CCLOG("Score2 %d",score2);
-        switch (score2)
-        {
-            case 4:
-                squareBlue5->setVisible(false);
-                break;
-            case 3:
-                squareBlue4->setVisible(false);
-                break;
-            case 2:
-                squareBlue3->setVisible(false);
-                break;
-            case 1:
-                squareBlue2->setVisible(false);
-                break;
-            case 0:
-                squareBlue1->setVisible(false);
-                break;
-            default:
-                break;
-        }
-        
+        updateHpBar();
     }
-    else if (victim == 2)
+    else if (victim == 1)
     {
         if (score1 != 0)
         {
@@ -1307,27 +1289,7 @@ void HelloWorld::someOneGotHit(int victim)
         }
         
         CCLOG("Score1 %d",score1);
-        switch (score1)
-        {
-            case 4:
-                squareGreen5->setVisible(false);
-                break;
-            case 3:
-                squareGreen4->setVisible(false);
-                break;
-            case 2:
-                squareGreen3->setVisible(false);
-                break;
-            case 1:
-                squareGreen2->setVisible(false);
-                break;
-            case 0:
-                squareGreen1->setVisible(false);
-                break;
-            default:
-                break;
-        }
-        
+        updateHpBar();
     }
     
     CCLOG("Someone got hit, Score1 %d, Score2 %d", score1, score2);
@@ -1410,24 +1372,7 @@ void HelloWorld::toggleHPUp(int ship)
             score1++;
         }
         
-        switch (score1)
-        {
-            case 5:
-                squareBlue5->setVisible(true);
-                break;
-            case 4:
-                squareBlue4->setVisible(true);
-                break;
-            case 3:
-                squareBlue3->setVisible(true);
-                break;
-            case 2:
-                squareBlue2->setVisible(true);
-                break;
-            default:
-                break;
-        }
-        
+        updateHpBar();        
     }
     else if (ship == 2)
     {
@@ -1436,23 +1381,7 @@ void HelloWorld::toggleHPUp(int ship)
             score2++;
         }
         
-        switch (score1)
-        {
-            case 5:
-                squareGreen5->setVisible(true);
-                break;
-            case 4:
-                squareGreen4->setVisible(true);
-                break;
-            case 3:
-                squareGreen3->setVisible(true);
-                break;
-            case 2:
-                squareGreen2->setVisible(true);
-                break;
-            default:
-                break;
-        }
+        updateHpBar();
     }
     
     CCLOG("HP UP, Score1 %d, Score2 %d", score1, score2);
@@ -1475,6 +1404,7 @@ void HelloWorld::toggleDoubleDamage(int ship)
     if (ship == 1)
     {
         ship1DoubleDamageBool = true;
+        ship1->setOpacity(128);
         
         if (networkLogic->playerNr == 1)
         {
@@ -1492,6 +1422,7 @@ void HelloWorld::toggleDoubleDamage(int ship)
     else if (ship == 2)
     {
         ship2DoubleDamageBool = true;
+        ship2->setOpacity(128);
         
         if (networkLogic->playerNr == 1)
         {
@@ -1514,6 +1445,7 @@ void HelloWorld::disableShip1DoubleDamage()
     if (ship1DoubleDamageBool)
     {
         ship1DoubleDamageBool = false;
+        ship1->setOpacity(255);
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
@@ -1523,6 +1455,7 @@ void HelloWorld::disableShip2DoubleDamage()
     if (ship2DoubleDamageBool)
     {
         ship2DoubleDamageBool = false;
+        ship2->setOpacity(255);
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
@@ -1591,13 +1524,13 @@ void HelloWorld::spawnRunes()
     CCLOG("spawning runes");
     if (networkLogic->playerNr == 1)
     {
-        int random1 = rand() % 4 + 3;
-        // random in the range 3 to 6
+        int random1 = rand() % 4 + 2;
+        // random in the range 2 to 5
         
         tileMapSpawn1Layer->setTileGID(random1, CCPoint(0, 0));
         
-        int random2 = rand() % 4 + 3;
-        // random in the range 3 to 6
+        int random2 = rand() % 4 + 2;
+        // random in the range 2 to 5
         
         tileMapSpawn2Layer->setTileGID(random2, CCPoint(0, 0));
         
@@ -1609,21 +1542,123 @@ void HelloWorld::spawnRunes()
     }
 }
 
+void HelloWorld::updateHpBar()
+{
+    switch (score1)
+    {
+        case 5:
+            squareBlue1->setVisible(true);
+            squareBlue2->setVisible(true);
+            squareBlue3->setVisible(true);
+            squareBlue4->setVisible(true);
+            squareBlue5->setVisible(true);
+            break;
+            
+        case 4:
+            squareBlue1->setVisible(true);
+            squareBlue2->setVisible(true);
+            squareBlue3->setVisible(true);
+            squareBlue4->setVisible(true);
+            squareBlue5->setVisible(false);
+            break;
+            
+        case 3:
+            squareBlue1->setVisible(true);
+            squareBlue2->setVisible(true);
+            squareBlue3->setVisible(true);
+            squareBlue4->setVisible(false);
+            squareBlue5->setVisible(false);
+            break;
+            
+        case 2:
+            squareBlue1->setVisible(true);
+            squareBlue2->setVisible(true);
+            squareBlue3->setVisible(false);
+            squareBlue4->setVisible(false);
+            squareBlue5->setVisible(false);
+            break;
+            
+        case 1:
+            squareBlue1->setVisible(true);
+            squareBlue2->setVisible(false);
+            squareBlue3->setVisible(false);
+            squareBlue4->setVisible(false);
+            squareBlue5->setVisible(false);
+            break;
+            
+        case 0:
+            squareBlue1->setVisible(false);
+            squareBlue2->setVisible(false);
+            squareBlue3->setVisible(false);
+            squareBlue4->setVisible(false);
+            squareBlue5->setVisible(false);
+            break;
+            
+        default:
+            break;
+    }
+    
+    switch (score2)
+    {
+        case 5:
+            squareGreen1->setVisible(true);
+            squareGreen2->setVisible(true);
+            squareGreen3->setVisible(true);
+            squareGreen4->setVisible(true);
+            squareGreen5->setVisible(true);
+            break;
+            
+        case 4:
+            squareGreen1->setVisible(true);
+            squareGreen2->setVisible(true);
+            squareGreen3->setVisible(true);
+            squareGreen4->setVisible(true);
+            squareGreen5->setVisible(false);
+            break;
+            
+        case 3:
+            squareGreen1->setVisible(true);
+            squareGreen2->setVisible(true);
+            squareGreen3->setVisible(true);
+            squareGreen4->setVisible(false);
+            squareGreen5->setVisible(false);
+            break;
+            
+        case 2:
+            squareGreen1->setVisible(true);
+            squareGreen2->setVisible(true);
+            squareGreen3->setVisible(false);
+            squareGreen4->setVisible(false);
+            squareGreen5->setVisible(false);
+            break;
+            
+        case 1:
+            squareGreen1->setVisible(true);
+            squareGreen2->setVisible(false);
+            squareGreen3->setVisible(false);
+            squareGreen4->setVisible(false);
+            squareGreen5->setVisible(false);
+            break;
+            
+        case 0:
+            squareGreen1->setVisible(false);
+            squareGreen2->setVisible(false);
+            squareGreen3->setVisible(false);
+            squareGreen4->setVisible(false);
+            squareGreen5->setVisible(false);
+            break;
+            
+        default:
+            break;
+    }
+}
+
 void HelloWorld::setViewPointCenter(CCPoint position)
 {
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     
-    int x = MAX(position.x, winSize.width/2);
-    int y = MAX(position.y, winSize.height/2);
-    
-    //Edit according to map size
-    x = MIN(x, 3072 - winSize.width/2);
-    y = MIN(y, 3072 - winSize.height/2);
-//    CCPoint actualPosition = CCPoint(x, y);
-    CCPoint actualPosition = position;
-    
     CCPoint centerOfView = CCPoint(winSize.width/2, winSize.height/2);
-    CCPoint viewPoint = ccpSub(centerOfView, actualPosition);
+    CCPoint viewPoint = ccpSub(centerOfView, position);
 
     worldLayer->setPosition(viewPoint);
 }

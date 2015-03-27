@@ -45,6 +45,8 @@ private:
     
     void spawnRunes();
     
+    void updateHpBar();
+    
     void toggleHPUp(int ship);
     
     bool ship1ShieldBool;
@@ -80,9 +82,11 @@ private:
     
     ContactListener *_contactListener;
     
+    CCSprite *powerUpBg1;
     CCTMXTiledMap *tilemapSpawn1;
     CCTMXLayer *tileMapSpawn1Layer;
     
+    CCSprite *powerUpBg2;
     CCTMXTiledMap *tilemapSpawn2;
     CCTMXLayer *tileMapSpawn2Layer;
     
