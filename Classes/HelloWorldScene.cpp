@@ -271,9 +271,10 @@ bool HelloWorld::init()
     loadingLayer = CCLayer::create();
     loadingLayer->setTouchPriority(1);
     
-    CCSprite *loadingBackground = CCSprite::create("bg.png");
-    loadingBackground->setAnchorPoint(CCPoint(0, 0));
-    loadingBackground->setScale(1.5);
+    CCSprite *loadingBackground = CCSprite::create("background.png");
+    loadingBackground->setAnchorPoint(CCPoint(0.5, 0.5));
+    loadingBackground->setScale(2);
+    loadingBackground->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
     loadingLayer->addChild(loadingBackground);
     
     CCLabelTTF* loading = CCLabelTTF::create("LOADING", "Kenvector Future.ttf", 80);

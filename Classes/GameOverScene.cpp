@@ -38,20 +38,15 @@ bool GameOver::init()
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     
-    //background init
-    CCSprite *background = CCSprite::create("bg.png");
-    background->setAnchorPoint(CCPoint(0, 0));
-    background->setScale(1.5);
-    this->addChild(background);
-    
     CCLabelTTF* gameOverLabel = CCLabelTTF::create("GAME OVER", "Kenvector Future.ttf", 80);
     gameOverLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 + 100));
+    gameOverLabel->setColor(ccWHITE);
     this->addChild(gameOverLabel);
     
-    cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("metalPanel_yellow.png");
+    cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("panel.png");
     buttonS->setContentSize(CCSize(800, 200));
     
-    cocos2d::extension::CCScale9Sprite* buttonPressedS = cocos2d::extension::CCScale9Sprite::create("metalPanel_red.png");
+    cocos2d::extension::CCScale9Sprite* buttonPressedS = cocos2d::extension::CCScale9Sprite::create("panel.png");
     buttonPressedS->setContentSize(CCSize(800, 200));
     
     CCMenuItemSprite* menuButton = CCMenuItemSprite::create(buttonS, buttonPressedS, this, menu_selector(GameOver::goToStart));
@@ -61,7 +56,7 @@ bool GameOver::init()
     this->addChild(menuStart);
     
     CCLabelTTF* buttonLabel = CCLabelTTF::create("MAIN MENU", "Kenvector Future.ttf", 60);
-    buttonLabel->setColor(ccBLACK);
+    buttonLabel->setColor(ccWHITE);
     buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-110));
     this->addChild(buttonLabel);
 

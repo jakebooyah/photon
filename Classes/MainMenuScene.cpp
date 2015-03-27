@@ -38,32 +38,26 @@ bool MainMenu::init()
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     
-    //background init
-    CCSprite *background = CCSprite::create("bg.png");
-    background->setAnchorPoint(CCPoint(0, 0));
-    background->setScale(1.5);
-    this->addChild(background);
-    
-    CCSprite *title = CCSprite::create("title.png");
-    title->setScale(2);
-    title->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2+180));
+    CCLabelTTF* title = CCLabelTTF::create("PHOTON", "Kenvector Future.ttf", 80);
+    title->setColor(ccWHITE);
+    title->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2+110));
     this->addChild(title);
     
-    cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("metalPanel_yellow.png");
+    cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("panel.png");
     buttonS->setContentSize(CCSize(800, 200));
     
-    cocos2d::extension::CCScale9Sprite* buttonPressedS = cocos2d::extension::CCScale9Sprite::create("metalPanel_red.png");
+    cocos2d::extension::CCScale9Sprite* buttonPressedS = cocos2d::extension::CCScale9Sprite::create("panel.png");
     buttonPressedS->setContentSize(CCSize(800, 200));
     
     CCMenuItemSprite* startButton = CCMenuItemSprite::create(buttonS, buttonPressedS, this, menu_selector(MainMenu::startGame));
     CCMenu* menuStart = CCMenu::create(startButton, NULL);
     
-    menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-280));
+    menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-100));
     this->addChild(menuStart);
     
     CCLabelTTF* buttonLabel = CCLabelTTF::create("PLAY", "Kenvector Future.ttf", 60);
-    buttonLabel->setColor(ccBLACK);
-    buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-290));
+    buttonLabel->setColor(ccWHITE);
+    buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-110));
     this->addChild(buttonLabel);
     
     CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.4);

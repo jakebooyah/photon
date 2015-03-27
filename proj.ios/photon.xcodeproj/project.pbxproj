@@ -244,7 +244,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2304246B1ABDE203002B7649 /* planet.png in Resources */ = {isa = PBXBuildFile; fileRef = 2304246A1ABDE203002B7649 /* planet.png */; };
-		233BE9C41AAB40200059B892 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 233BE9C31AAB40200059B892 /* bg.png */; };
 		234BF5C61AC4027D00C97336 /* ship_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5C51AC4027D00C97336 /* ship_blue.png */; };
 		234BF5CE1AC411BC00C97336 /* background_front.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5CD1AC411BC00C97336 /* background_front.png */; };
 		234BF5D01AC59CBD00C97336 /* ship_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5CF1AC59CBD00C97336 /* ship_green.png */; };
@@ -271,8 +270,6 @@
 		235830E11AB374FC00CDA237 /* panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E01AB374FC00CDA237 /* panel.png */; };
 		235830E51AB3752300CDA237 /* square_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E21AB3752300CDA237 /* square_shadow.png */; };
 		235830EA1AB4153E00CDA237 /* MainMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235830E81AB4153D00CDA237 /* MainMenuScene.cpp */; };
-		235830EF1AB41A6000CDA237 /* metalPanel_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830EE1AB41A6000CDA237 /* metalPanel_yellow.png */; };
-		235830F11AB41B2C00CDA237 /* metalPanel_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830F01AB41B2C00CDA237 /* metalPanel_red.png */; };
 		235830FF1AB43ABA00CDA237 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830FE1AB43ABA00CDA237 /* title.png */; };
 		235831021AB446ED00CDA237 /* GameOverScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235831001AB446ED00CDA237 /* GameOverScene.cpp */; };
 		235831081AB5C8CE00CDA237 /* sfx_zap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 235831071AB5C8CE00CDA237 /* sfx_zap.mp3 */; };
@@ -889,7 +886,6 @@
 		1D6058910D05DD3D006BFB54 /* photon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2304246A1ABDE203002B7649 /* planet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = planet.png; sourceTree = "<group>"; };
-		233BE9C31AAB40200059B892 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		234BF5C51AC4027D00C97336 /* ship_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_blue.png; sourceTree = "<group>"; };
 		234BF5CD1AC411BC00C97336 /* background_front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_front.png; sourceTree = "<group>"; };
 		234BF5CF1AC59CBD00C97336 /* ship_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_green.png; sourceTree = "<group>"; };
@@ -917,8 +913,6 @@
 		235830E21AB3752300CDA237 /* square_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square_shadow.png; sourceTree = "<group>"; };
 		235830E81AB4153D00CDA237 /* MainMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuScene.cpp; sourceTree = "<group>"; };
 		235830E91AB4153D00CDA237 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
-		235830EE1AB41A6000CDA237 /* metalPanel_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metalPanel_yellow.png; sourceTree = "<group>"; };
-		235830F01AB41B2C00CDA237 /* metalPanel_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metalPanel_red.png; sourceTree = "<group>"; };
 		235830FE1AB43ABA00CDA237 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		235831001AB446ED00CDA237 /* GameOverScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameOverScene.cpp; sourceTree = "<group>"; };
 		235831011AB446ED00CDA237 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
@@ -2802,7 +2796,6 @@
 				234BF5D11AC5A44A00C97336 /* background.png */,
 				23D806F81AC385D300CB4A4B /* background_base.png */,
 				234BF5CD1AC411BC00C97336 /* background_front.png */,
-				233BE9C31AAB40200059B892 /* bg.png */,
 				2304246A1ABDE203002B7649 /* planet.png */,
 				234BF5E11AC5F3F400C97336 /* powerUp_background.png */,
 				234BF5DD1AC5E3B400C97336 /* powerUp_tileset.png */,
@@ -2827,8 +2820,6 @@
 				234BF5D71AC5CCB000C97336 /* square_blue.png */,
 				234BF5D81AC5CCB000C97336 /* square_green.png */,
 				235830E21AB3752300CDA237 /* square_shadow.png */,
-				235830EE1AB41A6000CDA237 /* metalPanel_yellow.png */,
-				235830F01AB41B2C00CDA237 /* metalPanel_red.png */,
 				D41A0AD0160F154A004552AE /* Default-568h@2x.png */,
 				7855E0DF153FEF240059DD9A /* Default.png */,
 				D446FD6D16102124000ADA7B /* Default@2x.png */,
@@ -2946,15 +2937,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				233BE9C41AAB40200059B892 /* bg.png in Resources */,
 				235831141AB5C8FE00CDA237 /* sfx_twoTone.mp3 in Resources */,
 				7855E0E1153FEF240059DD9A /* Default.png in Resources */,
 				235830FF1AB43ABA00CDA237 /* title.png in Resources */,
-				235830F11AB41B2C00CDA237 /* metalPanel_red.png in Resources */,
 				23EE2D5F1AB311A3001A65DB /* Kenvector Future.ttf in Resources */,
 				235830D31AB365D800CDA237 /* fireButton.png in Resources */,
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
-				235830EF1AB41A6000CDA237 /* metalPanel_yellow.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
 				234BF5DA1AC5CCB000C97336 /* square_green.png in Resources */,
 				234BF5D51AC5C30600C97336 /* bullet_blue.png in Resources */,
