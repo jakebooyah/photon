@@ -52,7 +52,6 @@ private:
 class NetworkLogic : private ExitGames::LoadBalancing::Listener
 {
 public:
-    static NetworkLogic* getInstance();
 	NetworkLogic(const ExitGames::LoadBalancing::AuthenticationValues& authenticationValues=ExitGames::LoadBalancing::AuthenticationValues());
 	void registerForStateUpdates(NetworkLogicListener* listener);
 	void run(void);
@@ -70,9 +69,7 @@ public:
 	Input getLastInput(void) const;
 	void setLastInput(Input newInput);
 	State getState(void) const;
-private:
-    static NetworkLogic *instance;
-    
+private:    
 	// receive and print out debug out here
 	virtual void debugReturn(ExitGames::Common::DebugLevel::DebugLevel debugLevel, const ExitGames::Common::JString& string);
 

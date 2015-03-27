@@ -288,22 +288,6 @@ bool FourPlayerGameScene::init()
     _contactListener = new ContactListener();
     world->SetContactListener(_contactListener);
     
-    
-    CCDelayTime* delay = CCDelayTime::create(3);
-    CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::sendPositions));
-    CCSequence* seq = CCSequence::create(delay, sendPositions, NULL);
-    CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
-    this->runAction(seqLoop);
-    
-    if (NetworkLogic::getInstance()->playerNr == 1)
-    {
-        CCDelayTime* delay = CCDelayTime::create(10);
-        CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::spawnRunes));
-        CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
-        CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
-        this->runAction(seqLoop);
-    }
-    
     score1 = 5;
     score2 = 5;
     
@@ -327,13 +311,18 @@ bool FourPlayerGameScene::init()
 
 void FourPlayerGameScene::update(float delta)
 {
-    NetworkLogic::getInstance()->run();
+    if (networkLogic->playerNr == 1)
+    {
+        sendPositions();
+    }
     
-    switch (NetworkLogic::getInstance()->getState())
+    networkLogic->run();
+    
+    switch (networkLogic->getState())
     {
         case STATE_ROOMFULL:
             {
-                NetworkLogic::getInstance()->setLastInput(INPUT_EXIT);
+                networkLogic->setLastInput(INPUT_EXIT);
 
                 CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
                 CCDirector::sharedDirector()->replaceScene(pScene);
@@ -342,20 +331,20 @@ void FourPlayerGameScene::update(float delta)
         case STATE_CONNECTED:
         case STATE_LEFT:
             {
-                if (NetworkLogic::getInstance()->isRoomExists())
+                if (networkLogic->isRoomExists())
                 {
                     CCLOG("Join");
-                    NetworkLogic::getInstance()->setLastInput(INPUT_2);
+                    networkLogic->setLastInput(INPUT_2);
                 }
                 else
                 {
                     CCLOG("Create");
-                    NetworkLogic::getInstance()->setLastInput(INPUT_1);
+                    networkLogic->setLastInput(INPUT_1);
                 }
             }
             break;
         case STATE_DISCONNECTED:
-            NetworkLogic::getInstance()->connect();
+            networkLogic->connect();
             break;
         case STATE_CONNECTING:
         case STATE_JOINING:
@@ -370,23 +359,29 @@ void FourPlayerGameScene::update(float delta)
     if (Player2Joined /* && Player3Joined && Player4Joined*/)
     {
         //if from Host
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             if (this->loadingLayer->isVisible())
             {
                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-                NetworkLogic::getInstance()->sendEvent(8, eventContent);
+                networkLogic->sendEvent(8, eventContent);
                 removeLoading();
                 
                 spawnRunes();
+                
+                CCDelayTime* delay = CCDelayTime::create(60);
+                CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::spawnRunes));
+                CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
+                CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
+                this->runAction(seqLoop);
             }
         }
     }
     
-    while (!NetworkLogic::getInstance()->eventQueue.empty())
+    while (!networkLogic->eventQueue.empty())
     {
-        std::vector<float> arr = NetworkLogic::getInstance()->eventQueue.front();
-        NetworkLogic::getInstance()->eventQueue.pop();
+        std::vector<float> arr = networkLogic->eventQueue.front();
+        networkLogic->eventQueue.pop();
         
         int code = arr.back();
         arr.pop_back();
@@ -420,7 +415,7 @@ void FourPlayerGameScene::update(float delta)
                 //If information is from Host (Player 1)
                 if (playerNr == 1)
                 {
-                    CCLOG("Round Trip Time = %d", NetworkLogic::getInstance()->getRoundTripTime());
+//                    CCLOG("Round Trip Time = %d", networkLogic->getRoundTripTime());
                     
                     //Correction of Ship 1 with dead reckoning
                     
@@ -460,14 +455,14 @@ void FourPlayerGameScene::update(float delta)
                 int playerNr = arr.back();
                 arr.pop_back();
                 
-                if (playerNr != NetworkLogic::getInstance()->playerNr)
+                if (playerNr != networkLogic->playerNr)
                 {
                     this->shoot(playerNr);
                     
                     if (bulletBody->GetUserData() != NULL)
                     {
                         b2Vec2 velocity = bulletBody->GetLinearVelocity();
-                        int delay = NetworkLogic::getInstance()->getRoundTripTime()/100 / 2;
+                        int delay = networkLogic->getRoundTripTime()/100 / 2;
                         
                         b2Vec2 futurePosition = b2Vec2(x + velocity.x * delay, y + velocity.y * delay);
                         
@@ -543,7 +538,7 @@ void FourPlayerGameScene::update(float delta)
                 int playerNr = arr.back();
                 arr.pop_back();
                 
-                if (NetworkLogic::getInstance()->playerNr == 1)
+                if (networkLogic->playerNr == 1)
                 {
                     if (playerNr == 2)
                     {
@@ -663,7 +658,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleShield(1);
                 CCLOG("Toggle shield 1");
@@ -675,7 +670,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(1);
                 CCLOG("Toggle Hp UP 1");
@@ -687,7 +682,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(1);
                 CCLOG("Toggle DD 1");
@@ -699,7 +694,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(1);
                 CCLOG("Toggle invert role 1");
@@ -715,7 +710,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleShield(2);
             }
@@ -726,7 +721,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(2);
             }
@@ -737,7 +732,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(2);
             }
@@ -748,7 +743,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(2);
             }
@@ -763,7 +758,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleShield(1);
             }
@@ -774,7 +769,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(1);
             }
@@ -785,7 +780,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(1);
             }
@@ -796,7 +791,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(1);
             }
@@ -811,7 +806,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleShield(2);
             }
@@ -822,7 +817,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleHPUp(2);
             }
@@ -833,7 +828,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleDoubleDamage(2);
             }
@@ -844,7 +839,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkLogic::getInstance()->playerNr == 1)
+            if (networkLogic->playerNr == 1)
             {
                 toggleInvertRole(2);
             }
@@ -882,7 +877,7 @@ void FourPlayerGameScene::update(float delta)
         }
     }
     
-    switch (NetworkLogic::getInstance()->playerNr)
+    switch (networkLogic->playerNr)
     {
         case 1:
             this->setViewPointCenter(CCPoint(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
@@ -925,7 +920,7 @@ void FourPlayerGameScene::update(float delta)
                     toDestroy.push_back(bodyB);
                     CCLOG("Ship 2 has been hit");
 
-                    if (NetworkLogic::getInstance()->playerNr == 1)
+                    if (networkLogic->playerNr == 1)
                     {
                         if (!ship2ShieldBool)
                         {
@@ -934,7 +929,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 2);
                                 
-                                NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                                networkLogic->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(2);
                             }
@@ -942,7 +937,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 2);
                             
-                            NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                            networkLogic->sendEvent(3, eventContent);
                             
                             someOneGotHit(2);
                         }
@@ -957,7 +952,7 @@ void FourPlayerGameScene::update(float delta)
                     toDestroy.push_back(bodyA);
                     CCLOG("Ship 2 has been hit");
 
-                    if (NetworkLogic::getInstance()->playerNr == 1)
+                    if (networkLogic->playerNr == 1)
                     {
                         if (!ship2ShieldBool)
                         {
@@ -966,7 +961,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 2);
                                 
-                                NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                                networkLogic->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(2);
                             }
@@ -974,7 +969,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 2);
                             
-                            NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                            networkLogic->sendEvent(3, eventContent);
                             
                             someOneGotHit(2);
                         }
@@ -990,7 +985,7 @@ void FourPlayerGameScene::update(float delta)
                     toDestroy.push_back(bodyB);
                     CCLOG("Ship 1 has been hit");
 
-                    if (NetworkLogic::getInstance()->playerNr == 1)
+                    if (networkLogic->playerNr == 1)
                     {
                         if (!ship1ShieldBool)
                         {
@@ -999,7 +994,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 1);
                                 
-                                NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                                networkLogic->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(1);
                             }
@@ -1007,7 +1002,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 1);
                             
-                            NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                            networkLogic->sendEvent(3, eventContent);
                             
                             someOneGotHit(1);
                         }
@@ -1022,7 +1017,7 @@ void FourPlayerGameScene::update(float delta)
                     toDestroy.push_back(bodyA);
                     CCLOG("Ship 1 has been hit");
 
-                    if (NetworkLogic::getInstance()->playerNr == 1)
+                    if (networkLogic->playerNr == 1)
                     {
                         if (!ship1ShieldBool)
                         {
@@ -1031,7 +1026,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 1);
                                 
-                                NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                                networkLogic->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(1);
                             }
@@ -1039,7 +1034,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 1);
                             
-                            NetworkLogic::getInstance()->sendEvent(3, eventContent);
+                            networkLogic->sendEvent(3, eventContent);
                             
                             someOneGotHit(1);
                         }
@@ -1081,13 +1076,13 @@ void FourPlayerGameScene::update(float delta)
     
     if (score1 == 0 || score2 == 0)
     {
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, score1);
             eventContent->put<int, float>(2, score2);
 
-            NetworkLogic::getInstance()->sendEvent(6, eventContent);
+            networkLogic->sendEvent(6, eventContent);
             
             gameOver();
         }
@@ -1104,7 +1099,7 @@ void FourPlayerGameScene::removeLoading()
 
 void FourPlayerGameScene::sendPositions()
 {
-    if (NetworkLogic::getInstance()->playerNr)
+    if (networkLogic->playerNr)
     {
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         eventContent->put<int, float>(1, shipBody1->GetPosition().x);
@@ -1114,7 +1109,7 @@ void FourPlayerGameScene::sendPositions()
         eventContent->put<int, float>(5, shipBody2->GetPosition().y);
         eventContent->put<int, float>(6, shipBody2->GetAngle());
         
-        NetworkLogic::getInstance()->sendEvent(1, eventContent);
+        networkLogic->sendEvent(1, eventContent);
     }
 }
 
@@ -1319,12 +1314,12 @@ void FourPlayerGameScene::toggleShield(int ship)
         ship1shield->setVisible(true);
         tileMapStatusBlueLayer->setTileGID(4, CCPoint(0, 0));
         
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            NetworkLogic::getInstance()->sendEvent(5, eventContent);
+            networkLogic->sendEvent(5, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
@@ -1338,12 +1333,12 @@ void FourPlayerGameScene::toggleShield(int ship)
         ship2shield->setVisible(true);
         tileMapStatusGreenLayer->setTileGID(4, CCPoint(0, 0));
         
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            NetworkLogic::getInstance()->sendEvent(5, eventContent);
+            networkLogic->sendEvent(5, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
@@ -1403,12 +1398,12 @@ void FourPlayerGameScene::toggleHPUp(int ship)
     
     CCLOG("HP UP, Score1 %d, Score2 %d", score1, score2);
     
-    if (NetworkLogic::getInstance()->playerNr == 1)
+    if (networkLogic->playerNr == 1)
     {
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         eventContent->put<int, float>(1, ship);
         
-        NetworkLogic::getInstance()->sendEvent(9, eventContent);
+        networkLogic->sendEvent(9, eventContent);
     }
     
 }
@@ -1423,12 +1418,12 @@ void FourPlayerGameScene::toggleDoubleDamage(int ship)
         ship1->setOpacity(128);
         tileMapStatusBlueLayer->setTileGID(2, CCPoint(0, 0));
         
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            NetworkLogic::getInstance()->sendEvent(10, eventContent);
+            networkLogic->sendEvent(10, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
@@ -1442,12 +1437,12 @@ void FourPlayerGameScene::toggleDoubleDamage(int ship)
         ship2->setOpacity(128);
         tileMapStatusGreenLayer->setTileGID(2, CCPoint(0, 0));
 
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            NetworkLogic::getInstance()->sendEvent(10, eventContent);
+            networkLogic->sendEvent(10, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
@@ -1491,12 +1486,12 @@ void FourPlayerGameScene::toggleInvertRole(int ship)
         ship1InvertRoleBool = true;
         tileMapStatusBlueLayer->setTileGID(3, CCPoint(0, 0));
         
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            NetworkLogic::getInstance()->sendEvent(11, eventContent);
+            networkLogic->sendEvent(11, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
@@ -1509,12 +1504,12 @@ void FourPlayerGameScene::toggleInvertRole(int ship)
         ship2InvertRoleBool = true;
         tileMapStatusGreenLayer->setTileGID(3, CCPoint(0, 0));
         
-        if (NetworkLogic::getInstance()->playerNr == 1)
+        if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            NetworkLogic::getInstance()->sendEvent(11, eventContent);
+            networkLogic->sendEvent(11, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
@@ -1550,7 +1545,7 @@ void FourPlayerGameScene::disableShip2InvertRole()
 void FourPlayerGameScene::spawnRunes()
 {
     CCLOG("spawning runes");
-    if (NetworkLogic::getInstance()->playerNr == 1)
+    if (networkLogic->playerNr == 1)
     {
         int random1 = rand() % 4 + 2;
         // random in the range 2 to 5
@@ -1566,7 +1561,7 @@ void FourPlayerGameScene::spawnRunes()
         eventContent->put<int, float>(1, random1);
         eventContent->put<int, float>(2, random2);
         
-        NetworkLogic::getInstance()->sendEvent(12, eventContent);
+        networkLogic->sendEvent(12, eventContent);
     }
 }
 
@@ -1697,11 +1692,11 @@ void FourPlayerGameScene::fireButtonCall(CCObject *sender)
     
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
     
-    if (NetworkLogic::getInstance()->playerNr)
+    if (networkLogic->playerNr)
     {
-        this->shoot(NetworkLogic::getInstance()->playerNr);
+        this->shoot(networkLogic->playerNr);
 
-        CCLOG("Sending from %d", NetworkLogic::getInstance()->playerNr);
+        CCLOG("Sending from %d", networkLogic->playerNr);
         
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         eventContent->put<int, float>(1, bulletBody->GetPosition().x);
@@ -1709,7 +1704,7 @@ void FourPlayerGameScene::fireButtonCall(CCObject *sender)
         eventContent->put<int, float>(3, bulletBody->GetAngle());
         CCLOG("Bullet X: %f, Y:%f, Angle:%f", bulletBody->GetPosition().x, bulletBody->GetPosition().y, bulletBody->GetAngle());
         
-        NetworkLogic::getInstance()->sendEvent(2, eventContent);
+        networkLogic->sendEvent(2, eventContent);
     }
 }
 
@@ -1719,11 +1714,11 @@ void FourPlayerGameScene::turnButtonCall(CCObject *sender)
     
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_twoTone.mp3");
     
-    if (NetworkLogic::getInstance()->playerNr)
+    if (networkLogic->playerNr)
     {
-        this->turn(NetworkLogic::getInstance()->playerNr);
+        this->turn(networkLogic->playerNr);
 
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-        NetworkLogic::getInstance()->sendEvent(4, eventContent);
+        networkLogic->sendEvent(4, eventContent);
     }
 }
