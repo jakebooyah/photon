@@ -98,8 +98,8 @@ bool HelloWorld::init()
     ship1->setTag(1);
     worldLayer->addChild(ship1);
     
-    ship1shield = CCSprite::create("shield1.png");
-    ship1shield->setPosition(CCPoint(56, 38));
+    ship1shield = CCSprite::create("ship_shield.png");
+    ship1shield->setPosition(CCPoint(75, 85));
     ship1shield->setVisible(false);
     ship1->addChild(ship1shield);
     
@@ -120,8 +120,8 @@ bool HelloWorld::init()
     ship2->setTag(2);
     worldLayer->addChild(ship2);
     
-    ship2shield = CCSprite::create("shield1.png");
-    ship2shield->setPosition(CCPoint(56, 38));
+    ship2shield = CCSprite::create("ship_shield.png");
+    ship2shield->setPosition(CCPoint(75, 85));
     ship2shield->setVisible(false);
     ship2->addChild(ship2shield);
     
