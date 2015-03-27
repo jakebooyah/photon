@@ -233,6 +233,12 @@ bool HelloWorld::init()
     squareBlue5->setPosition(CCPoint(visibleSize.width/2 - 200 - 4*50, visibleSize.height-150));
     hudLayer->addChild(squareBlue5);
     
+    statusBlue = CCTMXTiledMap::create("status_blue_tilemap.tmx");
+    tileMapStatusBlueLayer = statusBlue->layerNamed("baseLayer");
+    statusBlue->setAnchorPoint(CCPoint(0.5, 0.5));
+    statusBlue->setPosition(CCPoint(150, visibleSize.height-150));
+    hudLayer->addChild(statusBlue);
+    
     squareGreen1 = CCSprite::create("square_green.png");
     squareGreen1->setPosition(CCPoint(visibleSize.width/2 + 200 + 0*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen1);
@@ -252,6 +258,12 @@ bool HelloWorld::init()
     squareGreen5 = CCSprite::create("square_green.png");
     squareGreen5->setPosition(CCPoint(visibleSize.width/2 + 200 + 4*50, visibleSize.height-150));
     hudLayer->addChild(squareGreen5);
+    
+    statusGreen = CCTMXTiledMap::create("status_green_tilemap.tmx");
+    tileMapStatusGreenLayer = statusGreen->layerNamed("baseLayer");
+    statusGreen->setAnchorPoint(CCPoint(0.5, 0.5));
+    statusGreen->setPosition(CCPoint(visibleSize.width-150, visibleSize.height-150));
+    hudLayer->addChild(statusGreen);
     
     this->addChild(hudLayer);
     
@@ -1304,6 +1316,7 @@ void HelloWorld::toggleShield(int ship)
     {
         ship1ShieldBool = true;
         ship1shield->setVisible(true);
+        tileMapStatusBlueLayer->setTileGID(4, CCPoint(0, 0));
         
         if (networkLogic->playerNr == 1)
         {
@@ -1322,6 +1335,7 @@ void HelloWorld::toggleShield(int ship)
     {
         ship2ShieldBool = true;
         ship2shield->setVisible(true);
+        tileMapStatusGreenLayer->setTileGID(4, CCPoint(0, 0));
         
         if (networkLogic->playerNr == 1)
         {
@@ -1345,7 +1359,8 @@ void HelloWorld::disableShip1Shield()
     {
         ship1ShieldBool = false;
         ship1shield->setVisible(false);
-        
+        tileMapStatusBlueLayer->setTileGID(1, CCPoint(0, 0));
+
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
@@ -1356,6 +1371,7 @@ void HelloWorld::disableShip2Shield()
     {
         ship2ShieldBool = false;
         ship2shield->setVisible(false);
+        tileMapStatusGreenLayer->setTileGID(1, CCPoint(0, 0));
         
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
@@ -1405,6 +1421,7 @@ void HelloWorld::toggleDoubleDamage(int ship)
     {
         ship1DoubleDamageBool = true;
         ship1->setOpacity(128);
+        tileMapStatusBlueLayer->setTileGID(2, CCPoint(0, 0));
         
         if (networkLogic->playerNr == 1)
         {
@@ -1423,7 +1440,8 @@ void HelloWorld::toggleDoubleDamage(int ship)
     {
         ship2DoubleDamageBool = true;
         ship2->setOpacity(128);
-        
+        tileMapStatusGreenLayer->setTileGID(2, CCPoint(0, 0));
+
         if (networkLogic->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
@@ -1446,6 +1464,8 @@ void HelloWorld::disableShip1DoubleDamage()
     {
         ship1DoubleDamageBool = false;
         ship1->setOpacity(255);
+        tileMapStatusBlueLayer->setTileGID(1, CCPoint(0, 0));
+
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
@@ -1456,6 +1476,8 @@ void HelloWorld::disableShip2DoubleDamage()
     {
         ship2DoubleDamageBool = false;
         ship2->setOpacity(255);
+        tileMapStatusGreenLayer->setTileGID(1, CCPoint(0, 0));
+
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
@@ -1467,6 +1489,7 @@ void HelloWorld::toggleInvertRole(int ship)
     if (ship == 1)
     {
         ship1InvertRoleBool = true;
+        tileMapStatusBlueLayer->setTileGID(3, CCPoint(0, 0));
         
         if (networkLogic->playerNr == 1)
         {
@@ -1484,6 +1507,7 @@ void HelloWorld::toggleInvertRole(int ship)
     else if (ship == 2)
     {
         ship2InvertRoleBool = true;
+        tileMapStatusGreenLayer->setTileGID(3, CCPoint(0, 0));
         
         if (networkLogic->playerNr == 1)
         {
@@ -1506,6 +1530,8 @@ void HelloWorld::disableShip1InvertRole()
     if (ship1InvertRoleBool)
     {
         ship1InvertRoleBool = false;
+        tileMapStatusBlueLayer->setTileGID(1, CCPoint(0, 0));
+
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
@@ -1515,6 +1541,8 @@ void HelloWorld::disableShip2InvertRole()
     if (ship1InvertRoleBool)
     {
         ship2InvertRoleBool = false;
+        tileMapStatusGreenLayer->setTileGID(1, CCPoint(0, 0));
+
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }

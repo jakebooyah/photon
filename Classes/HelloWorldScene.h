@@ -90,6 +90,12 @@ private:
     CCTMXTiledMap *tilemapSpawn2;
     CCTMXLayer *tileMapSpawn2Layer;
     
+    CCTMXTiledMap *statusBlue;
+    CCTMXLayer *tileMapStatusBlueLayer;
+    
+    CCTMXTiledMap *statusGreen;
+    CCTMXLayer *tileMapStatusGreenLayer;
+    
     CCLayer *worldLayer;
     CCLayer *hudLayer;
     CCLayer *loadingLayer;
