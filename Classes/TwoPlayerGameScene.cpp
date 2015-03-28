@@ -776,14 +776,6 @@ void TwoPlayerGameScene::update(float delta)
             this->setViewPointCenter(CCPoint(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
             break;
             
-        case 3:
-            this->setViewPointCenter(CCPoint(shipBody2->GetPosition().x * 32, shipBody2->GetPosition().y *32));
-            break;
-            
-        case 4:
-            this->setViewPointCenter(CCPoint(shipBody2->GetPosition().x * 32, shipBody2->GetPosition().y *32));
-            break;
-            
         default:
             break;
     }
