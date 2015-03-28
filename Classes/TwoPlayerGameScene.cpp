@@ -121,7 +121,7 @@ bool TwoPlayerGameScene::init()
     b2FixtureDef shipFixture;
     shipFixture.density=2;
     shipFixture.friction=0;
-    shipFixture.restitution=1;
+    shipFixture.restitution=0.5;
     shipFixture.shape=&shipShape;
     
     //create ship 1
@@ -1030,7 +1030,7 @@ void TwoPlayerGameScene::turn(int playerN)
     {
         CCLOG("Player 1 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 7) , (sin(shipBody1->GetAngle()-4.7) * 7));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
         
         shipBody1->SetLinearVelocity(force);
         
@@ -1047,7 +1047,7 @@ void TwoPlayerGameScene::turn(int playerN)
     {
         CCLOG("Player 2 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 7) , (sin(shipBody1->GetAngle()-4.7) * 7));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
         
         shipBody1->SetLinearVelocity(force);
         
@@ -1435,7 +1435,7 @@ void TwoPlayerGameScene::moveSeekingAI()
     
     distance.Normalize();
     
-    b2Vec2 force = 5 * distance;
+    b2Vec2 force = 7 * distance;
     
     shipBody2->SetLinearVelocity(force);
 }
