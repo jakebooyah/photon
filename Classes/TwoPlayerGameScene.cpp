@@ -425,12 +425,13 @@ void TwoPlayerGameScene::update(float delta)
                     b2Vec2 velocity = shipBody1->GetLinearVelocity();
                     int delay = networkLogic->getRoundTripTime()/100 / 2;
                     
-                    b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
-                    float futureAngle = angle1 + shipBody1->GetAngularVelocity() * delay;
-                    
-                    shipBody1->SetTransform(futurePosition, futureAngle);
-                    
-                    //Correction of Ship 2 with dead reckoning
+                    if (delay < 3)
+                    {
+                        b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
+                        float futureAngle = angle1 + shipBody1->GetAngularVelocity() * delay;
+                        
+                        shipBody1->SetTransform(futurePosition, futureAngle);
+                    }
                     
                     shipBody2->SetTransform(b2Vec2(x2, y2), angle2);
                 }

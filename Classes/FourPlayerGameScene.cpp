@@ -422,20 +422,34 @@ void FourPlayerGameScene::update(float delta)
                     b2Vec2 velocity = shipBody1->GetLinearVelocity();
                     int delay = networkLogic->getRoundTripTime()/100 / 2;
                     
-                    b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
-                    float futureAngle = angle1 + shipBody1->GetAngularVelocity() * delay;
-                    
-                    shipBody1->SetTransform(futurePosition, futureAngle);
+                    if (delay < 3)
+                    {
+                        b2Vec2 futurePosition = b2Vec2(x1 + velocity.x * delay, y1 + velocity.y * delay);
+                        float futureAngle = angle1 + shipBody1->GetAngularVelocity() * delay;
+                        
+                        shipBody1->SetTransform(futurePosition, futureAngle);
+                    }
+                    else
+                    {
+                        shipBody1->SetTransform(b2Vec2(x1, y1), angle1);
+                    }
                     
                     //Correction of Ship 2 with dead reckoning
                     
                     velocity = shipBody2->GetLinearVelocity();
                     delay = networkLogic->getRoundTripTime()/100 / 2;
                     
-                    futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
-                    futureAngle = angle2 + shipBody2->GetAngularVelocity() * delay;
-
-                    shipBody2->SetTransform(futurePosition, futureAngle);
+                    if (delay < 3)
+                    {
+                        b2Vec2 futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
+                        float futureAngle = angle2 + shipBody2->GetAngularVelocity() * delay;
+                        
+                        shipBody2->SetTransform(futurePosition, futureAngle);
+                    }
+                    else
+                    {
+                        shipBody2->SetTransform(b2Vec2(x2, y2), angle2);
+                    }
                 }
                 
                 break;
@@ -1132,7 +1146,7 @@ void FourPlayerGameScene::turn(int playerN)
     {
         CCLOG("Player 1 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 7) , (sin(shipBody1->GetAngle()-4.7) * 7));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
 
         shipBody1->SetLinearVelocity(force);
         
@@ -1149,7 +1163,7 @@ void FourPlayerGameScene::turn(int playerN)
     {
         CCLOG("Player 2 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 7) , (sin(shipBody1->GetAngle()-4.7) * 7));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
 
         shipBody1->SetLinearVelocity(force);
         
@@ -1166,7 +1180,7 @@ void FourPlayerGameScene::turn(int playerN)
     {
         CCLOG("Player 3 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 7) , (sin(shipBody2->GetAngle()-4.7) * 7));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 10) , (sin(shipBody2->GetAngle()-4.7) * 10));
         
         shipBody2->SetLinearVelocity(force);
         
@@ -1183,7 +1197,7 @@ void FourPlayerGameScene::turn(int playerN)
     {
         CCLOG("Player 4 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 7) , (sin(shipBody2->GetAngle()-4.7) * 7));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 10) , (sin(shipBody2->GetAngle()-4.7) * 10));
         
         shipBody2->SetLinearVelocity(force);
         
