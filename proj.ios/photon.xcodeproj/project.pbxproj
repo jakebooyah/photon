@@ -260,6 +260,7 @@
 		234BF5E61AC6011C00C97336 /* status_green_tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5E41AC6011B00C97336 /* status_green_tileset.png */; };
 		234BF5E91AC6018400C97336 /* status_blue_tilemap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5E71AC6018400C97336 /* status_blue_tilemap.tmx */; };
 		234BF5EA1AC6018400C97336 /* status_green_tilemap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5E81AC6018400C97336 /* status_green_tilemap.tmx */; };
+		234BF5EE1AC6D6E200C97336 /* TwoPlayerScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 234BF5EC1AC6D6E200C97336 /* TwoPlayerScene.cpp */; };
 		235830D31AB365D800CDA237 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D21AB365D800CDA237 /* fireButton.png */; };
 		235830D51AB365E600CDA237 /* disabledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D41AB365E600CDA237 /* disabledButton.png */; };
 		235830D71AB365F000CDA237 /* turnRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D61AB365F000CDA237 /* turnRight.png */; };
@@ -902,6 +903,8 @@
 		234BF5E41AC6011B00C97336 /* status_green_tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_green_tileset.png; sourceTree = "<group>"; };
 		234BF5E71AC6018400C97336 /* status_blue_tilemap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = status_blue_tilemap.tmx; sourceTree = "<group>"; };
 		234BF5E81AC6018400C97336 /* status_green_tilemap.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = status_green_tilemap.tmx; sourceTree = "<group>"; };
+		234BF5EC1AC6D6E200C97336 /* TwoPlayerScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPlayerScene.cpp; sourceTree = "<group>"; };
+		234BF5ED1AC6D6E200C97336 /* TwoPlayerScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPlayerScene.h; sourceTree = "<group>"; };
 		235830D21AB365D800CDA237 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireButton.png; sourceTree = "<group>"; };
 		235830D41AB365E600CDA237 /* disabledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disabledButton.png; sourceTree = "<group>"; };
 		235830D61AB365F000CDA237 /* turnRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnRight.png; sourceTree = "<group>"; };
@@ -1686,6 +1689,8 @@
 				235830E91AB4153D00CDA237 /* MainMenuScene.h */,
 				1AFAF8B516D35DE700DB1158 /* FourPlayerGameScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* FourPlayerGameScene.h */,
+				234BF5EC1AC6D6E200C97336 /* TwoPlayerScene.cpp */,
+				234BF5ED1AC6D6E200C97336 /* TwoPlayerScene.h */,
 				235831001AB446ED00CDA237 /* GameOverScene.cpp */,
 				235831011AB446ED00CDA237 /* GameOverScene.h */,
 				2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */,
@@ -3027,6 +3032,7 @@
 				15C0B55C196D412F007F909D /* CCBatchNode.cpp in Sources */,
 				15A3D9141682F7D5002FB0C5 /* b2Island.cpp in Sources */,
 				15A3D9151682F7D5002FB0C5 /* b2World.cpp in Sources */,
+				234BF5EE1AC6D6E200C97336 /* TwoPlayerScene.cpp in Sources */,
 				15A3D9161682F7D5002FB0C5 /* b2WorldCallbacks.cpp in Sources */,
 				15C0B582196D412F007F909D /* CocoLoader.cpp in Sources */,
 				15A3D9171682F7D5002FB0C5 /* b2ChainAndCircleContact.cpp in Sources */,

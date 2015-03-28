@@ -111,7 +111,7 @@ bool FourPlayerGameScene::init()
     
     //ship fixture definition
     b2FixtureDef shipFixture;
-    shipFixture.density=1;
+    shipFixture.density=2;
     shipFixture.friction=0;
     shipFixture.restitution=0;
     shipFixture.shape=&shipShape;
@@ -356,7 +356,7 @@ void FourPlayerGameScene::update(float delta)
     }
     
     //if all player joined
-    if (Player2Joined /* && Player3Joined && Player4Joined*/)
+    if (Player2Joined && Player3Joined && Player4Joined)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
@@ -415,8 +415,6 @@ void FourPlayerGameScene::update(float delta)
                 //If information is from Host (Player 1)
                 if (playerNr == 1)
                 {
-//                    CCLOG("Round Trip Time = %d", networkLogic->getRoundTripTime());
-                    
                     //Correction of Ship 1 with dead reckoning
                     
                     b2Vec2 velocity = shipBody1->GetLinearVelocity();
@@ -862,7 +860,7 @@ void FourPlayerGameScene::update(float delta)
         // Get the distance between the two objects.
         b2Vec2 distance = center - position;
         
-        float force =  pow((distance.Length()/6 - 5), 2); //genius equation handle with care radioactive
+        float force =  pow((distance.Length()/4 - 12), 2); //genius equation handle with care radioactive
         distance.Normalize();
         
         b2Vec2 F = force * distance;
@@ -1204,7 +1202,7 @@ void FourPlayerGameScene::shoot(int playerN)
     
     //bullet fixture definition
     b2FixtureDef bulletFixture;
-    bulletFixture.density=0.05;
+    bulletFixture.density=0.1;
     bulletFixture.isSensor=false;
     bulletFixture.shape=&bulletShape;
     
@@ -1225,7 +1223,7 @@ void FourPlayerGameScene::shoot(int playerN)
         
         bulletBody = world->CreateBody(&bulletBodyDef);
         bulletBody->CreateFixture(&bulletFixture);
-        bulletBody->SetGravityScale(1);
+        bulletBody->SetLinearDamping(0.1);
         bulletBody->IsBullet();
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 30) , (sin(shipBody1->GetAngle()-4.7) * 30));
@@ -1249,16 +1247,16 @@ void FourPlayerGameScene::shoot(int playerN)
         
         bulletBody = world->CreateBody(&bulletBodyDef);
         bulletBody->CreateFixture(&bulletFixture);
+        bulletBody->SetLinearDamping(0.1);
         bulletBody->IsBullet();
         
         b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 30) , (sin(shipBody2->GetAngle()-4.7) * 30));
-        bulletBody->ApplyLinearImpulse(force, bulletBody->GetPosition());
-        
+        bulletBody->SetLinearVelocity(force);
     }
     
     CCCallFunc* disable = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableFireButton));
     CCCallFunc* enable = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::enableFireButton));
-    CCDelayTime* delay = CCDelayTime::create(3);
+    CCDelayTime* delay = CCDelayTime::create(2);
     CCSequence* seq = CCSequence::create(disable, delay, enable, NULL);
     this->runAction(seq);
 }
@@ -1694,13 +1692,10 @@ void FourPlayerGameScene::fireButtonCall(CCObject *sender)
     {
         this->shoot(networkLogic->playerNr);
 
-        CCLOG("Sending from %d", networkLogic->playerNr);
-        
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         eventContent->put<int, float>(1, bulletBody->GetPosition().x);
         eventContent->put<int, float>(2, bulletBody->GetPosition().y);
         eventContent->put<int, float>(3, bulletBody->GetAngle());
-        CCLOG("Bullet X: %f, Y:%f, Angle:%f", bulletBody->GetPosition().x, bulletBody->GetPosition().y, bulletBody->GetAngle());
         
         networkLogic->sendEvent(2, eventContent);
     }

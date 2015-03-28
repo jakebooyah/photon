@@ -132,8 +132,7 @@ private:
     b2Body *planetBody;
     
     b2Body *bulletBody;
-    
-    
+
     void fireButtonCall(CCObject *sender);
     void turnButtonCall(CCObject *sender);
 };

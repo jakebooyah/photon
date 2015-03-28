@@ -38,6 +38,12 @@ bool GameOver::init()
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     
+    CCSprite *background = CCSprite::create("background.png");
+    background->setAnchorPoint(CCPoint(0.5, 0.5));
+    background->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
+    background->setScale(2);
+    this->addChild(background);
+    
     CCLabelTTF* gameOverLabel = CCLabelTTF::create("GAME OVER", "Kenvector Future.ttf", 80);
     gameOverLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 + 100));
     gameOverLabel->setColor(ccWHITE);
@@ -69,6 +75,6 @@ void GameOver::goToStart()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
 
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
