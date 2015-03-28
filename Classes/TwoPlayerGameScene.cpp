@@ -316,8 +316,10 @@ void TwoPlayerGameScene::update(float delta)
 {
     if (networkLogic->playerNr == 1)
     {
-        moveSeekingAI();
+        sendPositions();
     }
+    
+    moveSeekingAI();
     
     networkLogic->run();
     
@@ -377,12 +379,6 @@ void TwoPlayerGameScene::update(float delta)
                 CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
                 CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
                 this->runAction(seqLoop);
-                
-                CCDelayTime* delay1 = CCDelayTime::create(0.2);
-                CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(TwoPlayerGameScene::sendPositions));
-                CCSequence* seq1 = CCSequence::create(delay1, sendPositions, NULL);
-                CCRepeatForever* seqLoop1 = CCRepeatForever::create(seq1);
-                this->runAction(seqLoop1);
             }
         }
     }
@@ -436,13 +432,7 @@ void TwoPlayerGameScene::update(float delta)
                     
                     //Correction of Ship 2 with dead reckoning
                     
-                    velocity = shipBody2->GetLinearVelocity();
-                    delay = networkLogic->getRoundTripTime()/100 / 2;
-                    
-                    futurePosition = b2Vec2(x2 + velocity.x * delay, y2 + velocity.y * delay);
-                    futureAngle = angle2 + shipBody2->GetAngularVelocity() * delay;
-                    
-                    shipBody2->SetTransform(futurePosition, futureAngle);
+                    shipBody2->SetTransform(b2Vec2(x2, y2), angle2);
                 }
                 
                 break;

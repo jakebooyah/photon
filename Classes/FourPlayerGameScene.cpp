@@ -313,6 +313,11 @@ bool FourPlayerGameScene::init()
 
 void FourPlayerGameScene::update(float delta)
 {
+    if (networkLogic->playerNr == 1)
+    {
+        sendPositions();
+    }
+    
     networkLogic->run();
     
     switch (networkLogic->getState())
@@ -371,12 +376,6 @@ void FourPlayerGameScene::update(float delta)
                 CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
                 CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
                 this->runAction(seqLoop);
-                
-                CCDelayTime* delay1 = CCDelayTime::create(0.2);
-                CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::sendPositions));
-                CCSequence* seq1 = CCSequence::create(delay1, sendPositions, NULL);
-                CCRepeatForever* seqLoop1 = CCRepeatForever::create(seq1);
-                this->runAction(seqLoop1);
             }
         }
     }
