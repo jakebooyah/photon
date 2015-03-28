@@ -26,8 +26,8 @@ public:
     CREATE_FUNC(MainMenu);
     
 private:
-    void startGame();
-    
+    void startGame2();
+    void startGame4();
 };
 
 #endif /* defined(__photon__MainMenuScene__) */

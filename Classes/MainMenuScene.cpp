@@ -8,6 +8,7 @@
 
 #include "MainMenuScene.h"
 #include "FourPlayerGameScene.h"
+#include "TwoPlayerGameScene.h"
 #include "CCScale9Sprite.h"
 #include "SimpleAudioEngine.h"
 
@@ -46,25 +47,43 @@ bool MainMenu::init()
     
     CCLabelTTF* title = CCLabelTTF::create("PHOTON", "Kenvector Future.ttf", 80);
     title->setColor(ccWHITE);
-    title->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2+110));
+    title->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2+210));
     this->addChild(title);
     
     cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("panel.png");
-    buttonS->setContentSize(CCSize(800, 200));
+    buttonS->setContentSize(CCSize(800, 150));
     
     cocos2d::extension::CCScale9Sprite* buttonPressedS = cocos2d::extension::CCScale9Sprite::create("panel.png");
-    buttonPressedS->setContentSize(CCSize(800, 200));
+    buttonPressedS->setContentSize(CCSize(800, 150));
     
-    CCMenuItemSprite* startButton = CCMenuItemSprite::create(buttonS, buttonPressedS, this, menu_selector(MainMenu::startGame));
-    CCMenu* menuStart = CCMenu::create(startButton, NULL);
+    CCMenuItemSprite* startButton1 = CCMenuItemSprite::create(buttonS, buttonPressedS, this, menu_selector(MainMenu::startGame2));
+    CCMenu* menuStart1 = CCMenu::create(startButton1, NULL);
     
-    menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-100));
-    this->addChild(menuStart);
+    menuStart1->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
+    this->addChild(menuStart1);
     
-    CCLabelTTF* buttonLabel = CCLabelTTF::create("PLAY", "Kenvector Future.ttf", 60);
-    buttonLabel->setColor(ccWHITE);
-    buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-110));
-    this->addChild(buttonLabel);
+    CCLabelTTF* buttonLabel1 = CCLabelTTF::create("2PLAY", "Kenvector Future.ttf", 60);
+    buttonLabel1->setColor(ccWHITE);
+    buttonLabel1->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-10));
+    this->addChild(buttonLabel1);
+    
+    cocos2d::extension::CCScale9Sprite* buttonS1 = cocos2d::extension::CCScale9Sprite::create("panel.png");
+    buttonS1->setContentSize(CCSize(800, 150));
+    
+    cocos2d::extension::CCScale9Sprite* buttonPressedS1 = cocos2d::extension::CCScale9Sprite::create("panel.png");
+    buttonPressedS1->setContentSize(CCSize(800, 150));
+    
+    CCMenuItemSprite* startButton2 = CCMenuItemSprite::create(buttonS1, buttonPressedS1, this, menu_selector(MainMenu::startGame4));
+    CCMenu* menuStart2 = CCMenu::create(startButton2, NULL);
+    
+    menuStart2->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-200));
+    this->addChild(menuStart2);
+    
+    CCLabelTTF* buttonLabel2 = CCLabelTTF::create("4PLAY", "Kenvector Future.ttf", 60);
+    buttonLabel2->setColor(ccWHITE);
+    buttonLabel2->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-210));
+    this->addChild(buttonLabel2);
+    
     
     CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.4);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3", true);
@@ -72,10 +91,18 @@ bool MainMenu::init()
     return true;
 }
 
-void MainMenu::startGame()
+void MainMenu::startGame2()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
 
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7, TwoPlayerGameScene::scene(), ccBLACK);
+    CCDirector::sharedDirector()->replaceScene(pScene);
+}
+
+void MainMenu::startGame4()
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
+    
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,FourPlayerGameScene::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
