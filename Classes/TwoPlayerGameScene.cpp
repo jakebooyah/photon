@@ -316,7 +316,6 @@ void TwoPlayerGameScene::update(float delta)
 {
     if (networkLogic->playerNr == 1)
     {
-        sendPositions();
         moveSeekingAI();
     }
     
@@ -328,7 +327,7 @@ void TwoPlayerGameScene::update(float delta)
         {
             networkLogic->setLastInput(INPUT_EXIT);
             
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccBLACK);
             CCDirector::sharedDirector()->replaceScene(pScene);
         }
             break;
@@ -378,6 +377,12 @@ void TwoPlayerGameScene::update(float delta)
                 CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
                 CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
                 this->runAction(seqLoop);
+                
+                CCDelayTime* delay1 = CCDelayTime::create(0.2);
+                CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(TwoPlayerGameScene::sendPositions));
+                CCSequence* seq1 = CCSequence::create(delay1, sendPositions, NULL);
+                CCRepeatForever* seqLoop1 = CCRepeatForever::create(seq1);
+                this->runAction(seqLoop1);
             }
         }
     }
@@ -980,12 +985,6 @@ void TwoPlayerGameScene::update(float delta)
     {
         if (networkLogic->playerNr == 1)
         {
-            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-            eventContent->put<int, float>(1, score1);
-            eventContent->put<int, float>(2, score2);
-            
-            networkLogic->sendEvent(6, eventContent);
-            
             gameOver();
         }
     }
@@ -1018,6 +1017,15 @@ void TwoPlayerGameScene::sendPositions()
 void TwoPlayerGameScene::gameOver()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    
+    if (networkLogic->playerNr == 1)
+    {
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, score1);
+        eventContent->put<int, float>(2, score2);
+        
+        networkLogic->sendEvent(6, eventContent);
+    }
     
     CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
     

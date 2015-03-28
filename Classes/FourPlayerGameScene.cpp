@@ -305,17 +305,14 @@ bool FourPlayerGameScene::init()
     ship2InvertRoleBool = false;
     
     scheduleUpdate();
+    
+    
         
     return true;
 }
 
 void FourPlayerGameScene::update(float delta)
 {
-    if (networkLogic->playerNr == 1)
-    {
-        sendPositions();
-    }
-    
     networkLogic->run();
     
     switch (networkLogic->getState())
@@ -374,6 +371,12 @@ void FourPlayerGameScene::update(float delta)
                 CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
                 CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
                 this->runAction(seqLoop);
+                
+                CCDelayTime* delay1 = CCDelayTime::create(0.2);
+                CCCallFunc* sendPositions = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::sendPositions));
+                CCSequence* seq1 = CCSequence::create(delay1, sendPositions, NULL);
+                CCRepeatForever* seqLoop1 = CCRepeatForever::create(seq1);
+                this->runAction(seqLoop1);
             }
         }
     }
@@ -1076,12 +1079,6 @@ void FourPlayerGameScene::update(float delta)
     {
         if (networkLogic->playerNr == 1)
         {
-            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-            eventContent->put<int, float>(1, score1);
-            eventContent->put<int, float>(2, score2);
-
-            networkLogic->sendEvent(6, eventContent);
-            
             gameOver();
         }
     }
@@ -1114,6 +1111,15 @@ void FourPlayerGameScene::sendPositions()
 void FourPlayerGameScene::gameOver()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    
+    if (networkLogic->playerNr == 1)
+    {
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, score1);
+        eventContent->put<int, float>(2, score2);
+        
+        networkLogic->sendEvent(6, eventContent);
+    }
     
     CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
         
