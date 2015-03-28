@@ -1117,7 +1117,7 @@ void FourPlayerGameScene::gameOver()
     
     CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
         
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
 

@@ -360,7 +360,7 @@ void TwoPlayerGameScene::update(float delta)
     }
     
     //if all player joined
-    if (true/*Player2Joined*/)
+    if (Player2Joined)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
@@ -1021,7 +1021,7 @@ void TwoPlayerGameScene::gameOver()
     
     CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
     
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccWHITE);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
 
