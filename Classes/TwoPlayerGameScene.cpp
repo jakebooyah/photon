@@ -86,18 +86,6 @@ bool TwoPlayerGameScene::init()
     planetBody->CreateFixture(&planetFixture);
     planetBody->SetGravityScale(10);
     
-    
-    //PowerUp background
-    powerUpBg1 = CCSprite::create("powerUp_background.png");
-    powerUpBg1->setAnchorPoint(CCPoint(0.5, 0.5));
-    powerUpBg1->setPosition(CCPoint(512, 2584));
-    worldLayer->addChild(powerUpBg1);
-    
-    powerUpBg2 = CCSprite::create("powerUp_background.png");
-    powerUpBg2->setAnchorPoint(CCPoint(0.5, 0.5));
-    powerUpBg2->setPosition(CCPoint(2584, 512));
-    worldLayer->addChild(powerUpBg2);
-    
     //PowerUP tilemap
     tilemapSpawn1 = CCTMXTiledMap::create("powerUp_tilemap.tmx");
     tileMapSpawn1Layer = tilemapSpawn1->layerNamed("baseLayer");
