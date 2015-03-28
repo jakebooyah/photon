@@ -130,6 +130,11 @@ bool TwoPlayerGameScene::init()
     ship1->setTag(1);
     worldLayer->addChild(ship1);
     
+    ship1flame = CCSprite::create("ship_flame.png");
+    ship1flame->setPosition(CCPoint(75, -10));
+    ship1flame->setVisible(false);
+    ship1->addChild(ship1flame);
+    
     ship1shield = CCSprite::create("ship_shield.png");
     ship1shield->setPosition(CCPoint(75, 85));
     ship1shield->setVisible(false);
@@ -151,11 +156,6 @@ bool TwoPlayerGameScene::init()
     ship2->setPosition(CCPoint(2584, 2584));
     ship2->setTag(2);
     worldLayer->addChild(ship2);
-    
-    ship2shield = CCSprite::create("ship_shield.png");
-    ship2shield->setPosition(CCPoint(75, 85));
-    ship2shield->setVisible(false);
-    ship2->addChild(ship2shield);
     
     //body definition for ship 2
     b2BodyDef shipBodyDef;
@@ -361,7 +361,7 @@ void TwoPlayerGameScene::update(float delta)
     }
     
     //if all player joined
-    if (Player2Joined)
+    if (true/*Player2Joined*/)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
@@ -1042,6 +1042,13 @@ void TwoPlayerGameScene::turn(int playerN)
         {
             shipBody1->SetAngularVelocity(0.5);
         }
+        
+        ship1flame->setVisible(true);
+        CCDelayTime* delay = CCDelayTime::create(1);
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(TwoPlayerGameScene::hideShip1Flame));
+        CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
+        this->runAction(seq);
+        
     }
     else if (playerN == 2)
     {
@@ -1059,7 +1066,18 @@ void TwoPlayerGameScene::turn(int playerN)
         {
             shipBody1->SetAngularVelocity(-0.5);
         }
+        
+        ship1flame->setVisible(true);
+        CCDelayTime* delay = CCDelayTime::create(1);
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(TwoPlayerGameScene::hideShip1Flame));
+        CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
+        this->runAction(seq);
     }
+}
+
+void TwoPlayerGameScene::hideShip1Flame()
+{
+    ship1flame->setVisible(false);
 }
 
 void TwoPlayerGameScene::shoot(int playerN)

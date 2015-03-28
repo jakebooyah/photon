@@ -54,6 +54,8 @@ private:
     
     void updateHpBar();
     
+    void hideShip1Flame();
+    
     void toggleHPUp(int ship);
     
     bool ship1ShieldBool;
@@ -116,12 +118,12 @@ private:
     CCSprite *squareGreen5;
     
     CCSprite *ship1;
+    CCSprite *ship1flame;
     CCSprite *ship1shield;
     
     b2Body *shipBody1;
     
     CCSprite *ship2;
-    CCSprite *ship2shield;
     
     b2Body *shipBody2;
     

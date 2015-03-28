@@ -122,6 +122,11 @@ bool FourPlayerGameScene::init()
     ship1->setTag(1);
     worldLayer->addChild(ship1);
     
+    ship1flame = CCSprite::create("ship_flame.png");
+    ship1flame->setPosition(CCPoint(75, -10));
+    ship1flame->setVisible(false);
+    ship1->addChild(ship1flame);
+    
     ship1shield = CCSprite::create("ship_shield.png");
     ship1shield->setPosition(CCPoint(75, 85));
     ship1shield->setVisible(false);
@@ -143,6 +148,11 @@ bool FourPlayerGameScene::init()
     ship2->setPosition(CCPoint(2584, 2584));
     ship2->setTag(2);
     worldLayer->addChild(ship2);
+    
+    ship2flame = CCSprite::create("ship_flame.png");
+    ship2flame->setPosition(CCPoint(75, -10));
+    ship2flame->setVisible(false);
+    ship2->addChild(ship2flame);
     
     ship2shield = CCSprite::create("ship_shield.png");
     ship2shield->setPosition(CCPoint(75, 85));
@@ -1158,6 +1168,12 @@ void FourPlayerGameScene::turn(int playerN)
         {
             shipBody1->SetAngularVelocity(0.5);
         }
+        
+        ship1flame->setVisible(true);
+        CCDelayTime* delay = CCDelayTime::create(1);
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip1Flame));
+        CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
+        this->runAction(seq);
     }
     else if (playerN == 2)
     {
@@ -1175,6 +1191,12 @@ void FourPlayerGameScene::turn(int playerN)
         {
             shipBody1->SetAngularVelocity(-0.5);
         }
+        
+        ship1flame->setVisible(true);
+        CCDelayTime* delay = CCDelayTime::create(1);
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip1Flame));
+        CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
+        this->runAction(seq);
     }
     else if (playerN == 3)
     {
@@ -1192,6 +1214,12 @@ void FourPlayerGameScene::turn(int playerN)
         {
             shipBody2->SetAngularVelocity(0.5);
         }
+        
+        ship2flame->setVisible(true);
+        CCDelayTime* delay = CCDelayTime::create(1);
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip2Flame));
+        CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
+        this->runAction(seq);
     }
     else if (playerN == 4)
     {
@@ -1209,8 +1237,25 @@ void FourPlayerGameScene::turn(int playerN)
         {
             shipBody2->SetAngularVelocity(-0.5);
         }
+        
+        ship2flame->setVisible(true);
+        CCDelayTime* delay = CCDelayTime::create(1);
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip2Flame));
+        CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
+        this->runAction(seq);
     }
 }
+
+void FourPlayerGameScene::hideShip1Flame()
+{
+    ship1flame->setVisible(false);
+}
+
+void FourPlayerGameScene::hideShip2Flame()
+{
+    ship2flame->setVisible(false);
+}
+
 
 void FourPlayerGameScene::shoot(int playerN)
 {

@@ -34,6 +34,9 @@ private:
     bool Player3Joined;
     bool Player4Joined;
     
+    void hideShip1Flame();
+    void hideShip2Flame();
+    
     void turn(int playerNr);
     void shoot(int playerNr);
     void someOneGotHit(int victim);
@@ -113,17 +116,13 @@ private:
     CCSprite *squareGreen5;
 
     CCSprite *ship1;
-    CCSprite *ship1damage1;
-    CCSprite *ship1damage2;
-    CCSprite *ship1damage3;
+    CCSprite *ship1flame;
     CCSprite *ship1shield;
 
     b2Body *shipBody1;
     
     CCSprite *ship2;
-    CCSprite *ship2damage1;
-    CCSprite *ship2damage2;
-    CCSprite *ship2damage3;
+    CCSprite *ship2flame;
     CCSprite *ship2shield;
     
     b2Body *shipBody2;

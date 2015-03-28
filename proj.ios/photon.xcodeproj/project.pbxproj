@@ -261,6 +261,7 @@
 		234BF5EA1AC6018400C97336 /* status_green_tilemap.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5E81AC6018400C97336 /* status_green_tilemap.tmx */; };
 		234BF5EE1AC6D6E200C97336 /* TwoPlayerGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 234BF5EC1AC6D6E200C97336 /* TwoPlayerGameScene.cpp */; };
 		234BF5F01AC6DD0C00C97336 /* ship_ai.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5EF1AC6DD0C00C97336 /* ship_ai.png */; };
+		234BF5F31AC763FC00C97336 /* ship_flame.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5F21AC763FC00C97336 /* ship_flame.png */; };
 		235830D31AB365D800CDA237 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D21AB365D800CDA237 /* fireButton.png */; };
 		235830D51AB365E600CDA237 /* disabledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D41AB365E600CDA237 /* disabledButton.png */; };
 		235830D71AB365F000CDA237 /* turnRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D61AB365F000CDA237 /* turnRight.png */; };
@@ -899,6 +900,7 @@
 		234BF5EC1AC6D6E200C97336 /* TwoPlayerGameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPlayerGameScene.cpp; sourceTree = "<group>"; };
 		234BF5ED1AC6D6E200C97336 /* TwoPlayerGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPlayerGameScene.h; sourceTree = "<group>"; };
 		234BF5EF1AC6DD0C00C97336 /* ship_ai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_ai.png; sourceTree = "<group>"; };
+		234BF5F21AC763FC00C97336 /* ship_flame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_flame.png; sourceTree = "<group>"; };
 		235830D21AB365D800CDA237 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireButton.png; sourceTree = "<group>"; };
 		235830D41AB365E600CDA237 /* disabledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disabledButton.png; sourceTree = "<group>"; };
 		235830D61AB365F000CDA237 /* turnRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnRight.png; sourceTree = "<group>"; };
@@ -2797,6 +2799,7 @@
 				234BF5EF1AC6DD0C00C97336 /* ship_ai.png */,
 				234BF5C51AC4027D00C97336 /* ship_blue.png */,
 				234BF5CF1AC59CBD00C97336 /* ship_green.png */,
+				234BF5F21AC763FC00C97336 /* ship_flame.png */,
 				234BF5DB1AC5D37000C97336 /* ship_shield.png */,
 				234BF5D31AC5C30600C97336 /* bullet_blue.png */,
 				234BF5D41AC5C30600C97336 /* bullet_green.png */,
@@ -2953,6 +2956,7 @@
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				234BF5E01AC5E45C00C97336 /* powerUp_tilemap.tmx in Resources */,
 				15A3D9961682F7F9002FB0C5 /* CMakeLists.txt in Resources */,
+				234BF5F31AC763FC00C97336 /* ship_flame.png in Resources */,
 				234BF5D21AC5A44A00C97336 /* background.png in Resources */,
 				235831181AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 in Resources */,
 				234BF5C61AC4027D00C97336 /* ship_blue.png in Resources */,

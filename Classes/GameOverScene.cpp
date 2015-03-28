@@ -50,10 +50,10 @@ bool GameOver::init()
     this->addChild(gameOverLabel);
     
     cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("panel.png");
-    buttonS->setContentSize(CCSize(800, 200));
+    buttonS->setContentSize(CCSize(800, 150));
     
     cocos2d::extension::CCScale9Sprite* buttonPressedS = cocos2d::extension::CCScale9Sprite::create("panel.png");
-    buttonPressedS->setContentSize(CCSize(800, 200));
+    buttonPressedS->setContentSize(CCSize(800, 150));
     
     CCMenuItemSprite* menuButton = CCMenuItemSprite::create(buttonS, buttonPressedS, this, menu_selector(GameOver::goToStart));
     CCMenu* menuStart = CCMenu::create(menuButton, NULL);
