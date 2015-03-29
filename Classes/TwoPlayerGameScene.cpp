@@ -1070,6 +1070,20 @@ void TwoPlayerGameScene::hideShip1Flame()
 
 void TwoPlayerGameScene::shoot(int playerN)
 {
+    switch (std::rand()%2)
+    {
+        case 0:
+            CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
+            break;
+            
+        case 1:
+            CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
+            break;
+            
+        default:
+            break;
+    }
+    
     //bullet shape definition
     b2CircleShape bulletShape;
     bulletShape.m_p.Set(0, 0);
@@ -1459,8 +1473,6 @@ void TwoPlayerGameScene::setViewPointCenter(CCPoint position)
 void TwoPlayerGameScene::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
-    
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
     
     if (networkLogic->playerNr)
     {
