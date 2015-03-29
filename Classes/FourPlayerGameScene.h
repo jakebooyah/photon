@@ -30,6 +30,8 @@ private:
     int score1;
     int score2;
     
+    bool isGameOver;
+    
     bool Player2Joined;
     bool Player3Joined;
     bool Player4Joined;

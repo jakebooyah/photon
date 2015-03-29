@@ -39,6 +39,8 @@ private:
     int score1;
     int score2;
     
+    bool isGameOver;
+    
     bool Player2Joined;
     
     void turn(int playerNr);

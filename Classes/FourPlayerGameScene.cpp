@@ -302,9 +302,9 @@ bool FourPlayerGameScene::init()
     ship1InvertRoleBool = false;
     ship2InvertRoleBool = false;
     
+    isGameOver = false;
+    
     scheduleUpdate();
-    
-    
         
     return true;
 }
@@ -1086,10 +1086,11 @@ void FourPlayerGameScene::update(float delta)
         world->DestroyBody(body);
     }
     
-    if (score1 == 0 || score2 == 0)
+    if ((score1 == 0 || score2 == 0) && !isGameOver)
     {
         if (networkLogic->playerNr == 1)
         {
+            isGameOver = true;
             gameOver();
         }
     }
@@ -1133,7 +1134,10 @@ void FourPlayerGameScene::gameOver()
     }
     
     CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
-        
+    
+    this->stopAllActions();
+    this->unscheduleAllSelectors();
+    
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
