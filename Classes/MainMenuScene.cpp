@@ -93,7 +93,7 @@ bool MainMenu::init()
 
 void MainMenu::startGame2()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
 
     CCTransitionFade* pScene = CCTransitionFade::create(0.7, TwoPlayerGameScene::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
@@ -101,7 +101,7 @@ void MainMenu::startGame2()
 
 void MainMenu::startGame4()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
     
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,FourPlayerGameScene::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);

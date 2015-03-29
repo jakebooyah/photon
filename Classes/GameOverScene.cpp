@@ -73,7 +73,7 @@ bool GameOver::init()
 
 void GameOver::goToStart()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser2.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
 
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);

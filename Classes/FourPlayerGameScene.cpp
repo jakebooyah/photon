@@ -1101,7 +1101,7 @@ void FourPlayerGameScene::update(float delta)
 void FourPlayerGameScene::removeLoading()
 {
     loadingLayer->setVisible(false);
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_laser1.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
 }
 
 void FourPlayerGameScene::sendPositions()
@@ -1122,7 +1122,7 @@ void FourPlayerGameScene::sendPositions()
 
 void FourPlayerGameScene::gameOver()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
     if (networkLogic->playerNr == 1)
     {
@@ -1144,6 +1144,8 @@ void FourPlayerGameScene::gameOver()
 
 void FourPlayerGameScene::turn(int playerN)
 {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    
     if (playerN == 1)
     {
         CCLOG("Player 1 Turning");
@@ -1329,7 +1331,7 @@ void FourPlayerGameScene::enableFireButton()
 
 void FourPlayerGameScene::someOneGotHit(int victim)
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_twoTone.mp3");
 
     if (victim == 2)
     {
@@ -1760,8 +1762,6 @@ void FourPlayerGameScene::fireButtonCall(CCObject *sender)
 void FourPlayerGameScene::turnButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");
-    
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_twoTone.mp3");
     
     if (networkLogic->playerNr)
     {
