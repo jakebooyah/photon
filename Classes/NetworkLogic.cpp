@@ -582,7 +582,6 @@ bool NetworkLogic::isRoomExists(void)
     {
         return false;
     }
-    
     return true;
 }
 

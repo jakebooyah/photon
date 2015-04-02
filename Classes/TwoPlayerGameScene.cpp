@@ -352,7 +352,7 @@ void TwoPlayerGameScene::update(float delta)
     }
     
     //if all player joined
-    if (true/*Player2Joined*/)
+    if (true /*Player2Joined*/)
     {
         //if from Host
         if (networkLogic->playerNr == 1)
