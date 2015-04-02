@@ -85,7 +85,6 @@ bool MainMenu::init()
     this->addChild(buttonLabel2);
     
     
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.2);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3", true);
     
     return true;

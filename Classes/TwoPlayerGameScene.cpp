@@ -40,7 +40,6 @@ bool TwoPlayerGameScene::init()
         return false;
     }
     
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.2);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3", true);
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
