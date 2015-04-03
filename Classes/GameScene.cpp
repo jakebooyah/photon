@@ -126,7 +126,7 @@ bool GameScene::initWithGameMode(int gameMode)
     
     //ship fixture definition
     b2FixtureDef shipFixture;
-    shipFixture.density=2;
+    shipFixture.density=1.5;
     shipFixture.friction=0;
     shipFixture.restitution=1;
     shipFixture.shape=&shipShape;
@@ -944,7 +944,13 @@ void GameScene::update(float delta)
         // Get the distance between the two objects.
         b2Vec2 distance = center - position;
         
-        float force =  pow((distance.Length()/4 - 12), 2); //genius equation handle with care radioactive
+        float force = pow((distance.Length()/3 - 8), 2) - 5; //genius equation handle with care radioactive
+        
+        if (force < 0)
+        {
+            force = 0;
+        }
+        
         distance.Normalize();
         
         b2Vec2 F = force * distance;
@@ -1124,11 +1130,27 @@ void GameScene::update(float delta)
                 }
             }
             
+            // Sprite A = Bullet1 or Bullet2, Sprite B = Planet
+            else if ((spriteA->getTag() == 3 && spriteB->getTag() == 6) || (spriteA->getTag() == 4 && spriteB->getTag() == 6))
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            // Sprite A = Planet, Sprite B = Bullet1 or Bullet2
+            else if ((spriteA->getTag() == 6 && spriteB->getTag() == 3) || (spriteA->getTag() == 6 && spriteB->getTag() == 4))
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                }
+            }
+            
             if (thisGameMode == 2)
             {
                 // Sprite A = Ship1 or Ship2, Sprite B = Ship2 or Ship1
-                if ((spriteA->getTag() == 1 && spriteB->getTag() == 2) ||
-                    (spriteA->getTag() == 2 && spriteB->getTag() == 1))
+                if ((spriteA->getTag() == 1 && spriteB->getTag() == 2) || (spriteA->getTag() == 2 && spriteB->getTag() == 1))
                 {
                     if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
                     {
@@ -1158,24 +1180,7 @@ void GameScene::update(float delta)
                         }
                     }
                 }
-
-            }
-            
-            // Sprite A = Bullet1 or Bullet2, Sprite B = Planet
-            else if ((spriteA->getTag() == 3 && spriteB->getTag() == 6) || (spriteA->getTag() == 4 && spriteB->getTag() == 6))
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyA);
-                }
-            }
-            // Sprite A = Planet, Sprite B = Bullet1 or Bullet2
-            else if ((spriteA->getTag() == 6 && spriteB->getTag() == 3) || (spriteA->getTag() == 6 && spriteB->getTag() == 4))
-            {
-                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
-                {
-                    toDestroy.push_back(bodyB);
-                }
+                
             }
         }
     }
@@ -1458,7 +1463,7 @@ void GameScene::shoot(int playerN)
         bulletBody->SetLinearDamping(0.1);
         bulletBody->IsBullet();
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 30) , (sin(shipBody1->GetAngle()-4.7) * 30));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 40) , (sin(shipBody1->GetAngle()-4.7) * 40));
         bulletBody->SetLinearVelocity(force);
         
     }
@@ -1490,6 +1495,8 @@ void GameScene::shoot(int playerN)
 
 void GameScene::toggleInvertRole()
 {
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+
     switchLabel->setVisible(true);
     CCActionInterval* actionFadeOut = CCFadeOut::create(1);
     switchLabel->runAction(actionFadeOut);
