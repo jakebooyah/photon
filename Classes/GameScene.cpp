@@ -15,15 +15,15 @@
 #include "SimpleAudioEngine.h"
 #include <cstdlib>
 
-USING_NS_CC;
+using namespace cocos2d;
 
-CCScene* GameScene::scene()
+CCScene* GameScene::scene(int gameMode)
 {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
     // 'layer' is an autorelease object
-    GameScene *layer = GameScene::create();
+    GameScene *layer = GameScene::createWithGameMode(gameMode);
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -32,15 +32,31 @@ CCScene* GameScene::scene()
     return scene;
 }
 
-// on "init" you need to initialize your instance
-bool GameScene::init()
+GameScene* GameScene::createWithGameMode(int gameMode)
 {
-    //////////////////////////////
-    // 1. super init first
+    GameScene* gameSceneLayer = new GameScene();
+    if (gameSceneLayer && gameSceneLayer->initWithGameMode(gameMode))
+    {
+        gameSceneLayer->autorelease();
+        return gameSceneLayer;
+    }
+    else
+    {
+        delete gameSceneLayer;
+        gameSceneLayer = NULL;
+        return NULL;
+    }
+}
+
+// on "init" you need to initialize your instance
+bool GameScene::initWithGameMode(int gameMode)
+{
     if ( !CCLayer::init() )
     {
         return false;
     }
+    
+    thisGameMode = gameMode;
     
     CCLOG("State %d", NetworkEngine::getInstance()->getState());
     CCLOG("Player %d Joined", NetworkEngine::getInstance()->playerNr);
@@ -143,20 +159,31 @@ bool GameScene::init()
     shipBody1->SetTransform(shipBody1->GetPosition(), CC_DEGREES_TO_RADIANS(-45));
     
     //create ship 2
-    ship2 = CCSprite::create("ship_green.png");
-    ship2->setPosition(CCPoint(2584, 2584));
-    ship2->setTag(2);
-    worldLayer->addChild(ship2);
     
-    ship2flame = CCSprite::create("ship_flame.png");
-    ship2flame->setPosition(CCPoint(75, -10));
-    ship2flame->setVisible(false);
-    ship2->addChild(ship2flame);
-    
-    ship2shield = CCSprite::create("ship_shield.png");
-    ship2shield->setPosition(CCPoint(75, 85));
-    ship2shield->setVisible(false);
-    ship2->addChild(ship2shield);
+    if (thisGameMode == 4)
+    {
+        ship2 = CCSprite::create("ship_green.png");
+        ship2->setPosition(CCPoint(2584, 2584));
+        ship2->setTag(2);
+        worldLayer->addChild(ship2);
+        
+        ship2flame = CCSprite::create("ship_flame.png");
+        ship2flame->setPosition(CCPoint(75, -10));
+        ship2flame->setVisible(false);
+        ship2->addChild(ship2flame);
+        
+        ship2shield = CCSprite::create("ship_shield.png");
+        ship2shield->setPosition(CCPoint(75, 85));
+        ship2shield->setVisible(false);
+        ship2->addChild(ship2shield);
+    }
+    else if (thisGameMode == 2)
+    {
+        ship2 = CCSprite::create("ship_ai.png");
+        ship2->setPosition(CCPoint(2584, 2584));
+        ship2->setTag(2);
+        worldLayer->addChild(ship2);
+    }
     
     //body definition for ship 2
     b2BodyDef shipBodyDef;
@@ -364,7 +391,7 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-    if (true /*PlayerAllJoined*/)
+    if (PlayerAllJoined)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -389,6 +416,8 @@ void GameScene::update(float delta)
     {
         sendPositions();
     }
+    
+    moveSeekingAI();
 
     //overheat gun mechanism
     heatAmount = heatAmount - delta*10/2;
@@ -585,17 +614,17 @@ void GameScene::update(float delta)
                 {
                     if (players == 2)
                     {
-                        PlayerAllJoined = true;
+                        if (thisGameMode == 2)
+                        {
+                            PlayerAllJoined = true;
+                        }
                     }
-                    
-                    if (players == 3)
+                    else if (players == 4)
                     {
-//                        PlayerAllJoined = true;
-                    }
-                    
-                    if (players == 4)
-                    {
-//                        PlayerAllJoined = true;
+                        if (thisGameMode == 4)
+                        {
+                            PlayerAllJoined = true;
+                        }
                     }
                 }
                 
@@ -753,54 +782,6 @@ void GameScene::update(float delta)
         }
     }
     
-    //RuneSpawn1 Ship2
-    if (ship2->boundingBox().intersectsRect(tilemapSpawn1->boundingBox()))
-    {
-        //Shield Rune
-        if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship2ShieldBool)
-        {
-            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
-            
-            if (NetworkEngine::getInstance()->playerNr == 1)
-            {
-                toggleShield(2);
-            }
-        }
-        
-        //HPup Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
-        {
-            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
-            
-            if (NetworkEngine::getInstance()->playerNr == 1)
-            {
-                toggleHPUp(2);
-            }
-        }
-        
-        //Double Damage Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5)
-        {
-            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
-            
-            if (NetworkEngine::getInstance()->playerNr == 1)
-            {
-                toggleDoubleDamage(2);
-            }
-        }
-        
-        //Invert Direction Rune
-        else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
-        {
-            tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
-            
-            if (NetworkEngine::getInstance()->playerNr == 1)
-            {
-                toggleInvertDirection(2);
-            }
-        }
-    }
-    
     //RuneSpawn2 Ship1
     if (ship1->boundingBox().intersectsRect(tilemapSpawn2->boundingBox()))
     {
@@ -849,54 +830,104 @@ void GameScene::update(float delta)
         }
     }
     
-    //RuneSpawn2 Ship2
-    if (ship2->boundingBox().intersectsRect(tilemapSpawn2->boundingBox()))
+    if (thisGameMode == 4)
     {
-        //Shield Rune
-        if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship2ShieldBool)
+        //RuneSpawn1 Ship2
+        if (ship2->boundingBox().intersectsRect(tilemapSpawn1->boundingBox()))
         {
-            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
-            
-            if (NetworkEngine::getInstance()->playerNr == 1)
+            //Shield Rune
+            if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship2ShieldBool)
             {
-                toggleShield(2);
+                tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleShield(2);
+                }
+            }
+            
+            //HPup Rune
+            else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+            {
+                tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleHPUp(2);
+                }
+            }
+            
+            //Double Damage Rune
+            else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 5)
+            {
+                tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleDoubleDamage(2);
+                }
+            }
+            
+            //Invert Direction Rune
+            else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+            {
+                tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleInvertDirection(2);
+                }
             }
         }
         
-        //HPup Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
+        //RuneSpawn2 Ship2
+        if (ship2->boundingBox().intersectsRect(tilemapSpawn2->boundingBox()))
         {
-            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
-            
-            if (NetworkEngine::getInstance()->playerNr == 1)
+            //Shield Rune
+            if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 2 && !ship2ShieldBool)
             {
-                toggleHPUp(2);
+                tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleShield(2);
+                }
             }
-        }
-        
-        //Double Damage Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5)
-        {
-            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkEngine::getInstance()->playerNr == 1)
+            //HPup Rune
+            else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 3)
             {
-                toggleDoubleDamage(2);
+                tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleHPUp(2);
+                }
             }
-        }
-        
-        //Invert Direction Rune
-        else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
-        {
-            tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (NetworkEngine::getInstance()->playerNr == 1)
+            //Double Damage Rune
+            else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 5)
             {
-                toggleInvertDirection(2);
+                tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleDoubleDamage(2);
+                }
+            }
+            
+            //Invert Direction Rune
+            else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
+            {
+                tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
+                
+                if (NetworkEngine::getInstance()->playerNr == 1)
+                {
+                    toggleInvertDirection(2);
+                }
             }
         }
     }
-    
     
     int positionIterations = 10;
     int velocityIterations = 10;
@@ -1091,6 +1122,43 @@ void GameScene::update(float delta)
                         }
                     }
                 }
+            }
+            
+            if (thisGameMode == 2)
+            {
+                // Sprite A = Ship1 or Ship2, Sprite B = Ship2 or Ship1
+                if ((spriteA->getTag() == 1 && spriteB->getTag() == 2) ||
+                    (spriteA->getTag() == 2 && spriteB->getTag() == 1))
+                {
+                    if (std::find(toDestroy.begin(), toDestroy.end(), bodyB) == toDestroy.end())
+                    {
+                        CCLOG("Ship 1 has been hit");
+                        
+                        if (NetworkEngine::getInstance()->playerNr == 1)
+                        {
+                            if (!ship1ShieldBool)
+                            {
+                                if (ship1DoubleDamageBool)
+                                {
+                                    ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                                    eventContent->put<int, float>(1, 1);
+                                    
+                                    NetworkEngine::getInstance()->sendEvent(3, eventContent);
+                                    
+                                    someOneGotHit(1);
+                                }
+                                
+                                ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+                                eventContent->put<int, float>(1, 1);
+                                
+                                NetworkEngine::getInstance()->sendEvent(3, eventContent);
+                                
+                                someOneGotHit(1);
+                            }
+                        }
+                    }
+                }
+
             }
             
             // Sprite A = Bullet1 or Bullet2, Sprite B = Planet
@@ -1900,6 +1968,22 @@ void GameScene::fireButtonCall(CCObject *sender)
             NetworkEngine::getInstance()->sendEvent(2, eventContent);
         }
     }
+}
+
+void GameScene::moveSeekingAI()
+{
+    b2Vec2 target = shipBody1->GetPosition();
+    
+    b2Vec2 position = shipBody2->GetPosition();
+    
+    // Get the distance between the two objects.
+    b2Vec2 distance = target - position;
+    
+    distance.Normalize();
+    
+    b2Vec2 force = 7 * distance;
+    
+    shipBody2->SetLinearVelocity(force);
 }
 
 void GameScene::turnRightButtonCall(CCObject *sender)

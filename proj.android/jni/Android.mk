@@ -13,11 +13,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/CreateRoomScene.cpp \
                    ../../Classes/JoinRoomScene.cpp \
                    ../../Classes/NetworkEngine.cpp \
-                   ../../Classes/TwoPlayerGameScene.cpp \
-                   ../../Classes/FourPlayerGameScene.cpp \
                    ../../Classes/MainMenuScene.cpp \
                    ../../Classes/GameOverScene.cpp \
-                   ../../Classes/NetworkLogic.cpp \
                    ../../Classes/ContactListener.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes

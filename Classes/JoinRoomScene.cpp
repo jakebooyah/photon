@@ -145,12 +145,12 @@ void JoinRoomScene::update(float delta)
     {
         if (thisGameMode == 2)
         {
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(), ccBLACK);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(2), ccBLACK);
             CCDirector::sharedDirector()->replaceScene(pScene);
         }
         else if (thisGameMode == 4)
         {
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(), ccBLACK);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(4), ccBLACK);
             CCDirector::sharedDirector()->replaceScene(pScene);
         }
     }

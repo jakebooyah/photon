@@ -20,13 +20,13 @@ class GameScene : public CCLayer, public b2ContactListener
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
+    virtual bool initWithGameMode(int gameMode);
     
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static cocos2d::CCScene* scene();
+    static cocos2d::CCScene* scene(int gameMode);
     
     // implement the "static node()" method manually
-    CREATE_FUNC(GameScene);
+    static GameScene* createWithGameMode(int gameMode);
     
     float deltaTime;
     
@@ -34,6 +34,8 @@ public:
     
 private:
     virtual void update(float delta);
+    
+    int thisGameMode;
     
     int score1;
     int score2;
@@ -48,6 +50,8 @@ private:
     void toggleInvertRole();
     
     bool isRoleFlipped;
+    
+    void moveSeekingAI();
     
     void hideShip1Flame();
     void hideShip2Flame();
