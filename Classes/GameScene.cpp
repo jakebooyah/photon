@@ -214,6 +214,11 @@ bool GameScene::init()
     statusLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
     hudLayer->addChild(statusLabel);
     
+    switchLabel = CCLabelTTF::create("SWITCH!", "Kenvector Future.ttf", 70);
+    switchLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-350));
+    switchLabel->setVisible(false);
+    hudLayer->addChild(switchLabel);
+    
     for (int n = 0; n < 5; n++)
     {
         CCSprite* squareShadow = CCSprite::create("square_shadow.png");
@@ -359,7 +364,7 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-    if (PlayerAllJoined)
+    if (true /*PlayerAllJoined*/)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -1417,6 +1422,10 @@ void GameScene::shoot(int playerN)
 
 void GameScene::toggleInvertRole()
 {
+    switchLabel->setVisible(true);
+    CCActionInterval* actionFadeOut = CCFadeOut::create(1);
+    switchLabel->runAction(actionFadeOut);
+    
     if (NetworkEngine::getInstance()->playerNr == 1)
     {
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();

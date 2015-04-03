@@ -93,6 +93,8 @@ private:
     CCMenuItemSprite* turnLeftButton;
     CCMenuItemSprite* turnRightButton;
     
+    CCLabelTTF* switchLabel;
+    
     b2World *world;
     
     ContactListener *_contactListener;
