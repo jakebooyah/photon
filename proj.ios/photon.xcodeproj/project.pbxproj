@@ -239,7 +239,6 @@
 		1AC3624B16D4A1E8000847F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3624516D4A1E8000847F2 /* main.m */; };
 		1ACB3244164770DE00914215 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACB3243164770DE00914215 /* libcurl.a */; };
 		1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */; };
-		1AFAF8B816D35DE700DB1158 /* FourPlayerGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B516D35DE700DB1158 /* FourPlayerGameScene.cpp */; };
 		1AFCDA8216D4A25900906EA6 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1AFCDA8116D4A25900906EA6 /* RootViewController.mm */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -265,10 +264,7 @@
 		235830D31AB365D800CDA237 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D21AB365D800CDA237 /* fireButton.png */; };
 		235830D51AB365E600CDA237 /* disabledButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D41AB365E600CDA237 /* disabledButton.png */; };
 		235830D71AB365F000CDA237 /* turnRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D61AB365F000CDA237 /* turnRight.png */; };
-		235830D91AB366E200CDA237 /* fireButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830D81AB366E100CDA237 /* fireButtonPressed.png */; };
-		235830DB1AB366F400CDA237 /* turnRightPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830DA1AB366F400CDA237 /* turnRightPressed.png */; };
 		235830DE1AB3678C00CDA237 /* turnLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830DC1AB3678C00CDA237 /* turnLeft.png */; };
-		235830DF1AB3678C00CDA237 /* turnLeftPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830DD1AB3678C00CDA237 /* turnLeftPressed.png */; };
 		235830E11AB374FC00CDA237 /* panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E01AB374FC00CDA237 /* panel.png */; };
 		235830E51AB3752300CDA237 /* square_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 235830E21AB3752300CDA237 /* square_shadow.png */; };
 		235830EA1AB4153E00CDA237 /* MainMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 235830E81AB4153D00CDA237 /* MainMenuScene.cpp */; };
@@ -283,7 +279,6 @@
 		235831181AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 235831151AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 */; };
 		235831191AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 235831161AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 */; };
 		2358311A1AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 235831171AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 */; };
-		2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */; };
 		2382BEB91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE81AA8B0E8000CE3E5 /* libChat-cpp_debug_iphoneos.a */; };
 		2382BEBA1AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDE91AA8B0E8000CE3E5 /* libChat-cpp_debug_iphonesimulator.a */; };
 		2382BEBB1AA8B0E8000CE3E5 /* libChat-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BDEA1AA8B0E8000CE3E5 /* libChat-cpp_release_iphoneos.a */; };
@@ -324,6 +319,11 @@
 		2382BEDE1AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB61AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a */; };
 		2382BEDF1AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB71AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a */; };
 		2382BEE01AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2382BEB81AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a */; };
+		2384B7CA1ACDF9EA006D9E36 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7C81ACDF9EA006D9E36 /* GameScene.cpp */; };
+		2384B7D31ACDFAD6006D9E36 /* NetworkEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7D11ACDFAD6006D9E36 /* NetworkEngine.cpp */; };
+		2384B7D61ACE0E7B006D9E36 /* CreateRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7D41ACE0E7B006D9E36 /* CreateRoomScene.cpp */; };
+		2384B7DA1ACE1F4F006D9E36 /* JoinRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7D81ACE1F4F006D9E36 /* JoinRoomScene.cpp */; };
+		2384B7DD1ACEAE64006D9E36 /* NetworkRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7DB1ACEAE64006D9E36 /* NetworkRoomScene.cpp */; };
 		23EE2D531AB23EE4001A65DB /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EE2D511AB23EE4001A65DB /* ContactListener.cpp */; };
 		23EE2D5F1AB311A3001A65DB /* Kenvector Future.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -874,8 +874,6 @@
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		1AFAF8B416D35DE700DB1158 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../Classes/AppDelegate.h; sourceTree = "<group>"; };
-		1AFAF8B516D35DE700DB1158 /* FourPlayerGameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FourPlayerGameScene.cpp; path = ../Classes/FourPlayerGameScene.cpp; sourceTree = "<group>"; };
-		1AFAF8B616D35DE700DB1158 /* FourPlayerGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FourPlayerGameScene.h; path = ../Classes/FourPlayerGameScene.h; sourceTree = "<group>"; };
 		1AFCDA8016D4A25900906EA6 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = SOURCE_ROOT; };
 		1AFCDA8116D4A25900906EA6 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -904,10 +902,7 @@
 		235830D21AB365D800CDA237 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireButton.png; sourceTree = "<group>"; };
 		235830D41AB365E600CDA237 /* disabledButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disabledButton.png; sourceTree = "<group>"; };
 		235830D61AB365F000CDA237 /* turnRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnRight.png; sourceTree = "<group>"; };
-		235830D81AB366E100CDA237 /* fireButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fireButtonPressed.png; sourceTree = "<group>"; };
-		235830DA1AB366F400CDA237 /* turnRightPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnRightPressed.png; sourceTree = "<group>"; };
 		235830DC1AB3678C00CDA237 /* turnLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnLeft.png; sourceTree = "<group>"; };
-		235830DD1AB3678C00CDA237 /* turnLeftPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turnLeftPressed.png; sourceTree = "<group>"; };
 		235830E01AB374FC00CDA237 /* panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = panel.png; sourceTree = "<group>"; };
 		235830E21AB3752300CDA237 /* square_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square_shadow.png; sourceTree = "<group>"; };
 		235830E81AB4153D00CDA237 /* MainMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuScene.cpp; sourceTree = "<group>"; };
@@ -924,8 +919,6 @@
 		235831151AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "C418 - Seven Years of Server Data - 01 Atempause.mp3"; sourceTree = "<group>"; };
 		235831161AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3"; sourceTree = "<group>"; };
 		235831171AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3"; sourceTree = "<group>"; };
-		2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkLogic.cpp; sourceTree = "<group>"; };
-		2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkLogic.h; sourceTree = "<group>"; };
 		2382BDD21AA8B0E8000CE3E5 /* Chat-cpp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Chat-cpp.xcodeproj"; sourceTree = "<group>"; };
 		2382BDD61AA8B0E8000CE3E5 /* AuthenticationValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationValues.h; sourceTree = "<group>"; };
 		2382BDD71AA8B0E8000CE3E5 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
@@ -1122,6 +1115,16 @@
 		2382BEB61AA8B0E8000CE3E5 /* libPhoton-cpp_debug_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_debug_iphonesimulator.a"; sourceTree = "<group>"; };
 		2382BEB71AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphoneos.a"; sourceTree = "<group>"; };
 		2382BEB81AA8B0E8000CE3E5 /* libPhoton-cpp_release_iphonesimulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPhoton-cpp_release_iphonesimulator.a"; sourceTree = "<group>"; };
+		2384B7C81ACDF9EA006D9E36 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
+		2384B7C91ACDF9EA006D9E36 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		2384B7D11ACDFAD6006D9E36 /* NetworkEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkEngine.cpp; sourceTree = "<group>"; };
+		2384B7D21ACDFAD6006D9E36 /* NetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkEngine.h; sourceTree = "<group>"; };
+		2384B7D41ACE0E7B006D9E36 /* CreateRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreateRoomScene.cpp; sourceTree = "<group>"; };
+		2384B7D51ACE0E7B006D9E36 /* CreateRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateRoomScene.h; sourceTree = "<group>"; };
+		2384B7D81ACE1F4F006D9E36 /* JoinRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JoinRoomScene.cpp; sourceTree = "<group>"; };
+		2384B7D91ACE1F4F006D9E36 /* JoinRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinRoomScene.h; sourceTree = "<group>"; };
+		2384B7DB1ACEAE64006D9E36 /* NetworkRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkRoomScene.cpp; sourceTree = "<group>"; };
+		2384B7DC1ACEAE64006D9E36 /* NetworkRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRoomScene.h; sourceTree = "<group>"; };
 		23EE2D511AB23EE4001A65DB /* ContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContactListener.cpp; sourceTree = "<group>"; };
 		23EE2D521AB23EE4001A65DB /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListener.h; sourceTree = "<group>"; };
 		23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenvector Future.ttf"; sourceTree = "<group>"; };
@@ -1677,16 +1680,22 @@
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				235830E81AB4153D00CDA237 /* MainMenuScene.cpp */,
 				235830E91AB4153D00CDA237 /* MainMenuScene.h */,
-				1AFAF8B516D35DE700DB1158 /* FourPlayerGameScene.cpp */,
-				1AFAF8B616D35DE700DB1158 /* FourPlayerGameScene.h */,
+				2384B7DB1ACEAE64006D9E36 /* NetworkRoomScene.cpp */,
+				2384B7DC1ACEAE64006D9E36 /* NetworkRoomScene.h */,
+				2384B7D41ACE0E7B006D9E36 /* CreateRoomScene.cpp */,
+				2384B7D51ACE0E7B006D9E36 /* CreateRoomScene.h */,
+				2384B7D81ACE1F4F006D9E36 /* JoinRoomScene.cpp */,
+				2384B7D91ACE1F4F006D9E36 /* JoinRoomScene.h */,
+				2384B7C81ACDF9EA006D9E36 /* GameScene.cpp */,
+				2384B7C91ACDF9EA006D9E36 /* GameScene.h */,
 				234BF5EC1AC6D6E200C97336 /* TwoPlayerGameScene.cpp */,
 				234BF5ED1AC6D6E200C97336 /* TwoPlayerGameScene.h */,
 				235831001AB446ED00CDA237 /* GameOverScene.cpp */,
 				235831011AB446ED00CDA237 /* GameOverScene.h */,
-				2382BDC81AA8A70E000CE3E5 /* NetworkLogic.cpp */,
-				2382BDCD1AA8A719000CE3E5 /* NetworkLogic.h */,
 				23EE2D511AB23EE4001A65DB /* ContactListener.cpp */,
 				23EE2D521AB23EE4001A65DB /* ContactListener.h */,
+				2384B7D11ACDFAD6006D9E36 /* NetworkEngine.cpp */,
+				2384B7D21ACDFAD6006D9E36 /* NetworkEngine.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -2804,12 +2813,9 @@
 				234BF5D31AC5C30600C97336 /* bullet_blue.png */,
 				234BF5D41AC5C30600C97336 /* bullet_green.png */,
 				235830D21AB365D800CDA237 /* fireButton.png */,
-				235830D81AB366E100CDA237 /* fireButtonPressed.png */,
 				235830D41AB365E600CDA237 /* disabledButton.png */,
 				235830D61AB365F000CDA237 /* turnRight.png */,
-				235830DA1AB366F400CDA237 /* turnRightPressed.png */,
 				235830DC1AB3678C00CDA237 /* turnLeft.png */,
-				235830DD1AB3678C00CDA237 /* turnLeftPressed.png */,
 				235830E01AB374FC00CDA237 /* panel.png */,
 				234BF5D71AC5CCB000C97336 /* square_blue.png */,
 				234BF5D81AC5CCB000C97336 /* square_green.png */,
@@ -2939,9 +2945,7 @@
 				235830DE1AB3678C00CDA237 /* turnLeft.png in Resources */,
 				234BF5E51AC6011C00C97336 /* status_blue_tileset.png in Resources */,
 				234BF5F01AC6DD0C00C97336 /* ship_ai.png in Resources */,
-				235830DB1AB366F400CDA237 /* turnRightPressed.png in Resources */,
 				2358311A1AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 in Resources */,
-				235830DF1AB3678C00CDA237 /* turnLeftPressed.png in Resources */,
 				235831101AB5C8FE00CDA237 /* sfx_laser2.mp3 in Resources */,
 				2358310F1AB5C8FE00CDA237 /* sfx_laser1.mp3 in Resources */,
 				234BF5DE1AC5E3B400C97336 /* powerUp_tileset.png in Resources */,
@@ -2950,7 +2954,6 @@
 				234BF5D61AC5C30600C97336 /* bullet_green.png in Resources */,
 				D41A0AD1160F154A004552AE /* Default-568h@2x.png in Resources */,
 				235830E11AB374FC00CDA237 /* panel.png in Resources */,
-				235830D91AB366E200CDA237 /* fireButtonPressed.png in Resources */,
 				234BF5D01AC59CBD00C97336 /* ship_green.png in Resources */,
 				235830D51AB365E600CDA237 /* disabledButton.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
@@ -3007,6 +3010,7 @@
 				15A3D9111682F7D5002FB0C5 /* b2Body.cpp in Sources */,
 				15C0B555196D412F007F909D /* CCTimeLine.cpp in Sources */,
 				15A3D9121682F7D5002FB0C5 /* b2ContactManager.cpp in Sources */,
+				2384B7DA1ACE1F4F006D9E36 /* JoinRoomScene.cpp in Sources */,
 				15C0B559196D412F007F909D /* CCArmature.cpp in Sources */,
 				15A3D9131682F7D5002FB0C5 /* b2Fixture.cpp in Sources */,
 				15C0B55C196D412F007F909D /* CCBatchNode.cpp in Sources */,
@@ -3089,6 +3093,7 @@
 				15C0B55A196D412F007F909D /* CCBone.cpp in Sources */,
 				15A3D9A81682F7F9002FB0C5 /* cpHashSet.c in Sources */,
 				15A3D9A91682F7F9002FB0C5 /* cpPolyShape.c in Sources */,
+				2384B7CA1ACDF9EA006D9E36 /* GameScene.cpp in Sources */,
 				15A3D9AA1682F7F9002FB0C5 /* cpShape.c in Sources */,
 				2382BED91AA8B0E8000CE3E5 /* MutableRoom.cpp in Sources */,
 				15A3D9AB1682F7F9002FB0C5 /* cpSpace.c in Sources */,
@@ -3099,6 +3104,7 @@
 				15A3D9AF1682F7F9002FB0C5 /* cpSpaceStep.c in Sources */,
 				15A3D9B01682F7F9002FB0C5 /* cpSpatialIndex.c in Sources */,
 				15A3D9B11682F7F9002FB0C5 /* cpSweep1D.c in Sources */,
+				2384B7DD1ACEAE64006D9E36 /* NetworkRoomScene.cpp in Sources */,
 				15C0B588196D412F007F909D /* ImageViewReader.cpp in Sources */,
 				15A3D9B21682F7F9002FB0C5 /* cpVect.c in Sources */,
 				15A3DA311682F826002FB0C5 /* CCBAnimationManager.cpp in Sources */,
@@ -3123,7 +3129,6 @@
 				15A3DA3B1682F826002FB0C5 /* CCLabelBMFontLoader.cpp in Sources */,
 				15C0B556196D412F007F909D /* CCArmatureAnimation.cpp in Sources */,
 				15C0B568196D412F007F909D /* CCUtilMath.cpp in Sources */,
-				2382BDC91AA8A70E000CE3E5 /* NetworkLogic.cpp in Sources */,
 				15A3DA3C1682F826002FB0C5 /* CCLabelTTFLoader.cpp in Sources */,
 				15C0B572196D412F007F909D /* CocosGUI.cpp in Sources */,
 				15A3DA3D1682F826002FB0C5 /* CCLayerColorLoader.cpp in Sources */,
@@ -3177,6 +3182,7 @@
 				15A3DA591682F826002FB0C5 /* CCScrollView.cpp in Sources */,
 				15A3DA5A1682F826002FB0C5 /* CCSorting.cpp in Sources */,
 				15A3DA5B1682F826002FB0C5 /* CCTableView.cpp in Sources */,
+				2384B7D31ACDFAD6006D9E36 /* NetworkEngine.cpp in Sources */,
 				15A3DA5C1682F826002FB0C5 /* CCTableViewCell.cpp in Sources */,
 				15A3DA5D1682F826002FB0C5 /* HttpClient.cpp in Sources */,
 				15C0B558196D412F007F909D /* CCTween.cpp in Sources */,
@@ -3191,13 +3197,13 @@
 				15A3DAED1682F8A6002FB0C5 /* CocosDenshion.m in Sources */,
 				15A3DAEE1682F8A6002FB0C5 /* SimpleAudioEngine.mm in Sources */,
 				235830EA1AB4153E00CDA237 /* MainMenuScene.cpp in Sources */,
+				2384B7D61ACE0E7B006D9E36 /* CreateRoomScene.cpp in Sources */,
 				15C0B554196D412F007F909D /* CCNodeReader.cpp in Sources */,
 				15C0B551196D412F007F909D /* CCActionTimeline.cpp in Sources */,
 				15A3DAEF1682F8A6002FB0C5 /* SimpleAudioEngine_objc.m in Sources */,
 				1A27573F1697CF2B00504026 /* CCEditBoxImplAndroid.cpp in Sources */,
 				15C0B58D196D412F007F909D /* ListViewReader.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
-				1AFAF8B816D35DE700DB1158 /* FourPlayerGameScene.cpp in Sources */,
 				15C0B57E196D412F007F909D /* UILoadingBar.cpp in Sources */,
 				1AC3624916D4A1E8000847F2 /* AppController.mm in Sources */,
 				1AC3624B16D4A1E8000847F2 /* main.m in Sources */,

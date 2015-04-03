@@ -8,6 +8,11 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
+                   ../../Classes/GameScene.cpp \
+                   ../../Classes/NetworkRoomScene.cpp \
+                   ../../Classes/CreateRoomScene.cpp \
+                   ../../Classes/JoinRoomScene.cpp \
+                   ../../Classes/NetworkEngine.cpp \
                    ../../Classes/TwoPlayerGameScene.cpp \
                    ../../Classes/FourPlayerGameScene.cpp \
                    ../../Classes/MainMenuScene.cpp \
@@ -18,6 +23,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../Photon-AndroidNDK_SDK
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../external/Box2D
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../../../extensions/GUI/CCEditBox
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static

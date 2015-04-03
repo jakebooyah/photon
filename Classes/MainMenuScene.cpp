@@ -7,10 +7,12 @@
 //
 
 #include "MainMenuScene.h"
-#include "FourPlayerGameScene.h"
-#include "TwoPlayerGameScene.h"
+//#include "TwoPlayerGameScene.h"
+#include "NetworkRoomScene.h"
+
 #include "CCScale9Sprite.h"
 #include "SimpleAudioEngine.h"
+#include "NetworkEngine.h"
 
 CCScene* MainMenu::scene()
 {
@@ -36,6 +38,8 @@ bool MainMenu::init()
     {
         return false;
     }
+    
+    NetworkEngine::getInstance()->run();
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     
@@ -93,15 +97,16 @@ bool MainMenu::init()
 void MainMenu::startGame2()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
-
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7, TwoPlayerGameScene::scene(), ccBLACK);
+    
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7, NetworkRoomScene::scene(2), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
+
 }
 
 void MainMenu::startGame4()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
     
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7,FourPlayerGameScene::scene(), ccBLACK);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.7, NetworkRoomScene::scene(4), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }

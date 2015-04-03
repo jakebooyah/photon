@@ -1,29 +1,39 @@
-#include "FourPlayerGameScene.h"
-#include "CCScale9Sprite.h"
+//
+//  GameScene.cpp
+//  photon
+//
+//  Created by Jake on 4/3/15.
+//
+//
+
+#include "GameScene.h"
+
 #include "GameOverScene.h"
 #include "MainMenuScene.h"
+
+#include "CCScale9Sprite.h"
 #include "SimpleAudioEngine.h"
 #include <cstdlib>
 
 USING_NS_CC;
 
-CCScene* FourPlayerGameScene::scene()
+CCScene* GameScene::scene()
 {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
     // 'layer' is an autorelease object
-    FourPlayerGameScene *layer = FourPlayerGameScene::create();
-
+    GameScene *layer = GameScene::create();
+    
     // add layer as a child to scene
     scene->addChild(layer);
-
+    
     // return the scene
     return scene;
 }
 
 // on "init" you need to initialize your instance
-bool FourPlayerGameScene::init()
+bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -32,14 +42,15 @@ bool FourPlayerGameScene::init()
         return false;
     }
     
+    CCLOG("State %d", NetworkEngine::getInstance()->getState());
+    CCLOG("Player %d Joined", NetworkEngine::getInstance()->playerNr);
+
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3", true);
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     
-    networkLogic = new NetworkLogic();
-        
     b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
-
+    
     world = new b2World(gravity);
     
     worldLayer = CCLayer::create();
@@ -157,7 +168,7 @@ bool FourPlayerGameScene::init()
     shipBody2->CreateFixture(&shipFixture);
     shipBody2->SetAngularDamping(0);
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
-
+    
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
@@ -169,24 +180,30 @@ bool FourPlayerGameScene::init()
     hudLayer = CCLayer::create();
     
     CCSprite* fireButtonS = CCSprite::create("fireButton.png");
-    CCSprite* fireButtonPressedS = CCSprite::create("fireButtonPressed.png");
     CCSprite* fireButtonDisS = CCSprite::create("disabledButton.png");
-
-    fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonPressedS, fireButtonDisS, this, menu_selector(FourPlayerGameScene::fireButtonCall));
-    fireButton->setScale(3);
+    
+    fireButton = CCMenuItemSprite::create(fireButtonS, fireButtonS, fireButtonDisS, this, menu_selector(GameScene::fireButtonCall));
     CCMenu* menuFire = CCMenu::create(fireButton, NULL);
-    menuFire->setPosition(CCPoint(visibleSize.width - 250, 250));
+    menuFire->setPosition(CCPoint(visibleSize.width - 250, visibleSize.height/2));
     hudLayer->addChild(menuFire);
     
-    CCSprite* turnButtonS = CCSprite::create("turnRight.png");
-    CCSprite* turnButtonPressedS = CCSprite::create("turnRightPressed.png");
+    CCSprite* turnButtonSL = CCSprite::create("turnLeft.png");
+    CCSprite* turnButtonDisabledSL = CCSprite::create("disabledButton.png");
     
-    CCMenuItemSprite* turnButton = CCMenuItemSprite::create(turnButtonS, turnButtonPressedS, this, menu_selector(FourPlayerGameScene::turnButtonCall));
-    turnButton->setScale(3);
-    CCMenu* menuTurn = CCMenu::create(turnButton, NULL);
+    turnLeftButton = CCMenuItemSprite::create(turnButtonSL, turnButtonSL, turnButtonDisabledSL, this, menu_selector(GameScene::turnLeftButtonCall));
+    CCMenu* menuTurnLeft = CCMenu::create(turnLeftButton, NULL);
     
-    menuTurn->setPosition(CCPoint(250, 250));
-    hudLayer->addChild(menuTurn);
+    menuTurnLeft->setPosition(CCPoint(250, visibleSize.height/2 + 200));
+    hudLayer->addChild(menuTurnLeft);
+    
+    CCSprite* turnButtonSR = CCSprite::create("turnRight.png");
+    CCSprite* turnButtonDisabledSR = CCSprite::create("disabledButton.png");
+    
+    turnRightButton = CCMenuItemSprite::create(turnButtonSR, turnButtonSR, turnButtonDisabledSR, this, menu_selector(GameScene::turnRightButtonCall));
+    CCMenu* menuTurnRight = CCMenu::create(turnRightButton, NULL);
+    
+    menuTurnRight->setPosition(CCPoint(250, visibleSize.height/2 - 200));
+    hudLayer->addChild(menuTurnRight);
     
     cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("panel.png");
     panel->setContentSize(CCSize(1000, 150));
@@ -275,7 +292,7 @@ bool FourPlayerGameScene::init()
     loadingBackground->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
     loadingLayer->addChild(loadingBackground);
     
-    CCLabelTTF* loading = CCLabelTTF::create("LOADING", "Kenvector Future.ttf", 80);
+    CCLabelTTF* loading = CCLabelTTF::create("WAITING FOR OTHERS", "Kenvector Future.ttf", 80);
     loading->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2));
     loadingLayer->addChild(loading);
     
@@ -289,9 +306,7 @@ bool FourPlayerGameScene::init()
     score1 = 5;
     score2 = 5;
     
-    Player2Joined = false;
-    Player3Joined = false;
-    Player4Joined = false;
+    PlayerAllJoined = false;
     
     ship1ShieldBool = false;
     ship2ShieldBool = false;
@@ -299,52 +314,40 @@ bool FourPlayerGameScene::init()
     ship1DoubleDamageBool = false;
     ship2DoubleDamageBool = false;
     
-    ship1InvertRoleBool = false;
-    ship2InvertRoleBool = false;
+    ship1InvertDirectionBool = false;
+    ship2InvertDirectionBool = false;
     
     isGameOver = false;
     
+    isRoleFlipped = false;
+    
+    heatAmount = 0;
+    maxHeatAmount = 20;
+    
     scheduleUpdate();
-        
+    
     return true;
 }
 
-void FourPlayerGameScene::update(float delta)
-{
-    if (networkLogic->playerNr == 1)
-    {
-        sendPositions();
-    }
+void GameScene::update(float delta)
+{    
+    NetworkEngine::getInstance()->run();
     
-    networkLogic->run();
-    
-    switch (networkLogic->getState())
+    switch (NetworkEngine::getInstance()->getState())
     {
         case STATE_ROOMFULL:
-            {
-                networkLogic->setLastInput(INPUT_EXIT);
-
-                CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
-                CCDirector::sharedDirector()->replaceScene(pScene);
-            }
+        {
+            NetworkEngine::getInstance()->setLastInput(INPUT_EXIT);
+            
+            CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccWHITE);
+            CCDirector::sharedDirector()->replaceScene(pScene);
+        }
             break;
         case STATE_CONNECTED:
         case STATE_LEFT:
-            {
-                if (networkLogic->isRoomExists())
-                {
-                    CCLOG("Join");
-                    networkLogic->setLastInput(INPUT_2);
-                }
-                else
-                {
-                    CCLOG("Create");
-                    networkLogic->setLastInput(INPUT_1);
-                }
-            }
             break;
         case STATE_DISCONNECTED:
-            networkLogic->connect();
+            NetworkEngine::getInstance()->connect();
             break;
         case STATE_CONNECTING:
         case STATE_JOINING:
@@ -356,39 +359,56 @@ void FourPlayerGameScene::update(float delta)
     }
     
     //if all player joined
-    if (Player2Joined && Player3Joined && Player4Joined)
+    if (PlayerAllJoined)
     {
         //if from Host
-        if (networkLogic->playerNr == 1)
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             if (this->loadingLayer->isVisible())
             {
                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-                networkLogic->sendEvent(8, eventContent);
+                NetworkEngine::getInstance()->sendEvent(8, eventContent);
                 removeLoading();
                 
-                spawnRunes();
-                
                 CCDelayTime* delay = CCDelayTime::create(60);
-                CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::spawnRunes));
-                CCSequence* seq = CCSequence::create(delay, spawnRunes, NULL);
+                CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(GameScene::spawnRunes));
+                CCCallFunc* toggleInvertRole = CCCallFunc::create(this, callfunc_selector(GameScene::toggleInvertRole));
+                CCSequence* seq = CCSequence::create(toggleInvertRole, spawnRunes, delay, NULL);
                 CCRepeatForever* seqLoop = CCRepeatForever::create(seq);
                 this->runAction(seqLoop);
             }
         }
     }
     
-    while (!networkLogic->eventQueue.empty())
+    if (NetworkEngine::getInstance()->playerNr == 1)
     {
-        std::vector<float> arr = networkLogic->eventQueue.front();
-        networkLogic->eventQueue.pop();
+        sendPositions();
+    }
+
+    //overheat gun mechanism
+    heatAmount = heatAmount - delta*10/2;
+    
+    if (heatAmount > maxHeatAmount)
+    {
+        heatAmount = maxHeatAmount;
+    }
+    
+    if (heatAmount < 0)
+    {
+        heatAmount = 0;
+    }
+    
+    while (!NetworkEngine::getInstance()->eventQueue.empty())
+    {
+        std::vector<float> arr = NetworkEngine::getInstance()->eventQueue.front();
+        NetworkEngine::getInstance()->eventQueue.pop();
         
         int code = arr.back();
         arr.pop_back();
-
+        
         switch (code)
         {
-            //Update position
+                //Update position
             case 1:
             {
                 float angle2 = arr.back();
@@ -418,7 +438,7 @@ void FourPlayerGameScene::update(float delta)
                     //Correction of Ship 1 with dead reckoning
                     
                     b2Vec2 velocity = shipBody1->GetLinearVelocity();
-                    int delay = networkLogic->getRoundTripTime()/100 / 2;
+                    int delay = NetworkEngine::getInstance()->getRoundTripTime()/100 / 2;
                     
                     if (delay < 3)
                     {
@@ -435,7 +455,7 @@ void FourPlayerGameScene::update(float delta)
                     //Correction of Ship 2 with dead reckoning
                     
                     velocity = shipBody2->GetLinearVelocity();
-                    delay = networkLogic->getRoundTripTime()/100 / 2;
+                    delay = NetworkEngine::getInstance()->getRoundTripTime()/100 / 2;
                     
                     if (delay < 3)
                     {
@@ -452,7 +472,7 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            //Shooting
+                //Shooting
             case 2:
             {
                 float angle = arr.back();
@@ -467,14 +487,14 @@ void FourPlayerGameScene::update(float delta)
                 int playerNr = arr.back();
                 arr.pop_back();
                 
-                if (playerNr != networkLogic->playerNr)
+                if (playerNr != NetworkEngine::getInstance()->playerNr)
                 {
                     this->shoot(playerNr);
                     
                     if (bulletBody->GetUserData() != NULL)
                     {
                         b2Vec2 velocity = bulletBody->GetLinearVelocity();
-                        int delay = networkLogic->getRoundTripTime()/100 / 2;
+                        int delay = NetworkEngine::getInstance()->getRoundTripTime()/100 / 2;
                         
                         b2Vec2 futurePosition = b2Vec2(x + velocity.x * delay, y + velocity.y * delay);
                         
@@ -484,7 +504,7 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            //Someone got hit
+                //Someone got hit
             case 3:
             {
                 int victim = arr.back();
@@ -499,17 +519,20 @@ void FourPlayerGameScene::update(float delta)
                 }
                 break;
             }
-            //Turn
+                //Turn
             case 4:
             {
+                int direction = arr.back();
+                arr.pop_back();
+                
                 int playerNr = arr.back();
                 arr.pop_back();
                 
-                this->turn(playerNr);
+                this->turn(playerNr, direction);
                 
                 break;
             }
-            //Shield
+                //Shield
             case 5:
             {
                 int ship = arr.back();
@@ -525,7 +548,7 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            //GameOver
+                //GameOver
             case 6:
             {
                 int score2 = arr.back();
@@ -544,36 +567,36 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            //Player joined room
+                //Player joined room
             case 7:
             {
+                int players = arr.back();
+                arr.pop_back();
+                
                 int playerNr = arr.back();
                 arr.pop_back();
                 
-                if (networkLogic->playerNr == 1)
+                if (NetworkEngine::getInstance()->playerNr == 1)
                 {
-                    if (playerNr == 2)
+                    if (players == 2)
                     {
-                        CCLOG("Player 2 joined");
-                        Player2Joined = true;
+                        PlayerAllJoined = true;
                     }
                     
-                    if (playerNr == 3)
+                    if (players == 3)
                     {
-                        CCLOG("Player 3 joined");
-                        Player3Joined = true;
+//                        PlayerAllJoined = true;
                     }
                     
-                    if (playerNr == 4)
+                    if (players == 4)
                     {
-                        CCLOG("Player 4 joined");
-                        Player4Joined = true;
+//                        PlayerAllJoined = true;
                     }
                 }
                 
                 break;
             }
-            //All player joined
+                //All player joined
             case 8:
             {
                 int playerNr = arr.back();
@@ -586,7 +609,7 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            //HPUp
+                //HPUp
             case 9:
             {
                 int ship = arr.back();
@@ -602,7 +625,7 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            //DoubleDamage
+                //DoubleDamage
             case 10:
             {
                 int ship = arr.back();
@@ -618,7 +641,7 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            //Invert Role
+                //Invert Direction
             case 11:
             {
                 int ship = arr.back();
@@ -629,12 +652,12 @@ void FourPlayerGameScene::update(float delta)
                 
                 if (playerNr == 1)
                 {
-                    this->toggleInvertRole(ship);
+                    this->toggleInvertDirection(ship);
                 }
                 
                 break;
             }
-            //Spawn Rune
+                //Spawn Rune
             case 12:
             {
                 int rune2 = arr.back();
@@ -654,12 +677,23 @@ void FourPlayerGameScene::update(float delta)
                 
                 break;
             }
-            
+            case 13:
+            {
+                int playerNr = arr.back();
+                arr.pop_back();
+                
+                if (playerNr == 1)
+                {
+                    this->toggleInvertRole();
+                }
+                break;
+            }
+                
             default:
                 break;
         }
         
-
+        
     }
     
     //RuneSpawn1 Ship1
@@ -670,7 +704,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleShield(1);
                 CCLOG("Toggle shield 1");
@@ -682,7 +716,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleHPUp(1);
                 CCLOG("Toggle Hp UP 1");
@@ -694,22 +728,22 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleDoubleDamage(1);
                 CCLOG("Toggle DD 1");
             }
         }
         
-        //Invert Role Rune
+        //Invert Direction Rune
         else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
-                toggleInvertRole(1);
-                CCLOG("Toggle invert role 1");
+                toggleInvertDirection(1);
+                CCLOG("Toggle invert Direction 1");
             }
         }
     }
@@ -722,7 +756,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleShield(2);
             }
@@ -733,7 +767,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleHPUp(2);
             }
@@ -744,20 +778,20 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleDoubleDamage(2);
             }
         }
         
-        //Invert Role Rune
+        //Invert Direction Rune
         else if (tileMapSpawn1Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn1Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
-                toggleInvertRole(2);
+                toggleInvertDirection(2);
             }
         }
     }
@@ -770,7 +804,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleShield(1);
             }
@@ -781,7 +815,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleHPUp(1);
             }
@@ -792,20 +826,20 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleDoubleDamage(1);
             }
         }
         
-        //Invert Role Rune
+        //Invert Direction Rune
         else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
-                toggleInvertRole(1);
+                toggleInvertDirection(1);
             }
         }
     }
@@ -818,7 +852,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleShield(2);
             }
@@ -829,7 +863,7 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleHPUp(2);
             }
@@ -840,24 +874,24 @@ void FourPlayerGameScene::update(float delta)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
                 toggleDoubleDamage(2);
             }
         }
         
-        //Invert Role Rune
+        //Invert Direction Rune
         else if (tileMapSpawn2Layer->tileGIDAt(CCPoint(0, 0)) == 4)
         {
             tileMapSpawn2Layer->setTileGID(1, CCPoint(0, 0));
             
-            if (networkLogic->playerNr == 1)
+            if (NetworkEngine::getInstance()->playerNr == 1)
             {
-                toggleInvertRole(2);
+                toggleInvertDirection(2);
             }
         }
     }
-
+    
     
     int positionIterations = 10;
     int velocityIterations = 10;
@@ -870,7 +904,7 @@ void FourPlayerGameScene::update(float delta)
         b2Vec2 center = planetBody->GetPosition();
         
         b2Vec2 position = body->GetPosition();
-
+        
         // Get the distance between the two objects.
         b2Vec2 distance = center - position;
         
@@ -889,7 +923,7 @@ void FourPlayerGameScene::update(float delta)
         }
     }
     
-    switch (networkLogic->playerNr)
+    switch (NetworkEngine::getInstance()->playerNr)
     {
         case 1:
             this->setViewPointCenter(CCPoint(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
@@ -898,7 +932,7 @@ void FourPlayerGameScene::update(float delta)
         case 2:
             this->setViewPointCenter(CCPoint(shipBody1->GetPosition().x * 32, shipBody1->GetPosition().y *32));
             break;
-        
+            
         case 3:
             this->setViewPointCenter(CCPoint(shipBody2->GetPosition().x * 32, shipBody2->GetPosition().y *32));
             break;
@@ -931,8 +965,8 @@ void FourPlayerGameScene::update(float delta)
                 {
                     toDestroy.push_back(bodyB);
                     CCLOG("Ship 2 has been hit");
-
-                    if (networkLogic->playerNr == 1)
+                    
+                    if (NetworkEngine::getInstance()->playerNr == 1)
                     {
                         if (!ship2ShieldBool)
                         {
@@ -941,7 +975,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 2);
                                 
-                                networkLogic->sendEvent(3, eventContent);
+                                NetworkEngine::getInstance()->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(2);
                             }
@@ -949,7 +983,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 2);
                             
-                            networkLogic->sendEvent(3, eventContent);
+                            NetworkEngine::getInstance()->sendEvent(3, eventContent);
                             
                             someOneGotHit(2);
                         }
@@ -963,8 +997,8 @@ void FourPlayerGameScene::update(float delta)
                 {
                     toDestroy.push_back(bodyA);
                     CCLOG("Ship 2 has been hit");
-
-                    if (networkLogic->playerNr == 1)
+                    
+                    if (NetworkEngine::getInstance()->playerNr == 1)
                     {
                         if (!ship2ShieldBool)
                         {
@@ -973,7 +1007,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 2);
                                 
-                                networkLogic->sendEvent(3, eventContent);
+                                NetworkEngine::getInstance()->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(2);
                             }
@@ -981,7 +1015,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 2);
                             
-                            networkLogic->sendEvent(3, eventContent);
+                            NetworkEngine::getInstance()->sendEvent(3, eventContent);
                             
                             someOneGotHit(2);
                         }
@@ -996,8 +1030,8 @@ void FourPlayerGameScene::update(float delta)
                 {
                     toDestroy.push_back(bodyB);
                     CCLOG("Ship 1 has been hit");
-
-                    if (networkLogic->playerNr == 1)
+                    
+                    if (NetworkEngine::getInstance()->playerNr == 1)
                     {
                         if (!ship1ShieldBool)
                         {
@@ -1006,7 +1040,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 1);
                                 
-                                networkLogic->sendEvent(3, eventContent);
+                                NetworkEngine::getInstance()->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(1);
                             }
@@ -1014,7 +1048,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 1);
                             
-                            networkLogic->sendEvent(3, eventContent);
+                            NetworkEngine::getInstance()->sendEvent(3, eventContent);
                             
                             someOneGotHit(1);
                         }
@@ -1028,8 +1062,8 @@ void FourPlayerGameScene::update(float delta)
                 {
                     toDestroy.push_back(bodyA);
                     CCLOG("Ship 1 has been hit");
-
-                    if (networkLogic->playerNr == 1)
+                    
+                    if (NetworkEngine::getInstance()->playerNr == 1)
                     {
                         if (!ship1ShieldBool)
                         {
@@ -1038,7 +1072,7 @@ void FourPlayerGameScene::update(float delta)
                                 ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                                 eventContent->put<int, float>(1, 1);
                                 
-                                networkLogic->sendEvent(3, eventContent);
+                                NetworkEngine::getInstance()->sendEvent(3, eventContent);
                                 
                                 someOneGotHit(1);
                             }
@@ -1046,7 +1080,7 @@ void FourPlayerGameScene::update(float delta)
                             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
                             eventContent->put<int, float>(1, 1);
                             
-                            networkLogic->sendEvent(3, eventContent);
+                            NetworkEngine::getInstance()->sendEvent(3, eventContent);
                             
                             someOneGotHit(1);
                         }
@@ -1088,7 +1122,7 @@ void FourPlayerGameScene::update(float delta)
     
     if ((score1 == 0 || score2 == 0) && !isGameOver)
     {
-        if (networkLogic->playerNr == 1)
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             isGameOver = true;
             gameOver();
@@ -1098,15 +1132,15 @@ void FourPlayerGameScene::update(float delta)
     world->DrawDebugData();
 }
 
-void FourPlayerGameScene::removeLoading()
+void GameScene::removeLoading()
 {
     loadingLayer->setVisible(false);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
 }
 
-void FourPlayerGameScene::sendPositions()
+void GameScene::sendPositions()
 {
-    if (networkLogic->playerNr)
+    if (NetworkEngine::getInstance()->playerNr)
     {
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         eventContent->put<int, float>(1, shipBody1->GetPosition().x);
@@ -1116,33 +1150,30 @@ void FourPlayerGameScene::sendPositions()
         eventContent->put<int, float>(5, shipBody2->GetPosition().y);
         eventContent->put<int, float>(6, shipBody2->GetAngle());
         
-        networkLogic->sendEvent(1, eventContent);
+        NetworkEngine::getInstance()->sendEvent(1, eventContent);
     }
 }
 
-void FourPlayerGameScene::gameOver()
+void GameScene::gameOver()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
-    if (networkLogic->playerNr == 1)
+    if (NetworkEngine::getInstance()->playerNr == 1)
     {
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         eventContent->put<int, float>(1, score1);
         eventContent->put<int, float>(2, score2);
         
-        networkLogic->sendEvent(6, eventContent);
+        NetworkEngine::getInstance()->sendEvent(6, eventContent);
     }
     
     CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
-    
-    this->stopAllActions();
-    this->unscheduleAllSelectors();
     
     CCTransitionFade* pScene = CCTransitionFade::create(0.7,GameOver::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
 
-void FourPlayerGameScene::turn(int playerN)
+void GameScene::turn(int playerN, int direction)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
     
@@ -1151,21 +1182,35 @@ void FourPlayerGameScene::turn(int playerN)
         CCLOG("Player 1 Turning");
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
-
+        
         shipBody1->SetLinearVelocity(force);
         
-        if (!ship1InvertRoleBool)
+        if (direction == 0)
         {
-            shipBody1->SetAngularVelocity(-0.5);
+            if (!ship1InvertDirectionBool)
+            {
+                shipBody1->SetAngularVelocity(-0.5);
+            }
+            else
+            {
+                shipBody1->SetAngularVelocity(0.5);
+            }
         }
-        else
+        else if (direction == 1)
         {
-            shipBody1->SetAngularVelocity(0.5);
+            if (!ship1InvertDirectionBool)
+            {
+                shipBody1->SetAngularVelocity(0.5);
+            }
+            else
+            {
+                shipBody1->SetAngularVelocity(-0.5);
+            }
         }
         
         ship1flame->setVisible(true);
         CCDelayTime* delay = CCDelayTime::create(1);
-        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip1Flame));
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip1Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
     }
@@ -1174,21 +1219,35 @@ void FourPlayerGameScene::turn(int playerN)
         CCLOG("Player 2 Turning");
         
         b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
-
+        
         shipBody1->SetLinearVelocity(force);
         
-        if (!ship1InvertRoleBool)
+        if (direction == 0)
         {
-            shipBody1->SetAngularVelocity(0.5);
+            if (!ship1InvertDirectionBool)
+            {
+                shipBody1->SetAngularVelocity(-0.5);
+            }
+            else
+            {
+                shipBody1->SetAngularVelocity(0.5);
+            }
         }
-        else
+        else if (direction == 1)
         {
-            shipBody1->SetAngularVelocity(-0.5);
+            if (!ship1InvertDirectionBool)
+            {
+                shipBody1->SetAngularVelocity(0.5);
+            }
+            else
+            {
+                shipBody1->SetAngularVelocity(-0.5);
+            }
         }
         
         ship1flame->setVisible(true);
         CCDelayTime* delay = CCDelayTime::create(1);
-        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip1Flame));
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip1Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
     }
@@ -1200,18 +1259,32 @@ void FourPlayerGameScene::turn(int playerN)
         
         shipBody2->SetLinearVelocity(force);
         
-        if (!ship2InvertRoleBool)
+        if (direction == 0)
         {
-            shipBody2->SetAngularVelocity(-0.5);
+            if (!ship2InvertDirectionBool)
+            {
+                shipBody2->SetAngularVelocity(-0.5);
+            }
+            else
+            {
+                shipBody2->SetAngularVelocity(0.5);
+            }
         }
-        else
+        else if (direction == 1)
         {
-            shipBody2->SetAngularVelocity(0.5);
+            if (!ship2InvertDirectionBool)
+            {
+                shipBody2->SetAngularVelocity(0.5);
+            }
+            else
+            {
+                shipBody2->SetAngularVelocity(-0.5);
+            }
         }
         
         ship2flame->setVisible(true);
         CCDelayTime* delay = CCDelayTime::create(1);
-        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip2Flame));
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip2Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
     }
@@ -1223,35 +1296,49 @@ void FourPlayerGameScene::turn(int playerN)
         
         shipBody2->SetLinearVelocity(force);
         
-        if (!ship2InvertRoleBool)
+        if (direction == 0)
         {
-            shipBody2->SetAngularVelocity(0.5);
+            if (!ship2InvertDirectionBool)
+            {
+                shipBody2->SetAngularVelocity(-0.5);
+            }
+            else
+            {
+                shipBody2->SetAngularVelocity(0.5);
+            }
         }
-        else
+        else if (direction == 1)
         {
-            shipBody2->SetAngularVelocity(-0.5);
+            if (!ship2InvertDirectionBool)
+            {
+                shipBody2->SetAngularVelocity(0.5);
+            }
+            else
+            {
+                shipBody2->SetAngularVelocity(-0.5);
+            }
         }
         
         ship2flame->setVisible(true);
         CCDelayTime* delay = CCDelayTime::create(1);
-        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::hideShip2Flame));
+        CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip2Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
     }
 }
 
-void FourPlayerGameScene::hideShip1Flame()
+void GameScene::hideShip1Flame()
 {
     ship1flame->setVisible(false);
 }
 
-void FourPlayerGameScene::hideShip2Flame()
+void GameScene::hideShip2Flame()
 {
     ship2flame->setVisible(false);
 }
 
 
-void FourPlayerGameScene::shoot(int playerN)
+void GameScene::shoot(int playerN)
 {
     switch (std::rand()%2)
     {
@@ -1326,27 +1413,57 @@ void FourPlayerGameScene::shoot(int playerN)
         bulletBody->SetLinearVelocity(force);
     }
     
-    CCCallFunc* disable = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableFireButton));
-    CCCallFunc* enable = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::enableFireButton));
-    CCDelayTime* delay = CCDelayTime::create(2);
-    CCSequence* seq = CCSequence::create(disable, delay, enable, NULL);
-    this->runAction(seq);
 }
 
-void FourPlayerGameScene::disableFireButton()
+void GameScene::toggleInvertRole()
 {
-    fireButton->setEnabled(false);
+    if (NetworkEngine::getInstance()->playerNr == 1)
+    {
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        NetworkEngine::getInstance()->sendEvent(13, eventContent);
+    }
+    
+    if (!isRoleFlipped)
+    {
+        if (NetworkEngine::getInstance()->playerNr == 1 || NetworkEngine::getInstance()->playerNr == 3)
+        {
+            fireButton->setEnabled(false);
+            turnLeftButton->setEnabled(true);
+            turnRightButton->setEnabled(true);
+        }
+        else if (NetworkEngine::getInstance()->playerNr == 2 || NetworkEngine::getInstance()->playerNr == 4)
+        {
+            fireButton->setEnabled(true);
+            turnLeftButton->setEnabled(false);
+            turnRightButton->setEnabled(false);
+        }
+        
+        isRoleFlipped = true;
+    }
+    else
+    {
+        if (NetworkEngine::getInstance()->playerNr == 1 || NetworkEngine::getInstance()->playerNr == 3)
+        {
+            fireButton->setEnabled(true);
+            turnLeftButton->setEnabled(false);
+            turnRightButton->setEnabled(false);
+        }
+        else if (NetworkEngine::getInstance()->playerNr == 2 || NetworkEngine::getInstance()->playerNr == 4)
+        {
+            fireButton->setEnabled(false);
+            turnLeftButton->setEnabled(true);
+            turnRightButton->setEnabled(true);
+        }
+        
+        isRoleFlipped = false;
+    }
+    
 }
 
-void FourPlayerGameScene::enableFireButton()
-{
-    fireButton->setEnabled(true);
-}
-
-void FourPlayerGameScene::someOneGotHit(int victim)
+void GameScene::someOneGotHit(int victim)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_twoTone.mp3");
-
+    
     if (victim == 2)
     {
         if (score2 != 0)
@@ -1369,29 +1486,29 @@ void FourPlayerGameScene::someOneGotHit(int victim)
     }
     
     CCLOG("Someone got hit, Score1 %d, Score2 %d", score1, score2);
-
+    
 }
 
-void FourPlayerGameScene::toggleShield(int ship)
+void GameScene::toggleShield(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
-
+    
     if (ship == 1)
     {
         ship1ShieldBool = true;
         ship1shield->setVisible(true);
         tileMapStatusBlueLayer->setTileGID(4, CCPoint(0, 0));
         
-        if (networkLogic->playerNr == 1)
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            networkLogic->sendEvent(5, eventContent);
+            NetworkEngine::getInstance()->sendEvent(5, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip1Shield));
+        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(GameScene::disableShip1Shield));
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
     }
@@ -1401,35 +1518,35 @@ void FourPlayerGameScene::toggleShield(int ship)
         ship2shield->setVisible(true);
         tileMapStatusGreenLayer->setTileGID(4, CCPoint(0, 0));
         
-        if (networkLogic->playerNr == 1)
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            networkLogic->sendEvent(5, eventContent);
+            NetworkEngine::getInstance()->sendEvent(5, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip2Shield));
+        CCCallFunc* offShield = CCCallFunc::create(this, callfunc_selector(GameScene::disableShip2Shield));
         CCSequence* seq = CCSequence::create(delay, offShield, NULL);
         this->runAction(seq);
     }
     
 }
 
-void FourPlayerGameScene::disableShip1Shield()
+void GameScene::disableShip1Shield()
 {
     if (ship1ShieldBool)
     {
         ship1ShieldBool = false;
         ship1shield->setVisible(false);
         tileMapStatusBlueLayer->setTileGID(1, CCPoint(0, 0));
-
+        
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
-void FourPlayerGameScene::disableShip2Shield()
+void GameScene::disableShip2Shield()
 {
     if (ship2ShieldBool)
     {
@@ -1441,7 +1558,7 @@ void FourPlayerGameScene::disableShip2Shield()
     }
 }
 
-void FourPlayerGameScene::toggleHPUp(int ship)
+void GameScene::toggleHPUp(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
     
@@ -1452,7 +1569,7 @@ void FourPlayerGameScene::toggleHPUp(int ship)
             score1++;
         }
         
-        updateHpBar();        
+        updateHpBar();
     }
     else if (ship == 2)
     {
@@ -1466,17 +1583,17 @@ void FourPlayerGameScene::toggleHPUp(int ship)
     
     CCLOG("HP UP, Score1 %d, Score2 %d", score1, score2);
     
-    if (networkLogic->playerNr == 1)
+    if (NetworkEngine::getInstance()->playerNr == 1)
     {
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
         eventContent->put<int, float>(1, ship);
         
-        networkLogic->sendEvent(9, eventContent);
+        NetworkEngine::getInstance()->sendEvent(9, eventContent);
     }
     
 }
 
-void FourPlayerGameScene::toggleDoubleDamage(int ship)
+void GameScene::toggleDoubleDamage(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
     
@@ -1486,16 +1603,16 @@ void FourPlayerGameScene::toggleDoubleDamage(int ship)
         ship1->setOpacity(128);
         tileMapStatusBlueLayer->setTileGID(2, CCPoint(0, 0));
         
-        if (networkLogic->playerNr == 1)
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            networkLogic->sendEvent(10, eventContent);
+            NetworkEngine::getInstance()->sendEvent(10, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip1DoubleDamage));
+        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(GameScene::disableShip1DoubleDamage));
         CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
         this->runAction(seq);
     }
@@ -1504,116 +1621,116 @@ void FourPlayerGameScene::toggleDoubleDamage(int ship)
         ship2DoubleDamageBool = true;
         ship2->setOpacity(128);
         tileMapStatusGreenLayer->setTileGID(2, CCPoint(0, 0));
-
-        if (networkLogic->playerNr == 1)
+        
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            networkLogic->sendEvent(10, eventContent);
+            NetworkEngine::getInstance()->sendEvent(10, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip2DoubleDamage));
+        CCCallFunc* offDoubleD = CCCallFunc::create(this, callfunc_selector(GameScene::disableShip2DoubleDamage));
         CCSequence* seq = CCSequence::create(delay, offDoubleD, NULL);
         this->runAction(seq);
     }
     
 }
 
-void FourPlayerGameScene::disableShip1DoubleDamage()
+void GameScene::disableShip1DoubleDamage()
 {
     if (ship1DoubleDamageBool)
     {
         ship1DoubleDamageBool = false;
         ship1->setOpacity(255);
         tileMapStatusBlueLayer->setTileGID(1, CCPoint(0, 0));
-
+        
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
-void FourPlayerGameScene::disableShip2DoubleDamage()
+void GameScene::disableShip2DoubleDamage()
 {
     if (ship2DoubleDamageBool)
     {
         ship2DoubleDamageBool = false;
         ship2->setOpacity(255);
         tileMapStatusGreenLayer->setTileGID(1, CCPoint(0, 0));
-
+        
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
-void FourPlayerGameScene::toggleInvertRole(int ship)
+void GameScene::toggleInvertDirection(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
     
     if (ship == 1)
     {
-        ship1InvertRoleBool = true;
+        ship1InvertDirectionBool = true;
         tileMapStatusBlueLayer->setTileGID(3, CCPoint(0, 0));
         
-        if (networkLogic->playerNr == 1)
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            networkLogic->sendEvent(11, eventContent);
+            NetworkEngine::getInstance()->sendEvent(11, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip1InvertRole));
+        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(GameScene::disableShip1InvertDirection));
         CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
         this->runAction(seq);
     }
     else if (ship == 2)
     {
-        ship2InvertRoleBool = true;
+        ship2InvertDirectionBool = true;
         tileMapStatusGreenLayer->setTileGID(3, CCPoint(0, 0));
         
-        if (networkLogic->playerNr == 1)
+        if (NetworkEngine::getInstance()->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
             eventContent->put<int, float>(1, ship);
             
-            networkLogic->sendEvent(11, eventContent);
+            NetworkEngine::getInstance()->sendEvent(11, eventContent);
         }
         
         CCDelayTime* delay = CCDelayTime::create(13);
-        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(FourPlayerGameScene::disableShip2InvertRole));
+        CCCallFunc* offInvertR = CCCallFunc::create(this, callfunc_selector(GameScene::disableShip2InvertDirection));
         CCSequence* seq = CCSequence::create(delay, offInvertR, NULL);
         this->runAction(seq);
     }
     
 }
 
-void FourPlayerGameScene::disableShip1InvertRole()
+void GameScene::disableShip1InvertDirection()
 {
-    if (ship1InvertRoleBool)
+    if (ship1InvertDirectionBool)
     {
-        ship1InvertRoleBool = false;
+        ship1InvertDirectionBool = false;
         tileMapStatusBlueLayer->setTileGID(1, CCPoint(0, 0));
-
+        
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
-void FourPlayerGameScene::disableShip2InvertRole()
+void GameScene::disableShip2InvertDirection()
 {
-    if (ship1InvertRoleBool)
+    if (ship1InvertDirectionBool)
     {
-        ship2InvertRoleBool = false;
+        ship2InvertDirectionBool = false;
         tileMapStatusGreenLayer->setTileGID(1, CCPoint(0, 0));
-
+        
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
 
-void FourPlayerGameScene::spawnRunes()
+void GameScene::spawnRunes()
 {
     CCLOG("spawning runes");
-    if (networkLogic->playerNr == 1)
+    if (NetworkEngine::getInstance()->playerNr == 1)
     {
         int random1 = rand() % 4 + 2;
         // random in the range 2 to 5
@@ -1629,11 +1746,11 @@ void FourPlayerGameScene::spawnRunes()
         eventContent->put<int, float>(1, random1);
         eventContent->put<int, float>(2, random2);
         
-        networkLogic->sendEvent(12, eventContent);
+        NetworkEngine::getInstance()->sendEvent(12, eventContent);
     }
 }
 
-void FourPlayerGameScene::updateHpBar()
+void GameScene::updateHpBar()
 {
     switch (score1)
     {
@@ -1744,42 +1861,62 @@ void FourPlayerGameScene::updateHpBar()
     }
 }
 
-void FourPlayerGameScene::setViewPointCenter(CCPoint position)
+void GameScene::setViewPointCenter(CCPoint position)
 {
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     
     CCPoint centerOfView = CCPoint(winSize.width/2, winSize.height/2);
     CCPoint viewPoint = ccpSub(centerOfView, position);
-
+    
     worldLayer->setPosition(viewPoint);
 }
 
-void FourPlayerGameScene::fireButtonCall(CCObject *sender)
+void GameScene::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
-
-    if (networkLogic->playerNr)
+    
+    if (heatAmount < 10)
     {
-        this->shoot(networkLogic->playerNr);
-
-        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-        eventContent->put<int, float>(1, bulletBody->GetPosition().x);
-        eventContent->put<int, float>(2, bulletBody->GetPosition().y);
-        eventContent->put<int, float>(3, bulletBody->GetAngle());
-        
-        networkLogic->sendEvent(2, eventContent);
+        if (NetworkEngine::getInstance()->playerNr)
+        {
+            this->shoot(NetworkEngine::getInstance()->playerNr);
+            heatAmount = heatAmount + 5;
+            CCLOG("heatAmount: %f", heatAmount);
+            
+            ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+            eventContent->put<int, float>(1, bulletBody->GetPosition().x);
+            eventContent->put<int, float>(2, bulletBody->GetPosition().y);
+            eventContent->put<int, float>(3, bulletBody->GetAngle());
+            
+            NetworkEngine::getInstance()->sendEvent(2, eventContent);
+        }
     }
 }
 
-void FourPlayerGameScene::turnButtonCall(CCObject *sender)
+void GameScene::turnRightButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");
     
-    if (networkLogic->playerNr)
+    if (NetworkEngine::getInstance()->playerNr)
     {
-        this->turn(networkLogic->playerNr);
-
+        this->turn(NetworkEngine::getInstance()->playerNr, 0);
+        
         ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
-        networkLogic->sendEvent(4, eventContent);
+        eventContent->put<int, float>(1, 0);
+        NetworkEngine::getInstance()->sendEvent(4, eventContent);
+    }
+}
+
+void GameScene::turnLeftButtonCall(CCObject *sender)
+{
+    CCLOG("Turn Button");
+    
+    if (NetworkEngine::getInstance()->playerNr)
+    {
+        this->turn(NetworkEngine::getInstance()->playerNr, 1);
+        
+        ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
+        eventContent->put<int, float>(1, 1);
+        NetworkEngine::getInstance()->sendEvent(4, eventContent);
     }
 }

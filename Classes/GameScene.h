@@ -1,53 +1,63 @@
-#ifndef __FOURPLAYERGAMESCENE_SCENE_H__
-#define __FOURPLAYERGAMESCENE_SCENE_H__
+//
+//  GameScene.h
+//  photon
+//
+//  Created by Jake on 4/3/15.
+//
+//
+
+#ifndef __photon__GameScene__
+#define __photon__GameScene__
 
 #include "cocos2d.h"
-#include "NetworkLogic.h"
+#include "NetworkEngine.h"
 #include "Box2d.h"
 #include "ContactListener.h"
 
 using namespace cocos2d;
 
-class FourPlayerGameScene : public CCLayer, public b2ContactListener
+class GameScene : public CCLayer, public b2ContactListener
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();  
-
+    virtual bool init();
+    
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* scene();
     
     // implement the "static node()" method manually
-    CREATE_FUNC(FourPlayerGameScene);
+    CREATE_FUNC(GameScene);
     
     float deltaTime;
     
     void setViewPointCenter(CCPoint position);
-
+    
 private:
     virtual void update(float delta);
     
     int score1;
     int score2;
     
+    float heatAmount;
+    float maxHeatAmount;
+        
     bool isGameOver;
     
-    bool Player2Joined;
-    bool Player3Joined;
-    bool Player4Joined;
+    bool PlayerAllJoined;
+    
+    void toggleInvertRole();
+    
+    bool isRoleFlipped;
     
     void hideShip1Flame();
     void hideShip2Flame();
     
-    void turn(int playerNr);
+    void turn(int playerNr, int direction);
     void shoot(int playerNr);
     void someOneGotHit(int victim);
     
     void removeLoading();
-    
-    void disableFireButton();
-    void enableFireButton();
-    
+        
     void spawnRunes();
     
     void updateHpBar();
@@ -68,20 +78,20 @@ private:
     void disableShip1DoubleDamage();
     void disableShip2DoubleDamage();
     
-    bool ship1InvertRoleBool;
-    bool ship2InvertRoleBool;
+    bool ship1InvertDirectionBool;
+    bool ship2InvertDirectionBool;
     
-    void toggleInvertRole(int ship);
-    void disableShip1InvertRole();
-    void disableShip2InvertRole();
+    void toggleInvertDirection(int ship);
+    void disableShip1InvertDirection();
+    void disableShip2InvertDirection();
     
     void gameOver();
     
     void sendPositions();
-    
+        
     CCMenuItemSprite* fireButton;
-    
-    NetworkLogic* networkLogic;
+    CCMenuItemSprite* turnLeftButton;
+    CCMenuItemSprite* turnRightButton;
     
     b2World *world;
     
@@ -114,11 +124,11 @@ private:
     CCSprite *squareGreen3;
     CCSprite *squareGreen4;
     CCSprite *squareGreen5;
-
+    
     CCSprite *ship1;
     CCSprite *ship1flame;
     CCSprite *ship1shield;
-
+    
     b2Body *shipBody1;
     
     CCSprite *ship2;
@@ -131,9 +141,11 @@ private:
     b2Body *planetBody;
     
     b2Body *bulletBody;
-
+    
     void fireButtonCall(CCObject *sender);
-    void turnButtonCall(CCObject *sender);
+    void turnRightButtonCall(CCObject *sender);
+    void turnLeftButtonCall(CCObject *sender);
+
 };
 
-#endif // __FOURPLAYERGAMESCENE_SCENE_H__
+#endif /* defined(__photon__GameScene__) */

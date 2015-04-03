@@ -45,7 +45,10 @@ public class photon extends Cocos2dxActivity{
 
         // create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-
+        
+        // set the keep screen on flag      
+        glSurfaceView.setKeepScreenOn(true);
+        
         return glSurfaceView;
     }
 
