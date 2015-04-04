@@ -25,7 +25,9 @@ public:
     // implement the "static node()" method manually
     CREATE_FUNC(GameOver);
     
-private:
+private:    
+    virtual void update(float delta);
+
     void goToStart();
 };
 #endif /* defined(__photon__GameOverScene__) */

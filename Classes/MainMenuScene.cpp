@@ -39,6 +39,9 @@ bool MainMenu::init()
         return false;
     }
     
+    NetworkEngine::getInstance()->setRoomID(0);
+    NetworkEngine::getInstance()->setLastInput(INPUT_EXIT);
+    NetworkEngine::getInstance()->connect();
     NetworkEngine::getInstance()->run();
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();

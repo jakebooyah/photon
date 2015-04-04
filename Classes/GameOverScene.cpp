@@ -10,6 +10,7 @@
 #include "CCScale9Sprite.h"
 #include "MainMenuScene.h"
 #include "SimpleAudioEngine.h"
+#include "NetworkEngine.h"
 
 CCScene* GameOver::scene()
 {
@@ -68,7 +69,35 @@ bool GameOver::init()
 
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 01 Atempause.mp3", true);
     
+    scheduleUpdate();
+    
     return true;
+}
+
+void GameOver::update(float delta)
+{
+    NetworkEngine::getInstance()->run();
+    
+    switch (NetworkEngine::getInstance()->getState())
+    {
+        case STATE_ROOMFULL:
+            break;
+        case STATE_CONNECTED:
+        case STATE_LEFT:
+            break;
+        case STATE_DISCONNECTED:
+            NetworkEngine::getInstance()->connect();
+            break;
+        case STATE_CONNECTING:
+        case STATE_JOINING:
+        case STATE_JOINED:
+            NetworkEngine::getInstance()->setLastInput(INPUT_1);
+            break;
+        case STATE_LEAVING:
+        case STATE_DISCONNECTING:
+        default:
+            break;
+    }
 }
 
 void GameOver::goToStart()

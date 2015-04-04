@@ -224,10 +224,13 @@ void NetworkEngine::run(void)
             case STATE_LEAVING:
                 break; // wait for callback
             case STATE_LEFT:
-//                mStateAccessor.setState(STATE_CONNECTED);
                 break;
             case STATE_DISCONNECTING:
                 break; // wait for callback
+            case STATE_DISCONNECTED:
+                connect();
+                mStateAccessor.setState(STATE_CONNECTING);
+                break;
             default:
                 break;
         }

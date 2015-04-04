@@ -58,7 +58,6 @@ bool GameScene::initWithGameMode(int gameMode)
     
     thisGameMode = gameMode;
     
-    CCLOG("State %d", NetworkEngine::getInstance()->getState());
     CCLOG("Player %d Joined", NetworkEngine::getInstance()->playerNr);
 
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3", true);
