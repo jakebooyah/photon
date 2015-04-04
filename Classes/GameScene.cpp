@@ -409,6 +409,7 @@ void GameScene::update(float delta)
                 NetworkEngine::getInstance()->sendEvent(8, eventContent);
                 removeLoading();
                 
+//                CCDelayTime* delay = CCDelayTime::create(10);
                 CCDelayTime* delay = CCDelayTime::create(30);
                 CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(GameScene::spawnRunes));
                 CCCallFunc* toggleInvertRole = CCCallFunc::create(this, callfunc_selector(GameScene::toggleInvertRole));
@@ -953,7 +954,7 @@ void GameScene::update(float delta)
         // Get the distance between the two objects.
         b2Vec2 distance = center - position;
         
-        float force = pow((distance.Length()/3 - 8), 2) - 5; //genius equation handle with care radioactive
+        float force = pow((distance.Length()/3 - 8), 2) - 2; //genius equation handle with care
         
         if (force < 0)
         {
@@ -1973,7 +1974,7 @@ void GameScene::fireButtonCall(CCObject *sender)
         if (NetworkEngine::getInstance()->playerNr)
         {
             this->shoot(NetworkEngine::getInstance()->playerNr);
-            heatAmount = heatAmount + 5;
+            heatAmount = heatAmount + 7;
             CCLOG("heatAmount: %f", heatAmount);
             
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
