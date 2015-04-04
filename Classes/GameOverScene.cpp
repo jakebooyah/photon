@@ -102,8 +102,8 @@ void GameOver::update(float delta)
 
 void GameOver::goToStart()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
 
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7,MainMenu::scene(), ccBLACK);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.5,MainMenu::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }

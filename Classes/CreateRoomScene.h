@@ -28,6 +28,7 @@ public:
 private:
     int thisGameMode;
     void startGame();
+    void goToMain();
     
     int randomRoomID;
     

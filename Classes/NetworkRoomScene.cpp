@@ -9,6 +9,7 @@
 #include "NetworkRoomScene.h"
 #include "CreateRoomScene.h"
 #include "JoinRoomScene.h"
+#include "MainMenuScene.h"
 
 #include "CCScale9Sprite.h"
 #include "SimpleAudioEngine.h"
@@ -113,21 +114,35 @@ bool NetworkRoomScene::initWithGameMode(int gameMode)
     buttonLabel2->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2- 210));
     this->addChild(buttonLabel2);
     
+    CCSprite* closeButtonS = CCSprite::create("closeButton.png");
+    CCMenuItemSprite* closeButton = CCMenuItemSprite::create(closeButtonS, closeButtonS, this, menu_selector(NetworkRoomScene::goToMain));
+    CCMenu* menuClose = CCMenu::create(closeButton, NULL);
+    menuClose->setPosition(CCPoint(150, visibleSize.height - 150));
+    this->addChild(menuClose);
+    
     return true;
 }
 
 void NetworkRoomScene::goToCreateRoom()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7, CreateRoomScene::scene(thisGameMode), ccBLACK);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.5, CreateRoomScene::scene(thisGameMode), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }
 
 void NetworkRoomScene::goToJoinRoom()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
-    CCTransitionFade* pScene = CCTransitionFade::create(0.7, JoinRoomScene::scene(thisGameMode), ccBLACK);
+    CCTransitionFade* pScene = CCTransitionFade::create(0.5, JoinRoomScene::scene(thisGameMode), ccBLACK);
+    CCDirector::sharedDirector()->replaceScene(pScene);
+}
+
+void NetworkRoomScene::goToMain()
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+    
+    CCTransitionFade* pScene = CCTransitionFade::create(0.5, MainMenu::scene(), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
 }

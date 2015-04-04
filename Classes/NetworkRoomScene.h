@@ -29,6 +29,7 @@ private:
     int thisGameMode;
     void goToCreateRoom();
     void goToJoinRoom();
+    void goToMain();
 };
 
 #endif /* defined(__photon__NetworkRoomScene__) */

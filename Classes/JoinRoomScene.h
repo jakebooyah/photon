@@ -30,6 +30,7 @@ private:
     int thisGameMode;
     bool joinGameIsPressed;
     void joinGame();
+    void goToMain();
     
     extension::CCEditBox* inputField;
     

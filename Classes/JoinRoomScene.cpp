@@ -10,6 +10,7 @@
 #include "MainMenuScene.h"
 #include "NetworkEngine.h"
 #include "GameScene.h"
+#include "MainMenuScene.h"
 
 #include "CCScale9Sprite.h"
 #include "SimpleAudioEngine.h"
@@ -102,8 +103,12 @@ bool JoinRoomScene::initWithGameMode(int gameMode)
     buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-210));
     this->addChild(buttonLabel);
     
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 01 Atempause.mp3", true);
-    
+    CCSprite* closeButtonS = CCSprite::create("closeButton.png");
+    CCMenuItemSprite* closeButton = CCMenuItemSprite::create(closeButtonS, closeButtonS, this, menu_selector(JoinRoomScene::goToMain));
+    CCMenu* menuClose = CCMenu::create(closeButton, NULL);
+    menuClose->setPosition(CCPoint(150, visibleSize.height - 150));
+    this->addChild(menuClose);
+        
     joinGameIsPressed = false;
 
     this->scheduleUpdate();
@@ -145,12 +150,12 @@ void JoinRoomScene::update(float delta)
     {
         if (thisGameMode == 2)
         {
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(2), ccBLACK);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.5, GameScene::scene(2), ccBLACK);
             CCDirector::sharedDirector()->replaceScene(pScene);
         }
         else if (thisGameMode == 4)
         {
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(4), ccBLACK);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.5, GameScene::scene(4), ccBLACK);
             CCDirector::sharedDirector()->replaceScene(pScene);
         }
     }
@@ -158,7 +163,7 @@ void JoinRoomScene::update(float delta)
 
 void JoinRoomScene::joinGame()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
     std::string roomIDString = inputField->getText();
     std::istringstream buffer(roomIDString);
@@ -168,4 +173,12 @@ void JoinRoomScene::joinGame()
     NetworkEngine::getInstance()->setRoomID(roomID);
     
     joinGameIsPressed = true;
+}
+
+void JoinRoomScene::goToMain()
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+    
+    CCTransitionFade* pScene = CCTransitionFade::create(0.5, MainMenu::scene(), ccBLACK);
+    CCDirector::sharedDirector()->replaceScene(pScene);
 }

@@ -9,6 +9,7 @@
 #include "CreateRoomScene.h"
 #include "GameScene.h"
 #include "NetworkEngine.h"
+#include "MainMenuScene.h"
 
 #include "SimpleAudioEngine.h"
 #include "CCScale9Sprite.h"
@@ -105,9 +106,12 @@ bool CreateRoomScene::initWithGameMode(int gameMode)
     buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 - 210));
     this->addChild(buttonLabel);
     
-    
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3", true);
-        
+    CCSprite* closeButtonS = CCSprite::create("closeButton.png");
+    CCMenuItemSprite* closeButton = CCMenuItemSprite::create(closeButtonS, closeButtonS, this, menu_selector(CreateRoomScene::goToMain));
+    CCMenu* menuClose = CCMenu::create(closeButton, NULL);
+    menuClose->setPosition(CCPoint(150, visibleSize.height - 150));
+    this->addChild(menuClose);
+            
     scheduleUpdate();
 
     return true;
@@ -144,19 +148,27 @@ void CreateRoomScene::update(float delta)
 
 void CreateRoomScene::startGame()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
     if (NetworkEngine::getInstance()->getState() == STATE_JOINED)
     {
         if (thisGameMode == 2)
         {
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(2), ccBLACK);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.5, GameScene::scene(2), ccBLACK);
             CCDirector::sharedDirector()->replaceScene(pScene);
         }
         else if (thisGameMode == 4)
         {
-            CCTransitionFade* pScene = CCTransitionFade::create(0.7, GameScene::scene(4), ccBLACK);
+            CCTransitionFade* pScene = CCTransitionFade::create(0.5, GameScene::scene(4), ccBLACK);
             CCDirector::sharedDirector()->replaceScene(pScene);
         }
     }
+}
+
+void CreateRoomScene::goToMain()
+{
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+    
+    CCTransitionFade* pScene = CCTransitionFade::create(0.5, MainMenu::scene(), ccBLACK);
+    CCDirector::sharedDirector()->replaceScene(pScene);
 }

@@ -91,15 +91,14 @@ bool MainMenu::init()
     buttonLabel2->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-210));
     this->addChild(buttonLabel2);
     
-    
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3", true);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 01 Atempause.mp3", true);
     
     return true;
 }
 
 void MainMenu::startGame2()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
     CCTransitionFade* pScene = CCTransitionFade::create(0.7, NetworkRoomScene::scene(2), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
@@ -108,7 +107,7 @@ void MainMenu::startGame2()
 
 void MainMenu::startGame4()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
     
     CCTransitionFade* pScene = CCTransitionFade::create(0.7, NetworkRoomScene::scene(4), ccBLACK);
     CCDirector::sharedDirector()->replaceScene(pScene);
