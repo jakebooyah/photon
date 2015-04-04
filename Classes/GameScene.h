@@ -92,6 +92,8 @@ private:
     void gameOver();
     
     void sendPositions();
+    
+    CCProgressTimer* heatProgress;
         
     CCMenuItemSprite* fireButton;
     CCMenuItemSprite* turnLeftButton;

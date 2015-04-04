@@ -323,6 +323,7 @@
 		2384B7D61ACE0E7B006D9E36 /* CreateRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7D41ACE0E7B006D9E36 /* CreateRoomScene.cpp */; };
 		2384B7DA1ACE1F4F006D9E36 /* JoinRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7D81ACE1F4F006D9E36 /* JoinRoomScene.cpp */; };
 		2384B7DD1ACEAE64006D9E36 /* NetworkRoomScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2384B7DB1ACEAE64006D9E36 /* NetworkRoomScene.cpp */; };
+		23DD8AAD1AD000EF006EDCBA /* progressBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 23DD8AAC1AD000EF006EDCBA /* progressBar.png */; };
 		23EE2D531AB23EE4001A65DB /* ContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23EE2D511AB23EE4001A65DB /* ContactListener.cpp */; };
 		23EE2D5F1AB311A3001A65DB /* Kenvector Future.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -1122,6 +1123,7 @@
 		2384B7D91ACE1F4F006D9E36 /* JoinRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinRoomScene.h; sourceTree = "<group>"; };
 		2384B7DB1ACEAE64006D9E36 /* NetworkRoomScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkRoomScene.cpp; sourceTree = "<group>"; };
 		2384B7DC1ACEAE64006D9E36 /* NetworkRoomScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRoomScene.h; sourceTree = "<group>"; };
+		23DD8AAC1AD000EF006EDCBA /* progressBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = progressBar.png; sourceTree = "<group>"; };
 		23EE2D511AB23EE4001A65DB /* ContactListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContactListener.cpp; sourceTree = "<group>"; };
 		23EE2D521AB23EE4001A65DB /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListener.h; sourceTree = "<group>"; };
 		23EE2D5E1AB311A3001A65DB /* Kenvector Future.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kenvector Future.ttf"; sourceTree = "<group>"; };
@@ -2807,6 +2809,7 @@
 				234BF5DB1AC5D37000C97336 /* ship_shield.png */,
 				234BF5D31AC5C30600C97336 /* bullet_blue.png */,
 				234BF5D41AC5C30600C97336 /* bullet_green.png */,
+				23DD8AAC1AD000EF006EDCBA /* progressBar.png */,
 				235830D21AB365D800CDA237 /* fireButton.png */,
 				235830D41AB365E600CDA237 /* disabledButton.png */,
 				235830D61AB365F000CDA237 /* turnRight.png */,
@@ -2940,6 +2943,7 @@
 				235830DE1AB3678C00CDA237 /* turnLeft.png in Resources */,
 				234BF5E51AC6011C00C97336 /* status_blue_tileset.png in Resources */,
 				234BF5F01AC6DD0C00C97336 /* ship_ai.png in Resources */,
+				23DD8AAD1AD000EF006EDCBA /* progressBar.png in Resources */,
 				2358311A1AB5E97100CDA237 /* C418 - Seven Years of Server Data - 15 Another weird ambient tune..mp3 in Resources */,
 				235831101AB5C8FE00CDA237 /* sfx_laser2.mp3 in Resources */,
 				2358310F1AB5C8FE00CDA237 /* sfx_laser1.mp3 in Resources */,

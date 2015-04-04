@@ -205,6 +205,13 @@ bool GameScene::initWithGameMode(int gameMode)
     
     hudLayer = CCLayer::create();
     
+    CCSprite* heatCircleS = CCSprite::create("progressBar.png");
+    heatProgress = CCProgressTimer::create(heatCircleS);
+    heatProgress->setType(kCCProgressTimerTypeRadial);
+    heatProgress->setPercentage(0);
+    heatProgress->setPosition(visibleSize.width - 250, visibleSize.height/2);
+    hudLayer->addChild(heatProgress);
+    
     CCSprite* fireButtonS = CCSprite::create("fireButton.png");
     CCSprite* fireButtonDisS = CCSprite::create("disabledButton.png");
     
@@ -390,6 +397,7 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
+//    if (true)
     if (PlayerAllJoined)
     {
         //if from Host
@@ -430,6 +438,8 @@ void GameScene::update(float delta)
     {
         heatAmount = 0;
     }
+    
+    heatProgress->setPercentage(heatAmount/maxHeatAmount*100);
     
     while (!NetworkEngine::getInstance()->eventQueue.empty())
     {
