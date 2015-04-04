@@ -1266,22 +1266,22 @@ void GameScene::turn(int playerN, int direction)
         {
             if (!ship1InvertDirectionBool)
             {
-                shipBody1->SetAngularVelocity(-0.5);
+                shipBody1->SetAngularVelocity(-0.9);
             }
             else
             {
-                shipBody1->SetAngularVelocity(0.5);
+                shipBody1->SetAngularVelocity(0.9);
             }
         }
         else if (direction == 1)
         {
             if (!ship1InvertDirectionBool)
             {
-                shipBody1->SetAngularVelocity(0.5);
+                shipBody1->SetAngularVelocity(0.9);
             }
             else
             {
-                shipBody1->SetAngularVelocity(-0.5);
+                shipBody1->SetAngularVelocity(-0.9);
             }
         }
         
@@ -1303,22 +1303,22 @@ void GameScene::turn(int playerN, int direction)
         {
             if (!ship1InvertDirectionBool)
             {
-                shipBody1->SetAngularVelocity(-0.5);
+                shipBody1->SetAngularVelocity(-0.9);
             }
             else
             {
-                shipBody1->SetAngularVelocity(0.5);
+                shipBody1->SetAngularVelocity(0.9);
             }
         }
         else if (direction == 1)
         {
             if (!ship1InvertDirectionBool)
             {
-                shipBody1->SetAngularVelocity(0.5);
+                shipBody1->SetAngularVelocity(0.9);
             }
             else
             {
-                shipBody1->SetAngularVelocity(-0.5);
+                shipBody1->SetAngularVelocity(-0.9);
             }
         }
         
@@ -1340,22 +1340,22 @@ void GameScene::turn(int playerN, int direction)
         {
             if (!ship2InvertDirectionBool)
             {
-                shipBody2->SetAngularVelocity(-0.5);
+                shipBody2->SetAngularVelocity(-0.9);
             }
             else
             {
-                shipBody2->SetAngularVelocity(0.5);
+                shipBody2->SetAngularVelocity(0.9);
             }
         }
         else if (direction == 1)
         {
             if (!ship2InvertDirectionBool)
             {
-                shipBody2->SetAngularVelocity(0.5);
+                shipBody2->SetAngularVelocity(0.9);
             }
             else
             {
-                shipBody2->SetAngularVelocity(-0.5);
+                shipBody2->SetAngularVelocity(-0.9);
             }
         }
         
@@ -1377,22 +1377,22 @@ void GameScene::turn(int playerN, int direction)
         {
             if (!ship2InvertDirectionBool)
             {
-                shipBody2->SetAngularVelocity(-0.5);
+                shipBody2->SetAngularVelocity(-0.9);
             }
             else
             {
-                shipBody2->SetAngularVelocity(0.5);
+                shipBody2->SetAngularVelocity(0.9);
             }
         }
         else if (direction == 1)
         {
             if (!ship2InvertDirectionBool)
             {
-                shipBody2->SetAngularVelocity(0.5);
+                shipBody2->SetAngularVelocity(0.9);
             }
             else
             {
-                shipBody2->SetAngularVelocity(-0.5);
+                shipBody2->SetAngularVelocity(-0.9);
             }
         }
         
