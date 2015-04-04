@@ -409,7 +409,7 @@ void GameScene::update(float delta)
                 NetworkEngine::getInstance()->sendEvent(8, eventContent);
                 removeLoading();
                 
-                CCDelayTime* delay = CCDelayTime::create(60);
+                CCDelayTime* delay = CCDelayTime::create(30);
                 CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(GameScene::spawnRunes));
                 CCCallFunc* toggleInvertRole = CCCallFunc::create(this, callfunc_selector(GameScene::toggleInvertRole));
                 CCSequence* seq = CCSequence::create(toggleInvertRole, spawnRunes, delay, NULL);
