@@ -1257,8 +1257,24 @@ void GameScene::gameOver()
     
     CCLOG("GAME OVER, Score1 %d, Score2 %d", score1, score2);
     
-    CCTransitionFade* pScene = CCTransitionFade::create(0.5,GameOver::scene(), ccBLACK);
-    CCDirector::sharedDirector()->replaceScene(pScene);
+    if (score2 == 0)
+    {
+        CCTransitionFade* pScene = CCTransitionFade::create(0.5,GameOver::scene(1), ccBLACK);
+        CCDirector::sharedDirector()->replaceScene(pScene);
+    }
+    else if (score1 == 0)
+    {
+        if (thisGameMode == 2)
+        {
+            CCTransitionFade* pScene = CCTransitionFade::create(0.5,GameOver::scene(3), ccBLACK);
+            CCDirector::sharedDirector()->replaceScene(pScene);
+        }
+        else if (thisGameMode == 4)
+        {
+            CCTransitionFade* pScene = CCTransitionFade::create(0.5,GameOver::scene(2), ccBLACK);
+            CCDirector::sharedDirector()->replaceScene(pScene);
+        }
+    }
 }
 
 void GameScene::turn(int playerN, int direction)

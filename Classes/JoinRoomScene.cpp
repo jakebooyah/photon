@@ -106,7 +106,7 @@ bool JoinRoomScene::initWithGameMode(int gameMode)
     CCSprite* closeButtonS = CCSprite::create("closeButton.png");
     CCMenuItemSprite* closeButton = CCMenuItemSprite::create(closeButtonS, closeButtonS, this, menu_selector(JoinRoomScene::goToMain));
     CCMenu* menuClose = CCMenu::create(closeButton, NULL);
-    menuClose->setPosition(CCPoint(150, visibleSize.height - 150));
+    menuClose->setPosition(CCPoint(visibleSize.width - 150, visibleSize.height - 150));
     this->addChild(menuClose);
         
     joinGameIsPressed = false;

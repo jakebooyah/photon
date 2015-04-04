@@ -52,7 +52,7 @@ bool MainMenu::init()
     background->setScale(2);
     this->addChild(background);
     
-    CCLabelTTF* title = CCLabelTTF::create("PHOTON", "Kenvector Future.ttf", 80);
+    CCLabelTTF* title = CCLabelTTF::create("PHOTON", "Kenvector Future.ttf", 100);
     title->setColor(ccWHITE);
     title->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2+210));
     this->addChild(title);

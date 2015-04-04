@@ -12,13 +12,15 @@
 #include "SimpleAudioEngine.h"
 #include "NetworkEngine.h"
 
-CCScene* GameOver::scene()
+using namespace cocos2d;
+
+CCScene* GameOver::scene(int winner)
 {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
     
     // 'layer' is an autorelease object
-    GameOver *layer = GameOver::create();
+    GameOver *layer = GameOver::createWithWinner(winner);
     
     // add layer as a child to scene
     scene->addChild(layer);
@@ -27,11 +29,25 @@ CCScene* GameOver::scene()
     return scene;
 }
 
-// on "init" you need to initialize your instance
-bool GameOver::init()
+GameOver* GameOver::createWithWinner(int winner)
 {
-    //////////////////////////////
-    // 1. super init first
+    GameOver* gameOverLayer = new GameOver();
+    if (gameOverLayer && gameOverLayer->initWithWinner(winner))
+    {
+        gameOverLayer->autorelease();
+        return gameOverLayer;
+    }
+    else
+    {
+        delete gameOverLayer;
+        gameOverLayer = NULL;
+        return NULL;
+    }
+}
+
+// on "init" you need to initialize your instance
+bool GameOver::initWithWinner(int winner)
+{
     if ( !CCLayer::init() )
     {
         return false;
@@ -45,10 +61,32 @@ bool GameOver::init()
     background->setScale(2);
     this->addChild(background);
     
-    CCLabelTTF* gameOverLabel = CCLabelTTF::create("GAME OVER", "Kenvector Future.ttf", 80);
-    gameOverLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 + 100));
-    gameOverLabel->setColor(ccWHITE);
-    this->addChild(gameOverLabel);
+    if (winner == 1)
+    {
+        CCSprite* winner = CCSprite::create("ship_blue.png");
+        winner->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 + 30));
+        this->addChild(winner);
+
+    }
+    else if (winner == 2)
+    {
+        CCSprite* winner = CCSprite::create("ship_green.png");
+        winner->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 + 30));
+        this->addChild(winner);
+
+    }
+    else if (winner == 3)
+    {
+        CCSprite* winner = CCSprite::create("ship_ai.png");
+        winner->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 + 30));
+        this->addChild(winner);
+
+    }
+    
+    CCLabelTTF* winnerLabel = CCLabelTTF::create("Winner", "Kenvector Future.ttf", 80);
+    winnerLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 + 210));
+    winnerLabel->setColor(ccWHITE);
+    this->addChild(winnerLabel);
     
     cocos2d::extension::CCScale9Sprite* buttonS = cocos2d::extension::CCScale9Sprite::create("panel.png");
     buttonS->setContentSize(CCSize(800, 150));
@@ -59,12 +97,12 @@ bool GameOver::init()
     CCMenuItemSprite* menuButton = CCMenuItemSprite::create(buttonS, buttonPressedS, this, menu_selector(GameOver::goToStart));
     CCMenu* menuStart = CCMenu::create(menuButton, NULL);
     
-    menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-100));
+    menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-200));
     this->addChild(menuStart);
     
     CCLabelTTF* buttonLabel = CCLabelTTF::create("MAIN MENU", "Kenvector Future.ttf", 60);
     buttonLabel->setColor(ccWHITE);
-    buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-110));
+    buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-210));
     this->addChild(buttonLabel);
 
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("C418 - Seven Years of Server Data - 01 Atempause.mp3", true);
