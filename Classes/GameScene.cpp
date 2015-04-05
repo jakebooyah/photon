@@ -11,7 +11,6 @@
 #include "GameOverScene.h"
 #include "MainMenuScene.h"
 
-#include "CCScale9Sprite.h"
 #include "SimpleAudioEngine.h"
 #include <cstdlib>
 
@@ -121,7 +120,7 @@ bool GameScene::initWithGameMode(int gameMode)
     //ship shape definition
     b2CircleShape shipShape;
     shipShape.m_p.Set(0, 0);
-    shipShape.m_radius = 75/32;
+    shipShape.m_radius = 80/32;
     
     //ship fixture definition
     b2FixtureDef shipFixture;
@@ -243,14 +242,19 @@ bool GameScene::initWithGameMode(int gameMode)
     panel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
     hudLayer->addChild(panel);
     
+    overHeatLabel = CCLabelTTF::create("OVERHEAT", "Kenvector Future.ttf", 50);
+    overHeatLabel->setPosition(CCPoint(visibleSize.width/2, 150));
+    overHeatLabel->setColor(ccRED);
+    overHeatLabel->setVisible(false);
+    hudLayer->addChild(overHeatLabel);
+    
+    switchRoleLabel = CCLabelTTF::create("SWITCH", "Kenvector Future.ttf", 60);
+    switchRoleLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-350));
+    hudLayer->addChild(switchRoleLabel);
+    
     CCLabelTTF* statusLabel = CCLabelTTF::create("STATUS", "Kenvector Future.ttf", 50);
     statusLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
     hudLayer->addChild(statusLabel);
-    
-    switchLabel = CCLabelTTF::create("SWITCH!", "Kenvector Future.ttf", 70);
-    switchLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-350));
-    switchLabel->setVisible(false);
-    hudLayer->addChild(switchLabel);
     
     for (int n = 0; n < 5; n++)
     {
@@ -409,7 +413,6 @@ void GameScene::update(float delta)
                 NetworkEngine::getInstance()->sendEvent(8, eventContent);
                 removeLoading();
                 
-//                CCDelayTime* delay = CCDelayTime::create(10);
                 CCDelayTime* delay = CCDelayTime::create(30);
                 CCCallFunc* spawnRunes = CCCallFunc::create(this, callfunc_selector(GameScene::spawnRunes));
                 CCCallFunc* toggleInvertRole = CCCallFunc::create(this, callfunc_selector(GameScene::toggleInvertRole));
@@ -425,8 +428,11 @@ void GameScene::update(float delta)
         sendPositions();
     }
     
-    moveSeekingAI();
-
+    if (thisGameMode == 2)
+    {
+        moveSeekingAI();
+    }
+    
     //overheat gun mechanism
     heatAmount = heatAmount - delta*10/2;
     
@@ -951,20 +957,15 @@ void GameScene::update(float delta)
         
         b2Vec2 position = body->GetPosition();
         
-        // Get the distance between the two objects.
+        // get the distance between the two objects
         b2Vec2 distance = center - position;
         
-        float force = pow((distance.Length()/3 - 8), 2) - 2; //genius equation handle with care
-        
-        if (force < 0)
-        {
-            force = 0;
-        }
-        
+        // genius equation handle with care
+        float force = pow((distance.Length()/3 - 12), 2);
         distance.Normalize();
         
         b2Vec2 F = force * distance;
-        // Finally apply a force on the body in the direction of the "Planet"
+        // apply a force on the body in the direction of the "Planet"
         body->ApplyForceToCenter(F);
         
         if (body->GetUserData())
@@ -1465,7 +1466,7 @@ void GameScene::shoot(int playerN)
     
     //bullet fixture definition
     b2FixtureDef bulletFixture;
-    bulletFixture.density=0.1;
+    bulletFixture.density=0.05;
     bulletFixture.isSensor=false;
     bulletFixture.shape=&bulletShape;
     
@@ -1486,10 +1487,10 @@ void GameScene::shoot(int playerN)
         
         bulletBody = world->CreateBody(&bulletBodyDef);
         bulletBody->CreateFixture(&bulletFixture);
-        bulletBody->SetLinearDamping(0.1);
+        bulletBody->SetLinearDamping(0.05);
         bulletBody->IsBullet();
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 40) , (sin(shipBody1->GetAngle()-4.7) * 40));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 30) , (sin(shipBody1->GetAngle()-4.7) * 30));
         bulletBody->SetLinearVelocity(force);
         
     }
@@ -1523,9 +1524,9 @@ void GameScene::toggleInvertRole()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
 
-    switchLabel->setVisible(true);
-    CCActionInterval* actionFadeOut = CCFadeOut::create(1);
-    switchLabel->runAction(actionFadeOut);
+    switchRoleLabel->setVisible(true);
+    CCActionInterval* actionFadeOut = CCFadeOut::create(2);
+    switchRoleLabel->runAction(actionFadeOut);
     
     if (NetworkEngine::getInstance()->playerNr == 1)
     {
@@ -2000,6 +2001,12 @@ void GameScene::fireButtonCall(CCObject *sender)
             
             NetworkEngine::getInstance()->sendEvent(2, eventContent);
         }
+    }
+    else
+    {
+        overHeatLabel->setVisible(true);
+        CCActionInterval* actionFadeOut = CCFadeOut::create(0.5);
+        overHeatLabel->runAction(actionFadeOut);
     }
 }
 

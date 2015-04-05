@@ -13,6 +13,7 @@
 #include "NetworkEngine.h"
 #include "Box2d.h"
 #include "ContactListener.h"
+#include "CCScale9Sprite.h"
 
 using namespace cocos2d;
 
@@ -99,7 +100,8 @@ private:
     CCMenuItemSprite* turnLeftButton;
     CCMenuItemSprite* turnRightButton;
     
-    CCLabelTTF* switchLabel;
+    CCLabelTTF* overHeatLabel;
+    CCLabelTTF* switchRoleLabel;
     
     b2World *world;
     
