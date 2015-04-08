@@ -64,7 +64,6 @@ bool GameScene::initWithGameMode(int gameMode)
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     
     b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
-    
     world = new b2World(gravity);
     
     worldLayer = CCLayer::create();
