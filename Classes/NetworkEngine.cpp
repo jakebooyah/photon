@@ -307,18 +307,22 @@ void NetworkEngine::customEventAction(int playerNr, nByte eventCode, const ExitG
             float x2 = ExitGames::Common::ValueObject<float>(event->getValue(4)).getDataCopy();
             float y2 = ExitGames::Common::ValueObject<float>(event->getValue(5)).getDataCopy();
             float angle2 = ExitGames::Common::ValueObject<float>(event->getValue(6)).getDataCopy();
+            float x3 = ExitGames::Common::ValueObject<float>(event->getValue(7)).getDataCopy();
+            float y3 = ExitGames::Common::ValueObject<float>(event->getValue(8)).getDataCopy();
             int code = 1;
             
-            std::vector<float> shipPosition;
-            shipPosition.push_back(playerNr);
-            shipPosition.push_back(x1);
-            shipPosition.push_back(y1);
-            shipPosition.push_back(angle1);
-            shipPosition.push_back(x2);
-            shipPosition.push_back(y2);
-            shipPosition.push_back(angle2);
-            shipPosition.push_back(code);
-            eventQueue.push(shipPosition);
+            std::vector<float> position;
+            position.push_back(playerNr);
+            position.push_back(x1);
+            position.push_back(y1);
+            position.push_back(angle1);
+            position.push_back(x2);
+            position.push_back(y2);
+            position.push_back(angle2);
+            position.push_back(x3);
+            position.push_back(y3);
+            position.push_back(code);
+            eventQueue.push(position);
             
             break;
         }

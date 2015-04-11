@@ -147,6 +147,9 @@ private:
     
     b2Body *shipBody2;
     
+    CCSprite *wormHole;
+    b2Body *wormHoleBody;
+    
     CCSprite *planet;
     b2Body *planetBody;
     

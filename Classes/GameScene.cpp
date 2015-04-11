@@ -70,7 +70,7 @@ bool GameScene::initWithGameMode(int gameMode)
     
     CCSprite *background = CCSprite::create("background.png");
     background->setAnchorPoint(CCPoint(0.5, 0.5));
-    background->setPosition(CCPoint(1536, 1536));
+    background->setPosition(CCPoint(0, 0));
     background->setScale(2);
     worldLayer->addChild(background);
     
@@ -88,7 +88,7 @@ bool GameScene::initWithGameMode(int gameMode)
     
     //create planet
     planet = CCSprite::create("planet.png");
-    planet->setPosition(CCPoint(1536, 1536));
+    planet->setPosition(CCPoint(0, 0));
     planet->setTag(6);
     worldLayer->addChild(planet);
     
@@ -106,15 +106,46 @@ bool GameScene::initWithGameMode(int gameMode)
     tilemapSpawn1 = CCTMXTiledMap::create("powerUp_tilemap.tmx");
     tileMapSpawn1Layer = tilemapSpawn1->layerNamed("baseLayer");
     tilemapSpawn1->setAnchorPoint(CCPoint(0.5, 0.5));
-    tilemapSpawn1->setPosition(CCPoint(512, 2584));
+    tilemapSpawn1->setPosition(CCPoint(-450, 450));
     worldLayer->addChild(tilemapSpawn1);
     
     tilemapSpawn2 = CCTMXTiledMap::create("powerUp_tilemap.tmx");
     tileMapSpawn2Layer = tilemapSpawn2->layerNamed("baseLayer");
     tilemapSpawn2->setAnchorPoint(CCPoint(0.5, 0.5));
-    tilemapSpawn2->setPosition(CCPoint(2584, 512));
+    tilemapSpawn2->setPosition(CCPoint(450, -450));
     worldLayer->addChild(tilemapSpawn2);
     
+    //wormHole shape definition
+    b2CircleShape wormHoleShape;
+    wormHoleShape.m_p.Set(0, 0);
+    wormHoleShape.m_radius = 160/32;
+    
+    //wormHole fixture definition
+    b2FixtureDef wormHoleFixture;
+    wormHoleFixture.density=0.1;
+    wormHoleFixture.friction=1;
+    wormHoleFixture.restitution=0;
+    wormHoleFixture.shape=&wormHoleShape;
+    
+    //create wormHole
+    wormHole = CCSprite::create("wormHole.png");
+    wormHole->setPosition(CCPoint(-990,990));
+    wormHole->setTag(5);
+    worldLayer->addChild(wormHole);
+    
+    //body definition for wormHole
+    b2BodyDef wormHoleBodyDef;
+    wormHoleBodyDef.type= b2_dynamicBody;
+    wormHoleBodyDef.userData=wormHole;
+    wormHoleBodyDef.position.Set(wormHole->getPosition().x/32,wormHole->getPosition().y/32);
+    
+    wormHoleBody = world->CreateBody(&wormHoleBodyDef);
+    wormHoleBody->CreateFixture(&wormHoleFixture);
+    
+    b2DistanceJointDef jointDef;
+    jointDef.Initialize(wormHoleBody, planetBody, wormHoleBody->GetWorldCenter(), planetBody->GetWorldCenter());
+    jointDef.collideConnected = true;
+    world->CreateJoint(&jointDef);
     
     //ship shape definition
     b2CircleShape shipShape;
@@ -130,7 +161,7 @@ bool GameScene::initWithGameMode(int gameMode)
     
     //create ship 1
     ship1 = CCSprite::create("ship_blue.png");
-    ship1->setPosition(CCPoint(512,512));
+    ship1->setPosition(CCPoint(-990,-990));
     ship1->setTag(1);
     worldLayer->addChild(ship1);
     
@@ -160,7 +191,7 @@ bool GameScene::initWithGameMode(int gameMode)
     if (thisGameMode == 4)
     {
         ship2 = CCSprite::create("ship_green.png");
-        ship2->setPosition(CCPoint(2584, 2584));
+        ship2->setPosition(CCPoint(990, 990));
         ship2->setTag(2);
         worldLayer->addChild(ship2);
         
@@ -177,7 +208,7 @@ bool GameScene::initWithGameMode(int gameMode)
     else if (thisGameMode == 2)
     {
         ship2 = CCSprite::create("ship_ai.png");
-        ship2->setPosition(CCPoint(2584, 2584));
+        ship2->setPosition(CCPoint(990, 990));
         ship2->setTag(2);
         worldLayer->addChild(ship2);
     }
@@ -192,7 +223,6 @@ bool GameScene::initWithGameMode(int gameMode)
     shipBody2->CreateFixture(&shipFixture);
     shipBody2->SetAngularDamping(0);
     shipBody2->SetTransform(shipBody2->GetPosition(), CC_DEGREES_TO_RADIANS(135));
-    
     
     //Set default view to centre
     CCPoint viewPoint = ccpSub(CCPoint(visibleSize.width/2, visibleSize.height/2), CCPoint(1548, 1548));
@@ -366,7 +396,7 @@ bool GameScene::initWithGameMode(int gameMode)
     maxHeatAmount = 20;
     
     scheduleUpdate();
-    
+        
     return true;
 }
 
@@ -400,8 +430,8 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-//    if (true)
-    if (PlayerAllJoined)
+    if (true)
+//    if (PlayerAllJoined)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -457,9 +487,15 @@ void GameScene::update(float delta)
         
         switch (code)
         {
-                //Update position
+            //Update position
             case 1:
             {
+                float y3 = arr.back();
+                arr.pop_back();
+                
+                float x3 = arr.back();
+                arr.pop_back();
+                
                 float angle2 = arr.back();
                 arr.pop_back();
                 
@@ -517,11 +553,28 @@ void GameScene::update(float delta)
                     {
                         shipBody2->SetTransform(b2Vec2(x2, y2), angle2);
                     }
+                    
+                    //Correction of wormHole with dead reckoning
+                    
+                    velocity = wormHoleBody->GetLinearVelocity();
+                    delay = NetworkEngine::getInstance()->getRoundTripTime()/100 / 2;
+                    
+                    if (delay < 3)
+                    {
+                        b2Vec2 futurePosition = b2Vec2(x3 + velocity.x * delay, y3 + velocity.y * delay);
+                        float futureAngle = angle2 + wormHoleBody->GetAngularVelocity() * delay;
+                        
+                        wormHoleBody->SetTransform(futurePosition, futureAngle);
+                    }
+                    else
+                    {
+                        wormHoleBody->SetTransform(b2Vec2(x3, y3), wormHoleBody->GetAngle());
+                    }
                 }
                 
                 break;
             }
-                //Shooting
+            //Shooting
             case 2:
             {
                 float angle = arr.back();
@@ -553,7 +606,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //Someone got hit
+            //Someone got hit
             case 3:
             {
                 int victim = arr.back();
@@ -568,7 +621,7 @@ void GameScene::update(float delta)
                 }
                 break;
             }
-                //Turn
+            //Turn
             case 4:
             {
                 int direction = arr.back();
@@ -581,7 +634,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //Shield
+            //Shield
             case 5:
             {
                 int ship = arr.back();
@@ -597,7 +650,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //GameOver
+            //GameOver
             case 6:
             {
                 int score2 = arr.back();
@@ -616,7 +669,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //Player joined room
+            //Player joined room
             case 7:
             {
                 int players = arr.back();
@@ -645,7 +698,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //All player joined
+            //All player joined
             case 8:
             {
                 int playerNr = arr.back();
@@ -658,7 +711,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //HPUp
+            //HPUp
             case 9:
             {
                 int ship = arr.back();
@@ -674,7 +727,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //DoubleDamage
+            //DoubleDamage
             case 10:
             {
                 int ship = arr.back();
@@ -690,7 +743,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //Invert Direction
+            //Invert Direction
             case 11:
             {
                 int ship = arr.back();
@@ -706,7 +759,7 @@ void GameScene::update(float delta)
                 
                 break;
             }
-                //Spawn Rune
+            //Spawn Rune
             case 12:
             {
                 int rune2 = arr.back();
@@ -944,34 +997,45 @@ void GameScene::update(float delta)
         }
     }
     
-    int positionIterations = 10;
-    int velocityIterations = 10;
-    
-    deltaTime = delta;
-    world->Step(delta, velocityIterations, positionIterations);
-    
-    for (b2Body *body = world->GetBodyList(); body != NULL; body = body->GetNext())
+    if (!loadingLayer->isVisible())
     {
-        b2Vec2 center = planetBody->GetPosition();
+        int positionIterations = 10;
+        int velocityIterations = 10;
         
-        b2Vec2 position = body->GetPosition();
+        deltaTime = delta;
+        world->Step(delta, velocityIterations, positionIterations);
         
-        // get the distance between the two objects
-        b2Vec2 distance = center - position;
+        // Calculate Tangent Vector
+        b2Vec2 radius = planetBody->GetPosition() - wormHoleBody->GetPosition();
+        b2Vec2 tangent = radius.Skew();
+        tangent.Normalize();
         
-        // genius equation handle with care
-        float force = pow((distance.Length()/3 - 12), 2);
-        distance.Normalize();
+        // Apply some force along tangent
+        wormHoleBody->SetLinearVelocity(15 * tangent);
         
-        b2Vec2 F = force * distance;
-        // apply a force on the body in the direction of the "Planet"
-        body->ApplyForceToCenter(F);
-        
-        if (body->GetUserData())
+        for (b2Body *body = world->GetBodyList(); body != NULL; body = body->GetNext())
         {
-            CCSprite *sprite = (CCSprite *) body->GetUserData();
-            sprite->setPosition(CCPoint(body->GetPosition().x * 32,body->GetPosition().y * 32));
-            sprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(body->GetAngle()));
+            b2Vec2 center = planetBody->GetPosition();
+            
+            b2Vec2 position = body->GetPosition();
+            
+            // get the distance between the two objects
+            b2Vec2 distance = center - position;
+            
+            // genius equation handle with care
+            float force = pow((distance.Length()/3 - 12), 2);
+            distance.Normalize();
+            
+            b2Vec2 F = force * distance;
+            // apply a force on the body in the direction of the "Planet"
+            body->ApplyForceToCenter(F);
+            
+            if (body->GetUserData())
+            {
+                CCSprite *sprite = (CCSprite *) body->GetUserData();
+                sprite->setPosition(CCPoint(body->GetPosition().x * 32,body->GetPosition().y * 32));
+                sprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(body->GetAngle()));
+            }
         }
     }
     
@@ -1140,6 +1204,20 @@ void GameScene::update(float delta)
                 }
             }
             
+            // Sprite A = Worm Hole, Sprite B = Ship1 or Sprite A = Ship1, Sprite B = WormHole
+            else if ((spriteA->getTag() == 5 && spriteB->getTag() == 1)||(spriteA->getTag() == 1 && spriteB->getTag() == 5))
+            {
+                b2Vec2 warppedPosition = b2Vec2(shipBody1->GetPosition().x * -1, shipBody1->GetPosition().y * -1);
+                shipBody1->SetTransform(warppedPosition, shipBody1->GetAngle());
+            }
+            
+            // Sprite A = Worm Hole, Sprite B = Ship2 or Sprite A = Ship2, Sprite B = WormHole
+            else if ((spriteA->getTag() == 5 && spriteB->getTag() == 2)||(spriteA->getTag() == 2 && spriteB->getTag() == 5))
+            {
+                b2Vec2 warppedPosition = b2Vec2(shipBody2->GetPosition().x * -1, shipBody2->GetPosition().y * -1);
+                shipBody2->SetTransform(warppedPosition, shipBody2->GetAngle());
+            }
+            
             // Sprite A = Bullet1 or Bullet2, Sprite B = Planet
             else if ((spriteA->getTag() == 3 && spriteB->getTag() == 6) || (spriteA->getTag() == 4 && spriteB->getTag() == 6))
             {
@@ -1150,6 +1228,23 @@ void GameScene::update(float delta)
             }
             // Sprite A = Planet, Sprite B = Bullet1 or Bullet2
             else if ((spriteA->getTag() == 6 && spriteB->getTag() == 3) || (spriteA->getTag() == 6 && spriteB->getTag() == 4))
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyB);
+                }
+            }
+            
+            // Sprite A = Bullet1 or Bullet2, Sprite B = WormHole
+            else if ((spriteA->getTag() == 3 && spriteB->getTag() == 5) || (spriteA->getTag() == 4 && spriteB->getTag() == 5))
+            {
+                if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
+                {
+                    toDestroy.push_back(bodyA);
+                }
+            }
+            // Sprite A = WormHole, Sprite B = Bullet1 or Bullet2
+            else if ((spriteA->getTag() == 5 && spriteB->getTag() == 3) || (spriteA->getTag() == 5 && spriteB->getTag() == 4))
             {
                 if (std::find(toDestroy.begin(), toDestroy.end(), bodyA) == toDestroy.end())
                 {
@@ -1237,7 +1332,9 @@ void GameScene::sendPositions()
         eventContent->put<int, float>(4, shipBody2->GetPosition().x);
         eventContent->put<int, float>(5, shipBody2->GetPosition().y);
         eventContent->put<int, float>(6, shipBody2->GetAngle());
-        
+        eventContent->put<int, float>(7, wormHoleBody->GetPosition().x);
+        eventContent->put<int, float>(8, wormHoleBody->GetPosition().y);
+
         NetworkEngine::getInstance()->sendEvent(1, eventContent);
     }
 }
