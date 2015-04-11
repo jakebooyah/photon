@@ -244,6 +244,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2304246B1ABDE203002B7649 /* planet.png in Resources */ = {isa = PBXBuildFile; fileRef = 2304246A1ABDE203002B7649 /* planet.png */; };
 		2332A06B1AD957DD0064CA1A /* sfx_jump.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2332A06A1AD957DD0064CA1A /* sfx_jump.mp3 */; };
+		2332A0741AD9594C0064CA1A /* sfx_powerup.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2332A0721AD9594C0064CA1A /* sfx_powerup.mp3 */; };
+		2332A0751AD9594C0064CA1A /* sfx_sweep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2332A0731AD9594C0064CA1A /* sfx_sweep.mp3 */; };
 		234BF5C61AC4027D00C97336 /* ship_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5C51AC4027D00C97336 /* ship_blue.png */; };
 		234BF5D01AC59CBD00C97336 /* ship_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5CF1AC59CBD00C97336 /* ship_green.png */; };
 		234BF5D21AC5A44A00C97336 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5D11AC5A44A00C97336 /* background.png */; };
@@ -883,6 +885,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2304246A1ABDE203002B7649 /* planet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = planet.png; sourceTree = "<group>"; };
 		2332A06A1AD957DD0064CA1A /* sfx_jump.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sfx_jump.mp3; sourceTree = "<group>"; };
+		2332A0721AD9594C0064CA1A /* sfx_powerup.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sfx_powerup.mp3; sourceTree = "<group>"; };
+		2332A0731AD9594C0064CA1A /* sfx_sweep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sfx_sweep.mp3; sourceTree = "<group>"; };
 		234BF5C51AC4027D00C97336 /* ship_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_blue.png; sourceTree = "<group>"; };
 		234BF5CF1AC59CBD00C97336 /* ship_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_green.png; sourceTree = "<group>"; };
 		234BF5D11AC5A44A00C97336 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -2788,6 +2792,8 @@
 			children = (
 				235831151AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 */,
 				235831161AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 */,
+				2332A0721AD9594C0064CA1A /* sfx_powerup.mp3 */,
+				2332A0731AD9594C0064CA1A /* sfx_sweep.mp3 */,
 				2332A06A1AD957DD0064CA1A /* sfx_jump.mp3 */,
 				235831071AB5C8CE00CDA237 /* sfx_zap.mp3 */,
 				235831091AB5C8FE00CDA237 /* sfx_laser1.mp3 */,
@@ -2967,6 +2973,7 @@
 				234BF5E01AC5E45C00C97336 /* powerUp_tilemap.tmx in Resources */,
 				15A3D9961682F7F9002FB0C5 /* CMakeLists.txt in Resources */,
 				234BF5F31AC763FC00C97336 /* ship_flame.png in Resources */,
+				2332A0741AD9594C0064CA1A /* sfx_powerup.mp3 in Resources */,
 				234BF5D21AC5A44A00C97336 /* background.png in Resources */,
 				235831181AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 in Resources */,
 				234BF5C61AC4027D00C97336 /* ship_blue.png in Resources */,
@@ -2977,6 +2984,7 @@
 				235830D71AB365F000CDA237 /* turnRight.png in Resources */,
 				234BF5D91AC5CCB000C97336 /* square_blue.png in Resources */,
 				2304246B1ABDE203002B7649 /* planet.png in Resources */,
+				2332A0751AD9594C0064CA1A /* sfx_sweep.mp3 in Resources */,
 				234BF5EA1AC6018400C97336 /* status_green_tilemap.tmx in Resources */,
 				235831131AB5C8FE00CDA237 /* sfx_shieldUp.mp3 in Resources */,
 			);

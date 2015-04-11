@@ -1332,7 +1332,7 @@ void GameScene::update(float delta)
 void GameScene::removeLoading()
 {
     loadingLayer->setVisible(false);
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_sweep.mp3");
 }
 
 void GameScene::sendPositions()
@@ -1632,7 +1632,7 @@ void GameScene::shoot(int playerN)
 
 void GameScene::toggleInvertRole()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_powerup.mp3");
 
     switchRoleLabel->setVisible(true);
     CCActionInterval* actionFadeOut = CCFadeOut::create(2);
