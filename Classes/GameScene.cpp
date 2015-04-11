@@ -430,8 +430,8 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-//    if (true)
-    if (PlayerAllJoined)
+    if (true)
+//    if (PlayerAllJoined)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -1209,6 +1209,13 @@ void GameScene::update(float delta)
             {
                 b2Vec2 warppedPosition = b2Vec2(shipBody1->GetPosition().x * -1, shipBody1->GetPosition().y * -1);
                 shipBody1->SetTransform(warppedPosition, shipBody1->GetAngle());
+                
+                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_jump.mp3");
+                
+                CCScaleTo* smaller = CCScaleTo::create(0.01, 0.1);
+                CCScaleTo* bigger = CCScaleTo::create(0.15, 1);
+                CCSequence* warpSeq = CCSequence::create(smaller, bigger, NULL);
+                ship1->runAction(warpSeq);
             }
             
             // Sprite A = Worm Hole, Sprite B = Ship2 or Sprite A = Ship2, Sprite B = WormHole
@@ -1216,6 +1223,13 @@ void GameScene::update(float delta)
             {
                 b2Vec2 warppedPosition = b2Vec2(shipBody2->GetPosition().x * -1, shipBody2->GetPosition().y * -1);
                 shipBody2->SetTransform(warppedPosition, shipBody2->GetAngle());
+                
+                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_jump.mp3");
+                
+                CCScaleTo* smaller = CCScaleTo::create(0.01, 0.1);
+                CCScaleTo* bigger = CCScaleTo::create(0.15, 1);
+                CCSequence* warpSeq = CCSequence::create(smaller, bigger, NULL);
+                ship2->runAction(warpSeq);
             }
             
             // Sprite A = Bullet1 or Bullet2, Sprite B = Planet

@@ -243,6 +243,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2304246B1ABDE203002B7649 /* planet.png in Resources */ = {isa = PBXBuildFile; fileRef = 2304246A1ABDE203002B7649 /* planet.png */; };
+		2332A06B1AD957DD0064CA1A /* sfx_jump.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2332A06A1AD957DD0064CA1A /* sfx_jump.mp3 */; };
 		234BF5C61AC4027D00C97336 /* ship_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5C51AC4027D00C97336 /* ship_blue.png */; };
 		234BF5D01AC59CBD00C97336 /* ship_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5CF1AC59CBD00C97336 /* ship_green.png */; };
 		234BF5D21AC5A44A00C97336 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 234BF5D11AC5A44A00C97336 /* background.png */; };
@@ -881,6 +882,7 @@
 		1D6058910D05DD3D006BFB54 /* photon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2304246A1ABDE203002B7649 /* planet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = planet.png; sourceTree = "<group>"; };
+		2332A06A1AD957DD0064CA1A /* sfx_jump.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sfx_jump.mp3; sourceTree = "<group>"; };
 		234BF5C51AC4027D00C97336 /* ship_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_blue.png; sourceTree = "<group>"; };
 		234BF5CF1AC59CBD00C97336 /* ship_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship_green.png; sourceTree = "<group>"; };
 		234BF5D11AC5A44A00C97336 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -2786,6 +2788,7 @@
 			children = (
 				235831151AB5E97100CDA237 /* C418 - Seven Years of Server Data - 01 Atempause.mp3 */,
 				235831161AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 */,
+				2332A06A1AD957DD0064CA1A /* sfx_jump.mp3 */,
 				235831071AB5C8CE00CDA237 /* sfx_zap.mp3 */,
 				235831091AB5C8FE00CDA237 /* sfx_laser1.mp3 */,
 				2358310A1AB5C8FE00CDA237 /* sfx_laser2.mp3 */,
@@ -2940,6 +2943,7 @@
 				23EE2D5F1AB311A3001A65DB /* Kenvector Future.ttf in Resources */,
 				235830D31AB365D800CDA237 /* fireButton.png in Resources */,
 				234BF5DA1AC5CCB000C97336 /* square_green.png in Resources */,
+				2332A06B1AD957DD0064CA1A /* sfx_jump.mp3 in Resources */,
 				234BF5D51AC5C30600C97336 /* bullet_blue.png in Resources */,
 				23DD8AB51AD020EF006EDCBA /* closeButton.png in Resources */,
 				235831191AB5E97100CDA237 /* C418 - Seven Years of Server Data - 05 The first unfinished song for the Minecraft documentary.mp3 in Resources */,
