@@ -58,7 +58,7 @@ bool CreateRoomScene::initWithGameMode(int gameMode)
     
     thisGameMode = gameMode;
     
-    srand(GETUPTIMEMS());
+    srand(rand());
     
     string roomID = "Room ID: ";
     randomRoomID = rand() % 9999;
@@ -101,10 +101,12 @@ bool CreateRoomScene::initWithGameMode(int gameMode)
     menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 - 200));
     this->addChild(menuStart);
     
-    CCLabelTTF* buttonLabel = CCLabelTTF::create("PLAY", "Kenvector Future.ttf", 60);
-    buttonLabel->setColor(ccWHITE);
+    buttonLabel = CCLabelTTF::create("PLAY", "Kenvector Future.ttf", 60);
+    buttonLabel->setColor(ccBLACK);
     buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2 - 210));
     this->addChild(buttonLabel);
+    
+    buttonLabelIsWhite = false;
     
     CCSprite* closeButtonS = CCSprite::create("closeButton.png");
     CCMenuItemSprite* closeButton = CCMenuItemSprite::create(closeButtonS, closeButtonS, this, menu_selector(CreateRoomScene::goToMain));
@@ -144,14 +146,20 @@ void CreateRoomScene::update(float delta)
         default:
             break;
     }
+    
+    if (NetworkEngine::getInstance()->getState() == STATE_JOINED && !buttonLabelIsWhite)
+    {
+        buttonLabel->setColor(ccWHITE);
+        buttonLabelIsWhite = true;
+    }
 }
 
 void CreateRoomScene::startGame()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
-    
     if (NetworkEngine::getInstance()->getState() == STATE_JOINED)
     {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+
         if (thisGameMode == 2)
         {
             CCTransitionFade* pScene = CCTransitionFade::create(0.5, GameScene::scene(2), ccBLACK);

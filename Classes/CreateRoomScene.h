@@ -32,6 +32,10 @@ private:
     
     int randomRoomID;
     
+    bool buttonLabelIsWhite;
+    
+    CCLabelTTF* buttonLabel;
+    
     virtual void update(float delta);
 };
 

@@ -98,7 +98,7 @@ bool JoinRoomScene::initWithGameMode(int gameMode)
     menuStart->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-200));
     this->addChild(menuStart);
     
-    CCLabelTTF* buttonLabel = CCLabelTTF::create("JOIN", "Kenvector Future.ttf", 60);
+    buttonLabel = CCLabelTTF::create("JOIN", "Kenvector Future.ttf", 60);
     buttonLabel->setColor(ccWHITE);
     buttonLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height/2-210));
     this->addChild(buttonLabel);
@@ -147,7 +147,7 @@ void JoinRoomScene::update(float delta)
     }
     
     if (NetworkEngine::getInstance()->getState() == STATE_JOINED)
-    {
+    {        
         if (thisGameMode == 2)
         {
             CCTransitionFade* pScene = CCTransitionFade::create(0.5, GameScene::scene(2), ccBLACK);
@@ -163,16 +163,21 @@ void JoinRoomScene::update(float delta)
 
 void JoinRoomScene::joinGame()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
-    
-    std::string roomIDString = inputField->getText();
-    std::istringstream buffer(roomIDString);
-    int roomID;
-    buffer >> roomID;
-    
-    NetworkEngine::getInstance()->setRoomID(roomID);
-    
-    joinGameIsPressed = true;
+    if (!joinGameIsPressed)
+    {
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
+        
+        buttonLabel->setColor(ccBLACK);
+        
+        std::string roomIDString = inputField->getText();
+        std::istringstream buffer(roomIDString);
+        int roomID;
+        buffer >> roomID;
+        
+        NetworkEngine::getInstance()->setRoomID(roomID);
+        
+        joinGameIsPressed = true;
+    }
 }
 
 void JoinRoomScene::goToMain()

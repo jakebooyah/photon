@@ -32,6 +32,8 @@ private:
     void joinGame();
     void goToMain();
     
+    CCLabelTTF* buttonLabel;
+    
     extension::CCEditBox* inputField;
     
     virtual void update(float delta);

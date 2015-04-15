@@ -430,8 +430,8 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-    if (true)
-//    if (PlayerAllJoined)
+//    if (true)
+    if (PlayerAllJoined)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -1011,7 +1011,7 @@ void GameScene::update(float delta)
         tangent.Normalize();
         
         // Apply some force along tangent
-        wormHoleBody->SetLinearVelocity(15 * tangent);
+        wormHoleBody->SetLinearVelocity(10 * tangent);
         
         for (b2Body *body = world->GetBodyList(); body != NULL; body = body->GetNext())
         {
