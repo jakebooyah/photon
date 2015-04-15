@@ -7,7 +7,6 @@
 //
 
 #include "MainMenuScene.h"
-//#include "TwoPlayerGameScene.h"
 #include "NetworkRoomScene.h"
 
 #include "CCScale9Sprite.h"
