@@ -430,8 +430,8 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-//    if (true)
-    if (PlayerAllJoined)
+    if (true)
+//    if (PlayerAllJoined)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -1296,6 +1296,7 @@ void GameScene::update(float delta)
                                 
                                 someOneGotHit(1);
                             }
+                            
                         }
                     }
                 }
@@ -1424,7 +1425,7 @@ void GameScene::turn(int playerN, int direction)
         }
         
         ship1flame->setVisible(true);
-        CCDelayTime* delay = CCDelayTime::create(1);
+        CCDelayTime* delay = CCDelayTime::create(1.5);
         CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip1Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
@@ -1461,7 +1462,7 @@ void GameScene::turn(int playerN, int direction)
         }
         
         ship1flame->setVisible(true);
-        CCDelayTime* delay = CCDelayTime::create(1);
+        CCDelayTime* delay = CCDelayTime::create(1.5);
         CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip1Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
@@ -1498,7 +1499,7 @@ void GameScene::turn(int playerN, int direction)
         }
         
         ship2flame->setVisible(true);
-        CCDelayTime* delay = CCDelayTime::create(1);
+        CCDelayTime* delay = CCDelayTime::create(1.5);
         CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip2Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
@@ -1535,7 +1536,7 @@ void GameScene::turn(int playerN, int direction)
         }
         
         ship2flame->setVisible(true);
-        CCDelayTime* delay = CCDelayTime::create(1);
+        CCDelayTime* delay = CCDelayTime::create(1.5);
         CCCallFunc* hideFlame = CCCallFunc::create(this, callfunc_selector(GameScene::hideShip2Flame));
         CCSequence* seq = CCSequence::create(delay, hideFlame, NULL);
         this->runAction(seq);
@@ -1892,6 +1893,9 @@ void GameScene::toggleInvertDirection(int ship)
         ship1InvertDirectionBool = true;
         tileMapStatusBlueLayer->setTileGID(3, CCPoint(0, 0));
         
+        CCTintTo* tint = CCTintTo::create(0.7, 255, 252, 194);
+        ship1->runAction(tint);
+        
         if (NetworkEngine::getInstance()->playerNr == 1)
         {
             ExitGames::Common::Hashtable* eventContent = new ExitGames::Common::Hashtable();
@@ -1909,6 +1913,9 @@ void GameScene::toggleInvertDirection(int ship)
     {
         ship2InvertDirectionBool = true;
         tileMapStatusGreenLayer->setTileGID(3, CCPoint(0, 0));
+        
+        CCTintTo* tint = CCTintTo::create(0.7, 255, 252, 194);
+        ship2->runAction(tint);
         
         if (NetworkEngine::getInstance()->playerNr == 1)
         {
@@ -1933,6 +1940,9 @@ void GameScene::disableShip1InvertDirection()
         ship1InvertDirectionBool = false;
         tileMapStatusBlueLayer->setTileGID(1, CCPoint(0, 0));
         
+        CCTintTo* tintback = CCTintTo::create(0.7, 255, 255, 255);
+        ship1->runAction(tintback);
+        
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
 }
@@ -1943,6 +1953,9 @@ void GameScene::disableShip2InvertDirection()
     {
         ship2InvertDirectionBool = false;
         tileMapStatusGreenLayer->setTileGID(1, CCPoint(0, 0));
+        
+        CCTintTo* tintback = CCTintTo::create(0.7, 255, 255, 255);
+        ship2->runAction(tintback);
         
         CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldDown.mp3");
     }
