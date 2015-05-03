@@ -1393,11 +1393,11 @@ void GameScene::turn(int playerN, int direction)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
     
+    b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10) , (sin(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10));
+    
     if (playerN == 1)
     {
         CCLOG("Player 1 Turning");
-        
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
         
         shipBody1->SetLinearVelocity(force);
         
@@ -1434,8 +1434,6 @@ void GameScene::turn(int playerN, int direction)
     {
         CCLOG("Player 2 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 10) , (sin(shipBody1->GetAngle()-4.7) * 10));
-        
         shipBody1->SetLinearVelocity(force);
         
         if (direction == 0)
@@ -1471,8 +1469,6 @@ void GameScene::turn(int playerN, int direction)
     {
         CCLOG("Player 3 Turning");
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 10) , (sin(shipBody2->GetAngle()-4.7) * 10));
-        
         shipBody2->SetLinearVelocity(force);
         
         if (direction == 0)
@@ -1507,8 +1503,6 @@ void GameScene::turn(int playerN, int direction)
     else if (playerN == 4)
     {
         CCLOG("Player 4 Turning");
-        
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 10) , (sin(shipBody2->GetAngle()-4.7) * 10));
         
         shipBody2->SetLinearVelocity(force);
         
