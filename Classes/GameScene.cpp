@@ -430,8 +430,8 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-    if (true)
-//    if (PlayerAllJoined)
+//    if (true)
+    if (PlayerAllJoined)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -1579,8 +1579,8 @@ void GameScene::shoot(int playerN)
     {
         //create bullet
         CCSprite* bullet = CCSprite::create("bullet_blue.png");
-        bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-4.7)*5) *32,
-                                    (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-4.7)*5) *32));
+        bullet->setPosition(CCPoint((shipBody1->GetPosition().x + cos(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270))*5) *32,
+                                    (shipBody1->GetPosition().y + sin(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270))*5) *32));
         bullet->setTag(3);
         worldLayer->addChild(bullet);
         
@@ -1595,7 +1595,7 @@ void GameScene::shoot(int playerN)
         bulletBody->SetLinearDamping(0.05);
         bulletBody->IsBullet();
         
-        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-4.7) * 30) , (sin(shipBody1->GetAngle()-4.7) * 30));
+        b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 30) , (sin(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 30));
         bulletBody->SetLinearVelocity(force);
         
     }
@@ -1603,8 +1603,8 @@ void GameScene::shoot(int playerN)
     {
         //create bullet
         CCSprite* bullet = CCSprite::create("bullet_green.png");
-        bullet->setPosition(CCPoint((shipBody2->GetPosition().x + cos(shipBody2->GetAngle()-4.7)*5) *32,
-                                    (shipBody2->GetPosition().y + sin(shipBody2->GetAngle()-4.7)*5) *32));
+        bullet->setPosition(CCPoint((shipBody2->GetPosition().x + cos(shipBody2->GetAngle()-CC_DEGREES_TO_RADIANS(270))*5) *32,
+                                    (shipBody2->GetPosition().y + sin(shipBody2->GetAngle()-CC_DEGREES_TO_RADIANS(270))*5) *32));
         bullet->setTag(4);
         worldLayer->addChild(bullet);
         
@@ -1619,7 +1619,7 @@ void GameScene::shoot(int playerN)
         bulletBody->SetLinearDamping(0.1);
         bulletBody->IsBullet();
         
-        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-4.7) * 30) , (sin(shipBody2->GetAngle()-4.7) * 30));
+        b2Vec2 force = b2Vec2((cos(shipBody2->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 30) , (sin(shipBody2->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 30));
         bulletBody->SetLinearVelocity(force);
     }
     
