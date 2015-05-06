@@ -233,6 +233,7 @@ bool GameScene::initWithGameMode(int gameMode)
     
     hudLayer = CCLayer::create();
     
+    //turret heat display
     CCSprite* heatCircleS = CCSprite::create("progressBar.png");
     heatProgress = CCProgressTimer::create(heatCircleS);
     heatProgress->setType(kCCProgressTimerTypeRadial);
@@ -240,6 +241,7 @@ bool GameScene::initWithGameMode(int gameMode)
     heatProgress->setPosition(visibleSize.width - 250, visibleSize.height/2);
     hudLayer->addChild(heatProgress);
     
+    //fire button
     CCSprite* fireButtonS = CCSprite::create("fireButton.png");
     CCSprite* fireButtonDisS = CCSprite::create("disabledButton.png");
     
@@ -251,6 +253,7 @@ bool GameScene::initWithGameMode(int gameMode)
     CCSprite* turnButtonSL = CCSprite::create("turnLeft.png");
     CCSprite* turnButtonDisabledSL = CCSprite::create("disabledButton.png");
     
+    //turn buttons
     turnLeftButton = CCMenuItemSprite::create(turnButtonSL, turnButtonSL, turnButtonDisabledSL, this, menu_selector(GameScene::turnLeftButtonCall));
     CCMenu* menuTurnLeft = CCMenu::create(turnLeftButton, NULL);
     
@@ -266,20 +269,23 @@ bool GameScene::initWithGameMode(int gameMode)
     menuTurnRight->setPosition(CCPoint(250, visibleSize.height/2 - 200));
     hudLayer->addChild(menuTurnRight);
     
-    cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("panel.png");
-    panel->setContentSize(CCSize(1000, 150));
-    panel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
-    hudLayer->addChild(panel);
-    
+    //overheat message
     overHeatLabel = CCLabelTTF::create("OVERHEAT", "Kenvector Future.ttf", 50);
     overHeatLabel->setPosition(CCPoint(visibleSize.width/2, 150));
     overHeatLabel->setColor(ccRED);
     overHeatLabel->setVisible(false);
     hudLayer->addChild(overHeatLabel);
     
+    //switch role message
     switchRoleLabel = CCLabelTTF::create("SWITCH", "Kenvector Future.ttf", 60);
     switchRoleLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-350));
     hudLayer->addChild(switchRoleLabel);
+
+    //status ui
+    cocos2d::extension::CCScale9Sprite* panel = cocos2d::extension::CCScale9Sprite::create("panel.png");
+    panel->setContentSize(CCSize(1000, 150));
+    panel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
+    hudLayer->addChild(panel);
     
     CCLabelTTF* statusLabel = CCLabelTTF::create("STATUS", "Kenvector Future.ttf", 50);
     statusLabel->setPosition(CCPoint(visibleSize.width/2, visibleSize.height-150));
@@ -353,7 +359,7 @@ bool GameScene::initWithGameMode(int gameMode)
     
     this->addChild(hudLayer);
     
-    
+    //waiting room layer
     loadingLayer = CCLayer::create();
     loadingLayer->setTouchPriority(1);
     
@@ -374,6 +380,7 @@ bool GameScene::initWithGameMode(int gameMode)
     _contactListener = new ContactListener();
     world->SetContactListener(_contactListener);
     
+    //variable init
     score1 = 5;
     score2 = 5;
     
@@ -400,6 +407,7 @@ bool GameScene::initWithGameMode(int gameMode)
     return true;
 }
 
+//callback method that updates the game in loop
 void GameScene::update(float delta)
 {    
     NetworkEngine::getInstance()->run();
@@ -477,6 +485,7 @@ void GameScene::update(float delta)
     
     heatProgress->setPercentage(heatAmount/maxHeatAmount*100);
     
+    //while there's an event from the network to be executed
     while (!NetworkEngine::getInstance()->eventQueue.empty())
     {
         std::vector<float> arr = NetworkEngine::getInstance()->eventQueue.front();
@@ -997,6 +1006,7 @@ void GameScene::update(float delta)
         }
     }
     
+    //check if game has started
     if (!loadingLayer->isVisible())
     {
         int positionIterations = 10;
@@ -1039,6 +1049,7 @@ void GameScene::update(float delta)
         }
     }
     
+    //set camera focus depending on players id
     switch (NetworkEngine::getInstance()->playerNr)
     {
         case 1:
@@ -1061,6 +1072,7 @@ void GameScene::update(float delta)
             break;
     }
     
+    //things to be destroyded for memory handling
     std::vector<b2Body *>toDestroy;
     std::vector<MyContact>::iterator pos;
     for(pos = _contactListener->_contacts.begin(); pos != _contactListener->_contacts.end(); ++pos)
@@ -1305,6 +1317,7 @@ void GameScene::update(float delta)
         }
     }
     
+    //destroy things that are in the list
     std::vector<b2Body *>::iterator pos2;
     for(pos2 = toDestroy.begin(); pos2 != toDestroy.end(); ++pos2)
     {
@@ -1318,6 +1331,7 @@ void GameScene::update(float delta)
         world->DestroyBody(body);
     }
     
+    //check if game over
     if ((score1 == 0 || score2 == 0) && !isGameOver)
     {
         if (NetworkEngine::getInstance()->playerNr == 1)
@@ -1330,12 +1344,14 @@ void GameScene::update(float delta)
     world->DrawDebugData();
 }
 
+//remove waiting room layer and begins game
 void GameScene::removeLoading()
 {
     loadingLayer->setVisible(false);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_sweep.mp3");
 }
 
+//send positions to peers, only to be done by host
 void GameScene::sendPositions()
 {
     if (NetworkEngine::getInstance()->playerNr)
@@ -1354,6 +1370,7 @@ void GameScene::sendPositions()
     }
 }
 
+//game over callback
 void GameScene::gameOver()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_zap.mp3");
@@ -1389,17 +1406,19 @@ void GameScene::gameOver()
     }
 }
 
+//ship navigational controls
 void GameScene::turn(int playerN, int direction)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_lose.mp3");
     
-    b2Vec2 force = b2Vec2((cos(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10) , (sin(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10));
+    b2Vec2 force1 = b2Vec2((cos(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10) , (sin(shipBody1->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10));
+    b2Vec2 force2 = b2Vec2((cos(shipBody2->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10) , (sin(shipBody2->GetAngle()-CC_DEGREES_TO_RADIANS(270)) * 10));
     
     if (playerN == 1)
     {
         CCLOG("Player 1 Turning");
         
-        shipBody1->SetLinearVelocity(force);
+        shipBody1->SetLinearVelocity(force1);
         
         if (direction == 0)
         {
@@ -1434,7 +1453,7 @@ void GameScene::turn(int playerN, int direction)
     {
         CCLOG("Player 2 Turning");
         
-        shipBody1->SetLinearVelocity(force);
+        shipBody1->SetLinearVelocity(force1);
         
         if (direction == 0)
         {
@@ -1469,7 +1488,7 @@ void GameScene::turn(int playerN, int direction)
     {
         CCLOG("Player 3 Turning");
         
-        shipBody2->SetLinearVelocity(force);
+        shipBody2->SetLinearVelocity(force2);
         
         if (direction == 0)
         {
@@ -1504,7 +1523,7 @@ void GameScene::turn(int playerN, int direction)
     {
         CCLOG("Player 4 Turning");
         
-        shipBody2->SetLinearVelocity(force);
+        shipBody2->SetLinearVelocity(force2);
         
         if (direction == 0)
         {
@@ -1537,6 +1556,7 @@ void GameScene::turn(int playerN, int direction)
     }
 }
 
+//ship visual effect handler
 void GameScene::hideShip1Flame()
 {
     ship1flame->setVisible(false);
@@ -1547,7 +1567,7 @@ void GameScene::hideShip2Flame()
     ship2flame->setVisible(false);
 }
 
-
+//fire projectile
 void GameScene::shoot(int playerN)
 {
     switch (std::rand()%2)
@@ -1625,6 +1645,7 @@ void GameScene::shoot(int playerN)
     
 }
 
+//switch roles
 void GameScene::toggleInvertRole()
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_powerup.mp3");
@@ -1676,6 +1697,7 @@ void GameScene::toggleInvertRole()
     
 }
 
+//a ship is damaged
 void GameScene::someOneGotHit(int victim)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_twoTone.mp3");
@@ -1705,6 +1727,7 @@ void GameScene::someOneGotHit(int victim)
     
 }
 
+//shield effect
 void GameScene::toggleShield(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
@@ -1774,6 +1797,7 @@ void GameScene::disableShip2Shield()
     }
 }
 
+//health kit
 void GameScene::toggleHPUp(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
@@ -1809,6 +1833,7 @@ void GameScene::toggleHPUp(int ship)
     
 }
 
+//double damage
 void GameScene::toggleDoubleDamage(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
@@ -1878,6 +1903,7 @@ void GameScene::disableShip2DoubleDamage()
     }
 }
 
+//sabotage
 void GameScene::toggleInvertDirection(int ship)
 {
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sfx_shieldUp.mp3");
@@ -1955,6 +1981,7 @@ void GameScene::disableShip2InvertDirection()
     }
 }
 
+//spawn runes
 void GameScene::spawnRunes()
 {
     CCLOG("spawning runes");
@@ -1978,6 +2005,7 @@ void GameScene::spawnRunes()
     }
 }
 
+//status bar update
 void GameScene::updateHpBar()
 {
     switch (score1)
@@ -2089,6 +2117,7 @@ void GameScene::updateHpBar()
     }
 }
 
+//method to help camera focus
 void GameScene::setViewPointCenter(CCPoint position)
 {
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -2099,6 +2128,7 @@ void GameScene::setViewPointCenter(CCPoint position)
     worldLayer->setPosition(viewPoint);
 }
 
+//firebutton callback
 void GameScene::fireButtonCall(CCObject *sender)
 {
     CCLOG("Fire Button");
@@ -2127,6 +2157,7 @@ void GameScene::fireButtonCall(CCObject *sender)
     }
 }
 
+//AI bot logics
 void GameScene::moveSeekingAI()
 {
     b2Vec2 target = shipBody1->GetPosition();
@@ -2143,6 +2174,7 @@ void GameScene::moveSeekingAI()
     shipBody2->SetLinearVelocity(force);
 }
 
+//turn right button call back
 void GameScene::turnRightButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");
@@ -2157,6 +2189,7 @@ void GameScene::turnRightButtonCall(CCObject *sender)
     }
 }
 
+//turn left button call back
 void GameScene::turnLeftButtonCall(CCObject *sender)
 {
     CCLOG("Turn Button");

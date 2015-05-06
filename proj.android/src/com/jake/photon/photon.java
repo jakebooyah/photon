@@ -75,7 +75,8 @@ public class photon extends Cocos2dxActivity{
                 | Cocos2dxGLSurfaceView.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
-    static {
+    static 
+    {
         System.loadLibrary("cocos2dcpp");
     }     
 }
