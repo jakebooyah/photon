@@ -438,8 +438,8 @@ void GameScene::update(float delta)
     }
     
     //if all player joined
-    if (true)
-//    if (PlayerAllJoined)
+//    if (true)
+    if (PlayerAllJoined)
     {
         //if from Host
         if (NetworkEngine::getInstance()->playerNr == 1)
